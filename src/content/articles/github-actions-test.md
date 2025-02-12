@@ -1,10 +1,13 @@
 ---
+id: "github-actions-test"
 title: "GitHub Actions Test Article"
-date: "2024-03-20"
-author: "Test Author"
+slug: "github-actions-test"
 description: "A test article to verify our deployment pipeline"
-image: "/images/articles/index.png"
+author: "Test Author"
+date: "2024-03-20"
+readTime: "3 min read"
 tags: ["test", "github-actions"]
+image: "/images/articles/index.png"
 ---
 
 # GitHub Actions Test Article
