@@ -38,20 +38,20 @@ jobs:
           port: 21
           protocol: ftps
           local-dir: ./dist/
-          server-dir: /
+          server-dir: /home/ls88d69thfvm/public_html/
           dangerous-clean-slate: true
 
       - name: Verify Deployment
         run: |
           echo "Waiting for changes to propagate..."
-          sleep 10
+          sleep 5
           
           echo "Checking site status..."
-          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://m3labs.co.uk)
-          echo "Site returned HTTP status: $HTTP_STATUS"
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://m3labs.co.uk)
+          echo "Site status: $STATUS"
           
-          if [ "$HTTP_STATUS" = "500" ]; then
-            echo "Error: Site is returning 500 error. Checking error logs if available..."
-            # Try to fetch error log if accessible
-            curl -s https://m3labs.co.uk/error_log || echo "Could not access error log"
+          if [ "$STATUS" != "200" ]; then
+            echo "Warning: Site returned status $STATUS"
+          else
+            echo "Site is accessible!"
           fi

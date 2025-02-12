@@ -2,47 +2,52 @@
 RewriteEngine On
 RewriteBase /
 
+# Allow direct access to content directory
+RewriteCond %{REQUEST_URI} ^/content/ [OR]
+RewriteCond %{REQUEST_URI} ^/assets/
+RewriteRule ^(.*)$ - [L]
+
 # If the request is not for a file or directory
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-
-# Send everything to index.html
+# Send everything else to index.html
 RewriteRule . /index.html [L]
 
 # Basic security headers
 Header set X-Content-Type-Options "nosniff"
 Header always set Access-Control-Allow-Origin "*"
 
-# Basic file types
-AddType application/javascript .js
+# Handle file types
+AddType application/javascript .js .mjs
 AddType text/css .css
 AddType text/plain .md
+AddType application/json .json
+AddType image/svg+xml .svg
+AddType image/png .png
+AddType image/jpeg .jpg .jpeg
+AddType image/gif .gif
 
 # Prevent directory listing
 Options -Indexes
 
-# Enable JavaScript modules MIME type
-AddType application/javascript .mjs
-AddType text/javascript .js
-AddType text/javascript .mjs
+# Basic caching for static files
+<FilesMatch "\.(css|js|jpg|jpeg|png|gif|ico|svg)$">
+    Header set Cache-Control "max-age=31536000"
+</FilesMatch>
 
-# Handle JSON files
-AddType application/json .json
+# No caching for HTML and Markdown
+<FilesMatch "\.(html|md)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires 0
+</FilesMatch>
 
-# Handle Markdown files
-AddType text/markdown .md
-AddType text/plain .md
+# Error pages
+ErrorDocument 404 /index.html
 
-# Handle routing for SPA, but exclude /content directory
-<IfModule mod_rewrite.c>
-    RewriteCond %{REQUEST_URI} ^/content/.*
-    RewriteRule ^(.*)$ - [L]
-    
-    # Handle SPA routing for everything else
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-l
-    RewriteRule ^ index.html [QSA,L]
+# Enable compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json image/svg+xml text/markdown
 </IfModule>
 
 # Set security headers and caching
@@ -74,10 +79,6 @@ AddType text/plain .md
 </IfModule>
 
 # Handle other common web files
-AddType image/svg+xml .svg
-AddType image/png .png
-AddType image/jpeg .jpg .jpeg
-AddType image/gif .gif
 AddType application/font-woff2 .woff2
 AddType application/font-woff .woff
 
@@ -107,7 +108,6 @@ AddType application/font-woff .woff
 </IfModule>
 
 # Handle errors
-ErrorDocument 404 /index.html
 ErrorDocument 500 "<h1>Internal Server Error</h1><p>Please try refreshing the page. If the problem persists, contact support.</p>"
 
 # Cache control
