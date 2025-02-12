@@ -20,6 +20,7 @@ import { articleService } from '../services/articleService';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import { ReactNode } from 'react';
+import ScrollToTop from '../components/ScrollToTop'
 
 interface MarkdownImageProps {
   src?: string;
@@ -151,155 +152,160 @@ const Article = () => {
     );
   }
   return (
-    <Box bg="black" minH="calc(100vh - 64px)" mt="64px">
-      <Container maxW="4xl">
-        <VStack spacing={4} align="stretch">
-          {/* Header */}
-          <VStack spacing={2} align="stretch">
-            {article.image && (
-              <Box
-                width="100%"
-                height="auto"
-                overflow="hidden"
-                borderRadius="lg"
-                mb={4}
-              >
-                <Image
-                  src={article.image}
-                  alt={article.title}
-                  width="100%"
-                  objectFit="cover"
-                />
-              </Box>
-            )}
-            
-            <Heading
-              color="white"
-              fontSize={{ base: "3xl", md: "4xl" }}
-              lineHeight="1.2"
-              fontWeight="bold"
-              pt={2}
-            >
-              {article.title}
-            </Heading>
-
-            {/* Metadata */}
-            <HStack spacing={6} color="whiteAlpha.700" fontSize="sm">
-              <HStack spacing={2}>
-                <Icon as={FiCalendar} />
-                <Text>{article.date}</Text>
-              </HStack>
-              <HStack spacing={2}>
-                <Icon as={FiClock} />
-                <Text>{article.readTime}</Text>
-              </HStack>
-              <HStack spacing={2}>
-                <Icon as={FiUser} />
-                <Text>{article.author}</Text>
-              </HStack>
-            </HStack>
-
-            {/* Tags */}
-            <HStack spacing={2} flexWrap="wrap">
-              {article.tags.map(tag => (
-                <Tag
-                  key={tag}
-                  size="md"
-                  variant="subtle"
-                  colorScheme="purple"
-                  borderRadius="full"
+    <>
+      <Box as="article" py={{ base: 8, md: 12 }}>
+        <Box bg="black" minH="calc(100vh - 64px)" mt="64px">
+          <Container maxW="4xl">
+            <VStack spacing={4} align="stretch">
+              {/* Header */}
+              <VStack spacing={2} align="stretch">
+                {article.image && (
+                  <Box
+                    width="100%"
+                    height="auto"
+                    overflow="hidden"
+                    borderRadius="lg"
+                    mb={4}
+                  >
+                    <Image
+                      src={article.image}
+                      alt={article.title}
+                      width="100%"
+                      objectFit="cover"
+                    />
+                  </Box>
+                )}
+                
+                <Heading
+                  color="white"
+                  fontSize={{ base: "3xl", md: "4xl" }}
+                  lineHeight="1.2"
+                  fontWeight="bold"
+                  pt={2}
                 >
-                  {tag}
-                </Tag>
-              ))}
-            </HStack>
+                  {article.title}
+                </Heading>
 
-            <Text
-              color="whiteAlpha.800"
-              fontSize="lg"
-              fontStyle="italic"
-            >
-              {article.description}
-            </Text>
-          </VStack>
+                {/* Metadata */}
+                <HStack spacing={6} color="whiteAlpha.700" fontSize="sm">
+                  <HStack spacing={2}>
+                    <Icon as={FiCalendar} />
+                    <Text>{article.date}</Text>
+                  </HStack>
+                  <HStack spacing={2}>
+                    <Icon as={FiClock} />
+                    <Text>{article.readTime}</Text>
+                  </HStack>
+                  <HStack spacing={2}>
+                    <Icon as={FiUser} />
+                    <Text>{article.author}</Text>
+                  </HStack>
+                </HStack>
 
-          <Divider borderColor="whiteAlpha.200" />
+                {/* Tags */}
+                <HStack spacing={2} flexWrap="wrap">
+                  {article.tags.map(tag => (
+                    <Tag
+                      key={tag}
+                      size="md"
+                      variant="subtle"
+                      colorScheme="purple"
+                      borderRadius="full"
+                    >
+                      {tag}
+                    </Tag>
+                  ))}
+                </HStack>
 
-          {/* Article Body */}
-          <Box
-            className="markdown-content"
-            color="whiteAlpha.900"
-            sx={{
-              'h1, h2, h3, h4, h5, h6': {
-                color: 'white',
-                fontWeight: 'bold',
-                marginTop: '1.5em',
-                marginBottom: '0.5em',
-                textAlign: 'left'
-              },
-              'h1': { fontSize: '2xl' },
-              'h2': { fontSize: 'xl' },
-              'h3': { fontSize: 'lg' },
-              'p': {
-                marginY: '0.75em',
-                lineHeight: '1.8',
-                textAlign: 'left'
-              },
-              'ul, ol': {
-                paddingLeft: '1.5em',
-                marginY: '1em',
-                textAlign: 'left'
-              },
-              'li': {
-                marginY: '0.5em',
-                textAlign: 'left'
-              },
-              'a': {
-                color: 'brand.400',
-                textDecoration: 'none',
-                _hover: {
-                  textDecoration: 'underline'
-                }
-              },
-              'blockquote': {
-                borderLeftWidth: '4px',
-                borderLeftColor: 'brand.400',
-                paddingLeft: '1em',
-                marginY: '1.5em',
-                fontStyle: 'italic',
-                textAlign: 'left'
-              },
-              'code': {
-                bg: 'gray.800',
-                padding: '0.2em 0.4em',
-                borderRadius: 'md',
-                fontSize: '0.9em'
-              },
-              'pre code': {
-                display: 'block',
-                padding: '1em',
-                overflow: 'auto'
-              },
-              'img': {
-                maxWidth: '100%',
-                height: 'auto',
-                borderRadius: 'lg',
-              }
-            }}
-          >
-            <ReactMarkdown
-              rehypePlugins={[rehypeRaw]}
-              components={{
-                img: MarkdownImage,
-                p: MarkdownParagraph
-              }}
-            >
-              {article.content}
-            </ReactMarkdown>
-          </Box>
-        </VStack>
-      </Container>
-    </Box>
+                <Text
+                  color="whiteAlpha.800"
+                  fontSize="lg"
+                  fontStyle="italic"
+                >
+                  {article.description}
+                </Text>
+              </VStack>
+
+              <Divider borderColor="whiteAlpha.200" />
+
+              {/* Article Body */}
+              <Box
+                className="markdown-content"
+                color="whiteAlpha.900"
+                sx={{
+                  'h1, h2, h3, h4, h5, h6': {
+                    color: 'white',
+                    fontWeight: 'bold',
+                    marginTop: '1.5em',
+                    marginBottom: '0.5em',
+                    textAlign: 'left'
+                  },
+                  'h1': { fontSize: '2xl' },
+                  'h2': { fontSize: 'xl' },
+                  'h3': { fontSize: 'lg' },
+                  'p': {
+                    marginY: '0.75em',
+                    lineHeight: '1.8',
+                    textAlign: 'left'
+                  },
+                  'ul, ol': {
+                    paddingLeft: '1.5em',
+                    marginY: '1em',
+                    textAlign: 'left'
+                  },
+                  'li': {
+                    marginY: '0.5em',
+                    textAlign: 'left'
+                  },
+                  'a': {
+                    color: 'brand.400',
+                    textDecoration: 'none',
+                    _hover: {
+                      textDecoration: 'underline'
+                    }
+                  },
+                  'blockquote': {
+                    borderLeftWidth: '4px',
+                    borderLeftColor: 'brand.400',
+                    paddingLeft: '1em',
+                    marginY: '1.5em',
+                    fontStyle: 'italic',
+                    textAlign: 'left'
+                  },
+                  'code': {
+                    bg: 'gray.800',
+                    padding: '0.2em 0.4em',
+                    borderRadius: 'md',
+                    fontSize: '0.9em'
+                  },
+                  'pre code': {
+                    display: 'block',
+                    padding: '1em',
+                    overflow: 'auto'
+                  },
+                  'img': {
+                    maxWidth: '100%',
+                    height: 'auto',
+                    borderRadius: 'lg',
+                  }
+                }}
+              >
+                <ReactMarkdown
+                  rehypePlugins={[rehypeRaw]}
+                  components={{
+                    img: MarkdownImage,
+                    p: MarkdownParagraph
+                  }}
+                >
+                  {article.content}
+                </ReactMarkdown>
+              </Box>
+            </VStack>
+          </Container>
+        </Box>
+      </Box>
+      <ScrollToTop />
+    </>
   );
 };
 

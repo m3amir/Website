@@ -23,6 +23,7 @@ import {
   useToast,
   InputGroup,
   InputLeftElement,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import { FiCheck, FiArrowRight, FiGrid, FiUser, FiMail, FiMessageSquare, FiBriefcase } from 'react-icons/fi';
 import { 
@@ -33,6 +34,7 @@ import { useState } from 'react';
 import emailjs from '@emailjs/browser';
 import { EMAILJS_CONFIG } from '../config/emailjs';
 import { motion } from 'framer-motion';
+import { FaSlack, FaMicrosoft, FaGithub, FaJira } from 'react-icons/fa';
 
 interface IntegrationCardProps {
   icon: React.ElementType;
@@ -239,6 +241,226 @@ const MotionBox = motion(Box);
 const MotionHeading = motion(Heading);
 const MotionText = motion(Text);
 const MotionStack = motion(VStack);
+const MotionIcon = motion(Icon);
+
+const ConnectorFlow = () => {
+  const iconSize = useBreakpointValue({ base: 16, md: 24 });
+  
+  return (
+    <Box position="relative" h={{ base: "300px", md: "400px" }} w="100%" mt={0}>
+      <HStack spacing={0} w="100%" h="100%" position="relative">
+        {/* Left Side - Services */}
+        <Box flex="1.5" h="100%" position="relative">
+          <VStack spacing={{ base: 6, md: 10 }} h="100%" justify="flex-start" pl={{ base: 2, md: 12 }} pt={{ base: 4, md: 8 }}>
+            {[
+              { icon: FaSlack, color: "#E01E5A", name: "Slack" },
+              { icon: FaMicrosoft, color: "#00A4EF", name: "Microsoft" },
+              { icon: FaGithub, color: "#ffffff", name: "GitHub" },
+              { icon: FaJira, color: "#0052CC", name: "Jira" }
+            ].map((item, index) => (
+              <HStack key={index} w="100%" spacing={{ base: 2, md: 4 }} position="relative">
+                {/* Service Icon */}
+                <MotionBox
+                  p={{ base: 3, md: 4 }}
+                  bg="whiteAlpha.50"
+                  backdropFilter="blur(8px)"
+                  borderRadius="xl"
+                  border="1px solid"
+                  borderColor="whiteAlpha.200"
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ 
+                    x: 0,
+                    opacity: 1
+                  }}
+                  transition={{
+                    duration: 0.5,
+                    delay: index * 0.1
+                  }}
+                  _hover={{
+                    transform: "translateX(5px)",
+                    boxShadow: `0 0 30px ${item.color}30`,
+                    borderColor: item.color
+                  }}
+                >
+                  <MotionIcon
+                    as={item.icon}
+                    fontSize={iconSize}
+                    color={item.color}
+                  />
+                </MotionBox>
+
+                {/* Connection Line */}
+                <Box flex="1" position="relative">
+                  <MotionBox
+                    position="absolute"
+                    top="50%"
+                    right={{ base: "-60px", md: "-120px" }}
+                    width={{ base: "calc(100% + 80px)", md: "calc(100% + 160px)" }}
+                    height="2px"
+                    bg={`linear-gradient(to right, ${item.color}40, ${item.color})`}
+                    style={{
+                      transformOrigin: "left center",
+                      transform: `rotate(${-15 + index * 10}deg)`,
+                    }}
+                    initial={{ scaleX: 0, opacity: 0 }}
+                    animate={{ 
+                      scaleX: 1,
+                      opacity: 1
+                    }}
+                    transition={{
+                      duration: 0.5,
+                      delay: index * 0.1 + 0.3
+                    }}
+                  >
+                    {/* Animated Particles */}
+                    {[...Array(3)].map((_, i) => (
+                      <MotionBox
+                        key={i}
+                        position="absolute"
+                        left="0"
+                        top="-2px"
+                        width={{ base: "3px", md: "4px" }}
+                        height={{ base: "3px", md: "4px" }}
+                        borderRadius="full"
+                        bg={item.color}
+                        animate={{
+                          left: ["0%", "100%"],
+                          opacity: [0, 1, 0]
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          delay: i * 0.5 + index * 0.2,
+                          ease: "linear"
+                        }}
+                      />
+                    ))}
+                  </MotionBox>
+                </Box>
+              </HStack>
+            ))}
+          </VStack>
+        </Box>
+
+        {/* Right Side - AI Platform */}
+        <Box flex="1" h="100%" position="relative">
+          <MotionBox
+            position="absolute"
+            right={{ base: 4, md: 16 }}
+            top="0"
+            width={{ base: "160px", md: "280px" }}
+            height={{ base: "280px", md: "400px" }}
+            bg="whiteAlpha.50"
+            backdropFilter="blur(8px)"
+            borderRadius="2xl"
+            border="1px solid"
+            borderColor="whiteAlpha.200"
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+            gap={{ base: 4, md: 8 }}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            overflow="visible"
+          >
+            {/* Task Processing Animation */}
+            <Box position="absolute" top="0" left="0" right={{ base: "-60px", md: "-100px" }} bottom="0" pointerEvents="none" overflow="visible">
+              {[...Array(4)].map((_, index) => (
+                <MotionBox
+                  key={index}
+                  position="absolute"
+                  left="80%"
+                  top="50%"
+                  width={{ base: "120px", md: "160px" }}
+                  height={{ base: "32px", md: "40px" }}
+                  bg="whiteAlpha.100"
+                  backdropFilter="blur(4px)"
+                  borderRadius="lg"
+                  border="1px solid"
+                  borderColor="whiteAlpha.300"
+                  initial={{ 
+                    x: "-30%",
+                    y: -60 + index * 40,
+                    opacity: 0,
+                    scale: 0.8
+                  }}
+                  animate={{ 
+                    x: ["0%", "30%", "60%"],
+                    y: -60 + index * 40,
+                    opacity: [0, 1, 0],
+                    scale: [0.8, 1, 0.8]
+                  }}
+                  transition={{
+                    duration: 4,
+                    delay: index * 1.5,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                >
+                  <HStack 
+                    spacing={{ base: 2, md: 3 }}
+                    p={{ base: 2, md: 3 }}
+                    align="center"
+                    h="100%"
+                  >
+                    <Box 
+                      w={{ base: "4px", md: "6px" }}
+                      h={{ base: "4px", md: "6px" }}
+                      borderRadius="full" 
+                      bg="brand.400"
+                      boxShadow="0 0 10px rgba(123, 31, 162, 0.5)"
+                    />
+                    <Box 
+                      flex="1" 
+                      h={{ base: "3px", md: "4px" }}
+                      bg="whiteAlpha.200" 
+                      borderRadius="full"
+                      overflow="hidden"
+                    >
+                      <MotionBox
+                        h="100%"
+                        bg="brand.400"
+                        borderRadius="full"
+                        initial={{ width: "0%" }}
+                        animate={{ width: "100%" }}
+                        transition={{
+                          duration: 3,
+                          ease: "easeInOut",
+                          repeat: Infinity
+                        }}
+                      />
+                    </Box>
+                    <Text color="whiteAlpha.900" fontSize={{ base: "10px", md: "xs" }} fontFamily="mono" display={{ base: "none", md: "block" }}>
+                      {["Processing", "Analyzing", "Learning", "Optimizing"][index]}
+                    </Text>
+                  </HStack>
+                </MotionBox>
+              ))}
+            </Box>
+
+            <Icon 
+              as={FiGrid} 
+              color="white" 
+              fontSize={{ base: "32px", md: "56px" }}
+              position="relative"
+              zIndex={1}
+            />
+            <VStack spacing={{ base: 1, md: 2 }} position="relative" zIndex={1}>
+              <Text color="white" fontSize={{ base: "lg", md: "2xl" }} fontWeight="medium">
+                AI Worker
+              </Text>
+              <Text color="whiteAlpha.700" fontSize={{ base: "sm", md: "lg" }}>
+                Platform
+              </Text>
+            </VStack>
+          </MotionBox>
+        </Box>
+      </HStack>
+    </Box>
+  );
+};
 
 const AIWorker = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -293,39 +515,46 @@ const AIWorker = () => {
       </Box>
 
       {/* Integrations Grid */}
-      <Container maxW="6xl" py={16}>
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
-          <IntegrationCard
-            icon={FiGrid}
-            title="Microsoft 365"
-            features={[
-              "Smart email management",
-              "Teams collaboration",
-              "SharePoint integration",
-              "OneDrive automation"
-            ]}
-          />
-          <IntegrationCard
-            icon={SiSlack}
-            title="Slack"
-            features={[
-              "Real-time analysis",
-              "Channel management",
-              "Smart notifications",
-              "Workflow automation"
-            ]}
-          />
-          <IntegrationCard
-            icon={SiSalesforce}
-            title="Salesforce"
-            features={[
-              "Lead scoring",
-              "Opportunity tracking",
-              "Sales analytics",
-              "Report automation"
-            ]}
-          />
-        </SimpleGrid>
+      <Container maxW="6xl">
+        <VStack spacing={8} align="stretch">
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
+            <IntegrationCard
+              icon={FiGrid}
+              title="Microsoft 365"
+              features={[
+                "Smart email management",
+                "Teams collaboration",
+                "SharePoint integration",
+                "OneDrive automation"
+              ]}
+            />
+            <IntegrationCard
+              icon={SiSlack}
+              title="Slack"
+              features={[
+                "Real-time analysis",
+                "Channel management",
+                "Smart notifications",
+                "Workflow automation"
+              ]}
+            />
+            <IntegrationCard
+              icon={SiSalesforce}
+              title="Salesforce"
+              features={[
+                "Lead scoring",
+                "Opportunity tracking",
+                "Sales analytics",
+                "Report automation"
+              ]}
+            />
+          </SimpleGrid>
+
+          {/* Connector Flow Section */}
+          <Box>
+            <ConnectorFlow />
+          </Box>
+        </VStack>
       </Container>
 
       {/* Testimonials Section */}

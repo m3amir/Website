@@ -1,6 +1,7 @@
 import { Box, Container, Heading, Text, Button, Stack, useBreakpointValue } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import RobotIcon from '../components/RobotIcon'
 
 // Styled components with motion
 const MotionBox = motion(Box)
@@ -166,6 +167,7 @@ const Home = () => {
                 }}
                 whileHover={{ scale: 1.05 }}
                 display="inline-flex"
+                position="relative"
               >
                 <Text
                   fontSize={sloganFontSize}
@@ -175,9 +177,22 @@ const Home = () => {
                   letterSpacing="tight"
                   textShadow="0 0 40px rgba(123, 31, 162, 0.15)"
                   display="inline"
+                  position="relative"
+                  zIndex={2}
                 >
                   of Work
                 </Text>
+                <Box
+                  position="absolute"
+                  right="-120px"
+                  bottom="-20px"
+                  height="120px"
+                  width="240px"
+                  overflow="visible"
+                  zIndex={1}
+                >
+                  <RobotIcon />
+                </Box>
               </MotionBox>
             </MotionBox>
 
