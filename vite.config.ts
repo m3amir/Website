@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import fs from 'fs-extra'
+import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,23 +12,35 @@ export default defineConfig({
       name: 'copy-content',
       closeBundle: async () => {
         try {
+          const contentDir = 'src/content';
+          const distContentDir = 'dist/content';
+          
           // Ensure the content directory exists in dist
-          await fs.ensureDir('dist/content/articles');
+          await fs.ensureDir(distContentDir);
           
           // Copy content directory to dist root
-          await fs.copy('src/content', 'dist/content', { 
+          await fs.copy(contentDir, distContentDir, { 
             overwrite: true,
             filter: (src) => {
-              // Ensure we copy .md files
-              return !src.includes('node_modules') && (src.endsWith('.md') || !src.includes('.'));
+              // Always include directories and .md files
+              const isDirectory = fs.lstatSync(src).isDirectory();
+              const isMdFile = src.endsWith('.md');
+              const isNodeModules = src.includes('node_modules');
+              
+              return isDirectory || (isMdFile && !isNodeModules);
             }
           });
           
           // Remove the src/content from dist if it exists
-          if (await fs.pathExists('dist/src/content')) {
-            await fs.remove('dist/src/content');
+          const distSrcContent = path.join('dist', 'src', 'content');
+          if (await fs.pathExists(distSrcContent)) {
+            await fs.remove(distSrcContent);
           }
 
+          // List copied files for verification
+          const files = await fs.readdir(path.join(distContentDir, 'articles'));
+          console.log('Copied articles:', files);
+          
           console.log('Successfully copied content files to dist');
         } catch (error) {
           console.error('Error copying content:', error);

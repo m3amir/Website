@@ -77,54 +77,68 @@ class ArticleService {
     try {
       console.log('Starting to load articles...'); // Debug log
 
-      // Import markdown files using both development and production paths
-      const markdownFiles = {
-        ...import.meta.glob('../content/articles/*.md', { as: 'raw', eager: true }),
-        ...import.meta.glob('/content/articles/*.md', { as: 'raw', eager: true })
-      };
+      // Import markdown files using development path
+      const devMarkdownFiles = import.meta.glob('../content/articles/*.md', { 
+        as: 'raw', 
+        eager: true 
+      });
       
-      console.log('Found markdown files:', Object.keys(markdownFiles)); // Debug log
-      console.log('Number of markdown files found:', Object.keys(markdownFiles).length); // Debug log
+      console.log('Dev markdown files found:', Object.keys(devMarkdownFiles));
 
-      if (Object.keys(markdownFiles).length === 0) {
-        console.warn('No markdown files found in the articles directory');
-        // Try fetching articles directly in production
-        try {
-          const response = await fetch('/content/articles/index.json');
-          if (response.ok) {
-            const articles = await response.json();
-            for (const article of articles) {
-              const contentResponse = await fetch(`/content/articles/${article.slug}.md`);
-              if (contentResponse.ok) {
-                const content = await contentResponse.text();
-                await this.processArticle(`/content/articles/${article.slug}.md`, content);
-              }
-            }
-            return;
-          }
-        } catch (error) {
-          console.error('Error fetching articles in production:', error);
-        }
-        return;
-      }
-
-      for (const [path, content] of Object.entries(markdownFiles)) {
+      // Process development files
+      for (const [path, content] of Object.entries(devMarkdownFiles)) {
         if (typeof content === 'string') {
           await this.processArticle(path, content);
-        } else {
-          console.warn(`Skipping ${path} - content is not a string`);
+        }
+      }
+
+      // If we're in production and no files were found, try the production path
+      if (Object.keys(devMarkdownFiles).length === 0) {
+        console.log('Trying production path...');
+        try {
+          const prodMarkdownFiles = import.meta.glob('/content/articles/*.md', { 
+            as: 'raw', 
+            eager: true 
+          });
+
+          for (const [path, content] of Object.entries(prodMarkdownFiles)) {
+            if (typeof content === 'string') {
+              await this.processArticle(path, content);
+            }
+          }
+        } catch (error) {
+          console.error('Error loading production files:', error);
         }
       }
       
       if (this.metadata.length === 0) {
-        console.warn('No articles were loaded successfully'); // Debug log
+        console.warn('No articles were loaded successfully');
+        // Final fallback: try direct fetch
+        try {
+          const files = await fetch('/content/articles/').then(res => res.text());
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(files, 'text/html');
+          const links = Array.from(doc.querySelectorAll('a'))
+            .map(a => a.href)
+            .filter(href => href.endsWith('.md'));
+          
+          for (const link of links) {
+            const response = await fetch(link);
+            if (response.ok) {
+              const content = await response.text();
+              await this.processArticle(link, content);
+            }
+          }
+        } catch (error) {
+          console.error('Error in final fallback:', error);
+        }
       } else {
-        console.log(`Successfully loaded ${this.metadata.length} articles`); // Debug log
+        console.log(`Successfully loaded ${this.metadata.length} articles`);
       }
       
       // Sort metadata by date
       this.metadata.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-      console.log('Final metadata array:', this.metadata); // Debug log
+      console.log('Final metadata array:', this.metadata);
     } catch (error) {
       console.error('Error loading articles:', error);
       throw error;
