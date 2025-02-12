@@ -23,7 +23,7 @@ If everything is working correctly, you should be able to:
 3. See the header image displayed correctly
 4. See the metadata (date, author, tags) rendered properly
 
-## Test Content Features
+## Test Content Features 
 
 
 Here's some test content with different Markdown features:
