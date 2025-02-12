@@ -1,0 +1,26 @@
+name: Test FTP Connection
+
+on: workflow_dispatch
+
+jobs:
+  test-ftp:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create test file
+        run: echo "Test content" > test.txt
+
+      - name: Test FTP Connection
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ftp.m3labs.co.uk
+          username: info@m3labs.co.uk
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          protocol: ftps
+          security: loose
+          local-dir: ./
+          server-dir: /home/ls88d69thfvm/public_html/test/
+          state-name: .ftp-deploy-sync-state.json
+          dry-run: false
+          timeout: 120000
+          verbose: true 
