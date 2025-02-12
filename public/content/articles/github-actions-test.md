@@ -1,45 +1,54 @@
 ---
-id: "github-actions-test"
-title: "Testing GitHub Actions Deployment"
-slug: "github-actions-test"
-description: "A test article to verify our GitHub Actions deployment pipeline"
-author: "System Test"
-date: "2024-03-19"
-readTime: "2 min read"
-tags: [testing, github-actions, deployment]
-image: "index.png"
+title: "GitHub Actions Test Article"
+date: "2024-03-20"
+author: "Test Author"
+description: "A test article to verify our deployment pipeline"
+image: "/images/articles/index.png"
+tags: ["test", "github-actions"]
 ---
 
-# Testing GitHub Actions Deployment
+# GitHub Actions Test Article
 
-This is a test article to verify that our GitHub Actions deployment pipeline is working correctly. 
-When this article appears on the website, we'll know that:
+This is a test article to verify that our deployment pipeline is working correctly. If you can see this article on the website, it means the deployment process is successful!
 
-1. The GitHub Actions workflow triggered successfully
-2. The build process completed without errors
-3. The FTP deployment to GoDaddy worked as expected
-4. The article service correctly parsed the frontmatter
+## What Should We See?
 
-## What's Being Tested
+If everything is working correctly, you should be able to:
 
-- Automatic workflow triggers on content changes
-- Markdown parsing and rendering
-- Image references
-- Frontmatter processing
-- FTP deployment
+1. See this article listed on the main articles page
+2. Click through to read the full article
+3. See the header image displayed correctly
+4. See the metadata (date, author, tags) rendered properly
 
-## Next Steps
+## Test Content Features
 
-If you're seeing this article on the website, the deployment pipeline is working perfectly! 
-You can now safely delete this test article and proceed with adding your real content.
+Here's some test content with different Markdown features:
 
-## Test Image
+### Code Block Example
 
-Here's a test image reference:
+```javascript
+const testFunction = () => {
+    console.log("Hello from the test article!");
+    return "Testing 1-2-3";
+};
+```
 
-![Test Image](../images/articles/index.png)
+### List Example
+
+- First test item
+- Second test item
+- Third test item
+
+### Quote Example
+
+> This is a blockquote to test formatting
+
+### Image Example
+
+![Test Image](/images/articles/index.png)
 
 ## Conclusion
 
-This test article has served its purpose in verifying the deployment pipeline. 
-Feel free to remove it once you've confirmed everything is working as expected. 
+If you can see all of these elements rendered correctly, then our article deployment system is working as expected!
+
+--- 

@@ -40,7 +40,11 @@ jobs:
           fi
 
       - name: List dist directory
-        run: ls -la dist/
+        run: |
+          echo "Contents of dist directory:"
+          ls -la dist/
+          echo "Contents of dist/content/articles:"
+          ls -la dist/content/articles/
 
       - name: Deploy to GoDaddy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
@@ -53,4 +57,9 @@ jobs:
           local-dir: ./dist/
           server-dir: /home/ls88d69thfvm/public_html/
           state-name: .ftp-deploy-sync-state.json
-          dry-run: false 
+          dry-run: false
+          dangerous-clean-slate: true
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/** 
