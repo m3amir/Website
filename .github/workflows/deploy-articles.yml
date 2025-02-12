@@ -87,13 +87,13 @@ jobs:
       - name: Test FTP Connection
         run: |
           echo "Testing FTP connection..."
-          curl -v --ssl --ssl-reqd --insecure -u ${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }} ftp://ftp.m3labs.co.uk/
+          curl -v --ssl --ssl-reqd --insecure -u ${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }} ftp://m3labs.co.uk/
           echo "FTP connection test completed"
 
       - name: Deploy to GoDaddy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: ftp.m3labs.co.uk
+          server: m3labs.co.uk
           username: info@m3labs.co.uk
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
