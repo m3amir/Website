@@ -29,27 +29,23 @@ jobs:
         run: npm run build
 
       - name: Deploy to GoDaddy
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4  # Switch to a more maintained FTP action
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
-          local-dir: ./dist/
-          server-dir: ./
-          dangerous-clean-slate: false
-          timeout: 600000  # 10 minute timeout
-          protocol: ftp
+          local_path: './dist/*'
+          remote_path: './'
+          sftp_only: false
 
       - name: Deploy .htaccess
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
-          local-dir: ./public/
-          server-dir: ./
-          dangerous-clean-slate: false
-          timeout: 600000
-          protocol: ftp 
+          local_path: './public/.htaccess'
+          remote_path: './'
+          sftp_only: false 
