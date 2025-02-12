@@ -42,4 +42,4 @@ const test = () => {
 
 ## Conclusion
 
-If you can see this article properly formatted on your website, congratulations! The deployment process is working correctly.  
+If you can see this article properly formatted on your website, congratulations! The deployment process is working correctly.   

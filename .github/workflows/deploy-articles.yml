@@ -28,4 +28,4 @@ jobs:
           port: 21 
           protocol: ftps
           local-dir: dist/  # Deploy only the built files
-          server-dir: /  # Adjust if your site is inside a subfolder
+          server-dir: ../  # Adjust if your site is inside a subfolder
