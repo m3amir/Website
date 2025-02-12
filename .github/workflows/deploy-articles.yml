@@ -13,7 +13,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 5  # Increased timeout for build
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v3
 
@@ -24,19 +24,32 @@ jobs:
           cache: 'npm'
 
       - name: Install Dependencies
-        run: npm install
+        run: |
+          npm install
+          if [ $? -ne 0 ]; then
+            echo "npm install failed"
+            exit 1
+          fi
 
       - name: Build Project
-        run: npm run build
+        run: |
+          npm run build
+          if [ $? -ne 0 ]; then
+            echo "build failed"
+            exit 1
+          fi
+
+      - name: List dist directory
+        run: ls -la dist/
 
       - name: Deploy to GoDaddy
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
-          local_path: './dist/'
-          remote_path: './'
-          sftp_only: false
-          delete: true  # This will ensure clean deployments 
+          local-dir: ./dist/
+          server-dir: ./
+          dangerous-clean-slate: true
+          timeout: 60000 
