@@ -28,7 +28,7 @@ AddType text/plain .md
     RewriteRule . /index.html [L]
 </IfModule>
 
-# Set security headers
+# Set security headers and caching
 <IfModule mod_headers.c>
     Header set X-Content-Type-Options "nosniff"
     Header always set Access-Control-Allow-Origin "*"
@@ -36,17 +36,22 @@ AddType text/plain .md
     Header always set Access-Control-Allow-Headers "*"
     Header always set Access-Control-Expose-Headers "*"
     
-    Header add Link "</assets/index.[hash].css>; rel=preload; as=style"
-    Header add Link "</assets/index.[hash].js>; rel=preload; as=script"
+    # Cache control for static assets
+    <FilesMatch "\.(css|js|mjs|jpg|jpeg|png|gif|ico|svg|woff|woff2)$">
+        Header set Cache-Control "public, max-age=31536000"
+    </FilesMatch>
     
-    <FilesMatch "\.(js|mjs)$">
-        Header set Content-Type "application/javascript"
+    # No cache for HTML and Markdown
+    <FilesMatch "\.(html|md)$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires 0
     </FilesMatch>
 
     # Set headers for markdown files
     <FilesMatch "\.(md)$">
         ForceType text/plain
-        Header set Content-Type "text/plain"
+        Header set Content-Type "text/plain; charset=UTF-8"
         Header set Cache-Control "no-cache, no-store, must-revalidate"
         Header set Pragma "no-cache"
         Header set Expires 0
@@ -72,10 +77,12 @@ AddType application/font-woff .woff
     Options +Indexes +FollowSymLinks +MultiViews
     AllowOverride All
     Require all granted
+    DirectoryIndex disabled
     
-    <IfModule mod_autoindex.c>
-        IndexOptions FancyIndexing HTMLTable NameWidth=* DescriptionWidth=* SuppressRules
-        IndexIgnore .htaccess
+    <IfModule mod_headers.c>
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires 0
     </IfModule>
 </Directory>
 
