@@ -22,8 +22,8 @@ jobs:
       - name: Deploy via SFTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: m3labs.co.uk
-          username: ${{ secrets.FTP_USERNAME }}
+          server: ftp.m3labs.co.uk
+          username: info@m3labs.co.uk
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21 
           protocol: ftps
