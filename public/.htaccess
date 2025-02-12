@@ -1,5 +1,27 @@
-# Enable JavaScript modules MIME type
+# Enable RewriteEngine
+RewriteEngine On
+RewriteBase /
+
+# If the request is not for a file or directory
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Send everything to index.html
+RewriteRule . /index.html [L]
+
+# Basic security headers
+Header set X-Content-Type-Options "nosniff"
+Header always set Access-Control-Allow-Origin "*"
+
+# Basic file types
 AddType application/javascript .js
+AddType text/css .css
+AddType text/plain .md
+
+# Prevent directory listing
+Options -Indexes
+
+# Enable JavaScript modules MIME type
 AddType application/javascript .mjs
 AddType text/javascript .js
 AddType text/javascript .mjs
@@ -13,10 +35,6 @@ AddType text/plain .md
 
 # Handle routing for SPA, but exclude /content directory
 <IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteBase /
-    
-    # Allow direct access to content directory
     RewriteCond %{REQUEST_URI} ^/content/.*
     RewriteRule ^(.*)$ - [L]
     
@@ -29,13 +47,9 @@ AddType text/plain .md
 
 # Set security headers and caching
 <IfModule mod_headers.c>
-    Header set X-Content-Type-Options "nosniff"
     Header set X-XSS-Protection "1; mode=block"
     Header set X-Frame-Options "SAMEORIGIN"
     Header set Referrer-Policy "strict-origin-when-cross-origin"
-    Header always set Access-Control-Allow-Origin "*"
-    Header always set Access-Control-Allow-Methods "GET, POST, OPTIONS"
-    Header always set Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept"
     
     # Cache control for static assets
     <FilesMatch "\.(css|js|mjs|jpg|jpeg|png|gif|ico|svg|woff|woff2)$">
@@ -60,7 +74,6 @@ AddType text/plain .md
 </IfModule>
 
 # Handle other common web files
-AddType text/css .css
 AddType image/svg+xml .svg
 AddType image/png .png
 AddType image/jpeg .jpg .jpeg

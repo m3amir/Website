@@ -1,31 +1,57 @@
-name: Deploy Vite React TS to GoDaddy
+name: Deploy to GoDaddy
 
 on:
   push:
     branches:
-      - main  # Change if using a different branch
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build Project
         run: npm run build
 
-      - name: Deploy via SFTP
+      - name: Add .htaccess
+        run: |
+          cp public/.htaccess dist/
+          echo "Build contents:"
+          ls -la dist/
+
+      - name: Deploy to GoDaddy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: m3labs.co.uk
           username: info@m3labs.co.uk
           password: ${{ secrets.FTP_PASSWORD }}
-          port: 21 
+          port: 21
           protocol: ftps
-          local-dir: dist/  # Deploy only the built files
-          server-dir: /  # Adjust if your site is inside a subfolder
+          local-dir: ./dist/
+          server-dir: /
+          dangerous-clean-slate: true
+
+      - name: Verify Deployment
+        run: |
+          echo "Waiting for changes to propagate..."
+          sleep 10
+          
+          echo "Checking site status..."
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://m3labs.co.uk)
+          echo "Site returned HTTP status: $HTTP_STATUS"
+          
+          if [ "$HTTP_STATUS" = "500" ]; then
+            echo "Error: Site is returning 500 error. Checking error logs if available..."
+            # Try to fetch error log if accessible
+            curl -s https://m3labs.co.uk/error_log || echo "Could not access error log"
+          fi
