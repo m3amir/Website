@@ -31,21 +31,23 @@ jobs:
       - name: Deploy to GoDaddy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4  # Switch to a more maintained FTP action
         with:
-          server: ${{ secrets.FTP_SERVER }}
+          server: ${{ secrets.FTP_SERVER }}:21
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
           server-dir: ./
           dangerous-clean-slate: false
           timeout: 600000  # 10 minute timeout
+          protocol: ftp
 
       - name: Deploy .htaccess
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: ${{ secrets.FTP_SERVER }}
+          server: ${{ secrets.FTP_SERVER }}:21
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./public/
           server-dir: ./
           dangerous-clean-slate: false
-          timeout: 600000 
+          timeout: 600000
+          protocol: ftp 
