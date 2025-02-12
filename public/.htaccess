@@ -87,20 +87,6 @@ AddType application/font-woff .woff
     AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json image/svg+xml text/markdown
 </IfModule>
 
-# Configure content directory
-<Directory "/content">
-    Options +Indexes +FollowSymLinks +MultiViews
-    AllowOverride All
-    Require all granted
-    DirectoryIndex disabled
-    
-    <IfModule mod_headers.c>
-        Header set Cache-Control "no-cache, no-store, must-revalidate"
-        Header set Pragma "no-cache"
-        Header set Expires 0
-    </IfModule>
-</Directory>
-
 # Handle OPTIONS requests for CORS
 <IfModule mod_rewrite.c>
     RewriteCond %{REQUEST_METHOD} OPTIONS
