@@ -4,10 +4,12 @@ import {
   Heading,
   Text,
   VStack,
+  useBreakpointValue,
 } from '@chakra-ui/react'
 import { FiStar, FiCode, FiUsers, FiGlobe } from 'react-icons/fi'
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component'
 import 'react-vertical-timeline-component/style.min.css'
+import './About.css' // We'll create this file for custom timeline styles
 
 interface TimelineItem {
   year: string;
@@ -44,33 +46,42 @@ const timelineData: TimelineItem[] = [
 ]
 
 const About = () => {
+  const timelineIconSize = useBreakpointValue({ base: '24px', md: '28px' })
+  const timelineIconMarginLeft = useBreakpointValue({ base: '-12px', md: '-14px' })
+  const timelineIconMarginTop = useBreakpointValue({ base: '12px', md: '14px' })
+  const timelineIconInnerSize = useBreakpointValue({ base: 14, md: 16 })
+  const timelinePadding = useBreakpointValue({ base: '1.5rem', md: '2rem' })
+  const timelineMarginBottom = useBreakpointValue({ base: '1rem', md: '2rem' })
+  
   return (
-    <Box bg="black" minH="100vh" pt={32} pb={20}>
-      <Container maxW="5xl">
-        <VStack spacing={16} align="stretch">
+    <Box bg="black" minH="100vh" pt={{ base: 24, md: 32 }} pb={{ base: 16, md: 20 }}>
+      <Container maxW="5xl" px={{ base: 4, md: 8 }}>
+        <VStack spacing={{ base: 12, md: 16 }} align="stretch">
           {/* Hero Section */}
-          <VStack spacing={6} align="center" textAlign="center">
+          <VStack spacing={{ base: 4, md: 6 }} align="center" textAlign="center">
             <Heading
               color="white"
-              fontSize={{ base: "3xl", md: "4xl" }}
+              fontSize={{ base: "2xl", sm: "3xl", md: "4xl" }}
               fontWeight="bold"
               letterSpacing="tight"
               lineHeight="1.2"
+              px={{ base: 2, md: 0 }}
             >
               Our Journey
             </Heading>
             <Text
-              fontSize={{ base: "lg", md: "xl" }}
+              fontSize={{ base: "md", sm: "lg", md: "xl" }}
               color="whiteAlpha.800"
               maxW="2xl"
               lineHeight="1.6"
+              px={{ base: 4, md: 0 }}
             >
               From humble beginnings, explore the milestones that have shaped M3Labs into what it is today.
             </Text>
           </VStack>
 
           {/* Timeline Section */}
-          <Box>
+          <Box className="timeline-wrapper">
             <VerticalTimeline lineColor="rgba(255, 255, 255, 0.1)">
               {timelineData.map(item => (
                 <VerticalTimelineElement
@@ -82,27 +93,38 @@ const About = () => {
                     border: '1px solid rgba(255, 255, 255, 0.1)',
                     borderRadius: '1rem',
                     boxShadow: 'none',
+                    padding: timelinePadding,
+                    marginBottom: timelineMarginBottom,
                   }}
                   contentArrowStyle={{
                     borderRight: '7px solid rgba(255, 255, 255, 0.1)',
                   }}
                   date={item.year}
+                  dateClassName="timeline-date"
                   iconStyle={{
                     background: '#9638FF',
                     color: '#fff',
                     boxShadow: '0 0 0 4px rgba(150, 56, 255, 0.2)',
+                    width: timelineIconSize,
+                    height: timelineIconSize,
+                    marginLeft: timelineIconMarginLeft,
+                    marginTop: timelineIconMarginTop,
                   }}
-                  icon={<item.icon />}
+                  icon={<item.icon size={timelineIconInnerSize} />}
                 >
                   <Heading
                     as="h3"
-                    fontSize="xl"
+                    fontSize={{ base: "lg", md: "xl" }}
                     color="white"
-                    mb={2}
+                    mb={{ base: 1, md: 2 }}
                   >
                     {item.title}
                   </Heading>
-                  <Text color="whiteAlpha.800">
+                  <Text 
+                    color="whiteAlpha.800"
+                    fontSize={{ base: "sm", md: "md" }}
+                    lineHeight="1.6"
+                  >
                     {item.description}
                   </Text>
                 </VerticalTimelineElement>

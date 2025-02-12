@@ -44,21 +44,25 @@ jobs:
           echo "Contents of dist directory:"
           ls -la dist/
           echo "Contents of dist/content/articles:"
+          mkdir -p dist/content/articles
+          cp -r src/content/articles/* dist/content/articles/
           ls -la dist/content/articles/
 
       - name: Deploy to GoDaddy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: m3labs.co.uk
+          server: ftp.m3labs.co.uk
           username: info@m3labs.co.uk
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
-          protocol: ftp
+          protocol: ftps
+          security: loose
           local-dir: ./dist/
           server-dir: /home/ls88d69thfvm/public_html/
           state-name: .ftp-deploy-sync-state.json
           dry-run: false
           dangerous-clean-slate: true
+          timeout: 120000
           exclude: |
             **/.git*
             **/.git*/**

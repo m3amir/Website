@@ -11,7 +11,8 @@ import {
   VStack,
   useToast,
   InputGroup,
-  InputLeftElement
+  InputLeftElement,
+  useBreakpointValue
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
@@ -25,6 +26,8 @@ const MotionVStack = motion(VStack)
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const toast = useToast()
+  const iconSize = useBreakpointValue({ base: "1rem", md: "1.2rem" })
+  const inputPadding = useBreakpointValue({ base: "0.75rem", md: "1rem" })
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -64,16 +67,28 @@ const Contact = () => {
   }
 
   return (
-    <Box py={20} position="relative" overflow="hidden">
-      <Container maxW="7xl" position="relative">
+    <Box py={{ base: 12, md: 20 }} position="relative" overflow="hidden">
+      <Container maxW="7xl" position="relative" px={{ base: 4, md: 8 }}>
         <MotionVStack
-          spacing={8}
+          spacing={{ base: 6, md: 8 }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <Heading size="2xl" textAlign="center">Get in Touch</Heading>
-          <Text fontSize="lg" color="text.secondary" maxW="2xl" textAlign="center">
+          <Heading 
+            size={{ base: "xl", md: "2xl" }} 
+            textAlign="center"
+            px={{ base: 2, md: 0 }}
+          >
+            Get in Touch
+          </Heading>
+          <Text 
+            fontSize={{ base: "md", md: "lg" }} 
+            color="text.secondary" 
+            maxW="2xl" 
+            textAlign="center"
+            px={{ base: 4, md: 0 }}
+          >
             Have a question or want to work together? Send us a message and we'll get back to you as soon as possible.
           </Text>
 
@@ -85,13 +100,14 @@ const Contact = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
+            px={{ base: 4, md: 0 }}
           >
-            <VStack spacing={6} align="stretch">
+            <VStack spacing={{ base: 4, md: 6 }} align="stretch">
               <FormControl isRequired>
-                <FormLabel>Name</FormLabel>
-                <InputGroup>
-                  <InputLeftElement pointerEvents="none">
-                    <FiUser color="gray.300" />
+                <FormLabel fontSize={{ base: "sm", md: "md" }}>Name</FormLabel>
+                <InputGroup size={{ base: "md", md: "lg" }}>
+                  <InputLeftElement pointerEvents="none" h="100%">
+                    <FiUser size={iconSize} color="gray.300" />
                   </InputLeftElement>
                   <Input
                     name="from_name"
@@ -100,6 +116,9 @@ const Contact = () => {
                     bg="whiteAlpha.100"
                     border="1px solid"
                     borderColor="whiteAlpha.200"
+                    fontSize={{ base: "sm", md: "md" }}
+                    h="auto"
+                    py={inputPadding}
                     _hover={{
                       borderColor: "brand.400",
                     }}
@@ -112,10 +131,10 @@ const Contact = () => {
               </FormControl>
 
               <FormControl isRequired>
-                <FormLabel>Email</FormLabel>
-                <InputGroup>
-                  <InputLeftElement pointerEvents="none">
-                    <FiMail color="gray.300" />
+                <FormLabel fontSize={{ base: "sm", md: "md" }}>Email</FormLabel>
+                <InputGroup size={{ base: "md", md: "lg" }}>
+                  <InputLeftElement pointerEvents="none" h="100%">
+                    <FiMail size={iconSize} color="gray.300" />
                   </InputLeftElement>
                   <Input
                     name="from_email"
@@ -124,6 +143,9 @@ const Contact = () => {
                     bg="whiteAlpha.100"
                     border="1px solid"
                     borderColor="whiteAlpha.200"
+                    fontSize={{ base: "sm", md: "md" }}
+                    h="auto"
+                    py={inputPadding}
                     _hover={{
                       borderColor: "brand.400",
                     }}
@@ -136,18 +158,22 @@ const Contact = () => {
               </FormControl>
 
               <FormControl isRequired>
-                <FormLabel>Message</FormLabel>
-                <InputGroup>
-                  <InputLeftElement pointerEvents="none">
-                    <FiMessageSquare color="gray.300" />
+                <FormLabel fontSize={{ base: "sm", md: "md" }}>Message</FormLabel>
+                <InputGroup size={{ base: "md", md: "lg" }}>
+                  <InputLeftElement pointerEvents="none" h="auto">
+                    <Box pt={2}>
+                      <FiMessageSquare size={iconSize} color="gray.300" />
+                    </Box>
                   </InputLeftElement>
                   <Textarea
                     name="message"
                     placeholder="Your message"
-                    minH="150px"
+                    minH={{ base: "120px", md: "150px" }}
                     bg="whiteAlpha.100"
                     border="1px solid"
                     borderColor="whiteAlpha.200"
+                    fontSize={{ base: "sm", md: "md" }}
+                    py={inputPadding}
                     _hover={{
                       borderColor: "brand.400",
                     }}
@@ -171,9 +197,12 @@ const Contact = () => {
                 type="submit"
                 bg="brand.400"
                 color="white"
-                size="lg"
+                size={{ base: "md", md: "lg" }}
                 w="full"
                 isLoading={isSubmitting}
+                fontSize={{ base: "sm", md: "md" }}
+                h="auto"
+                py={inputPadding}
                 _hover={{
                   bg: 'brand.500',
                   transform: 'translateY(-2px)',
@@ -192,8 +221,8 @@ const Contact = () => {
           position="absolute"
           top="20%"
           left="0"
-          width="200px"
-          height="200px"
+          width={{ base: "150px", md: "200px" }}
+          height={{ base: "150px", md: "200px" }}
           borderRadius="full"
           bg="brand.400"
           filter="blur(100px)"
@@ -202,13 +231,14 @@ const Contact = () => {
           animate={{ scale: 1 }}
           transition={{ delay: 0.5, duration: 1 }}
           zIndex={-1}
+          display={{ base: "none", md: "block" }}
         />
         <MotionBox
           position="absolute"
           bottom="10%"
           right="0"
-          width="250px"
-          height="250px"
+          width={{ base: "200px", md: "250px" }}
+          height={{ base: "200px", md: "250px" }}
           borderRadius="full"
           bg="brand.500"
           filter="blur(120px)"
@@ -217,6 +247,7 @@ const Contact = () => {
           animate={{ scale: 1 }}
           transition={{ delay: 0.7, duration: 1 }}
           zIndex={-1}
+          display={{ base: "none", md: "block" }}
         />
       </Container>
     </Box>

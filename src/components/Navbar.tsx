@@ -1,14 +1,130 @@
-import { Box, Container, Button, Stack, Text } from '@chakra-ui/react'
+import { Box, Container, Button, Stack, Text, IconButton, useDisclosure, Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, VStack } from '@chakra-ui/react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { HamburgerIcon } from '@chakra-ui/icons'
 
 const MotionBox = motion(Box)
 const MotionStack = motion(Stack)
 
 const Navbar = () => {
   const location = useLocation()
+  const { isOpen, onOpen, onClose } = useDisclosure()
   
   const isActive = (path: string) => location.pathname === path
+
+  const NavLinks = ({ isMobile = false, onClose = () => {} }) => (
+    <>
+      <Link to="/about" onClick={isMobile ? onClose : undefined}>
+        <Button
+          variant="ghost"
+          color="white"
+          position="relative"
+          overflow="hidden"
+          px={4}
+          width={isMobile ? "full" : "auto"}
+          _before={{
+            content: '""',
+            position: 'absolute',
+            width: '100%',
+            height: '2px',
+            bottom: 0,
+            left: 0,
+            background: 'brand.400',
+            transform: isActive('/about') ? 'scaleX(1)' : 'scaleX(0)',
+            transformOrigin: 'right',
+            transition: 'transform 0.3s ease',
+          }}
+          _hover={{
+            bg: 'whiteAlpha.100',
+            _before: {
+              transform: 'scaleX(1)',
+              transformOrigin: 'left',
+            },
+          }}
+        >
+          About
+        </Button>
+      </Link>
+      <Link to="/ai-worker" onClick={isMobile ? onClose : undefined}>
+        <Button
+          variant="ghost"
+          color="white"
+          position="relative"
+          overflow="hidden"
+          px={4}
+          width={isMobile ? "full" : "auto"}
+          _before={{
+            content: '""',
+            position: 'absolute',
+            width: '100%',
+            height: '2px',
+            bottom: 0,
+            left: 0,
+            background: 'brand.400',
+            transform: isActive('/ai-worker') ? 'scaleX(1)' : 'scaleX(0)',
+            transformOrigin: 'right',
+            transition: 'transform 0.3s ease',
+          }}
+          _hover={{
+            bg: 'whiteAlpha.100',
+            _before: {
+              transform: 'scaleX(1)',
+              transformOrigin: 'left',
+            },
+          }}
+        >
+          AI Worker
+        </Button>
+      </Link>
+      <Link to="/knowledge" onClick={isMobile ? onClose : undefined}>
+        <Button
+          variant="ghost"
+          color="white"
+          position="relative"
+          overflow="hidden"
+          px={4}
+          width={isMobile ? "full" : "auto"}
+          _before={{
+            content: '""',
+            position: 'absolute',
+            width: '100%',
+            height: '2px',
+            bottom: 0,
+            left: 0,
+            background: 'brand.400',
+            transform: isActive('/knowledge') ? 'scaleX(1)' : 'scaleX(0)',
+            transformOrigin: 'right',
+            transition: 'transform 0.3s ease',
+          }}
+          _hover={{
+            bg: 'whiteAlpha.100',
+            _before: {
+              transform: 'scaleX(1)',
+              transformOrigin: 'left',
+            },
+          }}
+        >
+          Knowledge
+        </Button>
+      </Link>
+      <Link to="/contact" onClick={isMobile ? onClose : undefined}>
+        <Button
+          bg="brand.400"
+          color="white"
+          px={6}
+          width={isMobile ? "full" : "auto"}
+          _hover={{
+            bg: 'brand.500',
+            transform: 'translateY(-2px)',
+            boxShadow: '0 4px 12px rgba(150, 56, 255, 0.3)',
+          }}
+          transition="all 0.3s ease"
+        >
+          Contact
+        </Button>
+      </Link>
+    </>
+  )
 
   return (
     <MotionBox
@@ -67,121 +183,43 @@ const Navbar = () => {
             </MotionBox>
           </Link>
           
+          {/* Desktop Navigation */}
           <MotionStack
             direction="row"
             gap={6}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
+            display={{ base: "none", md: "flex" }}
           >
-            <Link to="/about">
-              <Button
-                variant="ghost"
-                color="white"
-                position="relative"
-                overflow="hidden"
-                px={4}
-                _before={{
-                  content: '""',
-                  position: 'absolute',
-                  width: '100%',
-                  height: '2px',
-                  bottom: 0,
-                  left: 0,
-                  background: 'brand.400',
-                  transform: isActive('/about') ? 'scaleX(1)' : 'scaleX(0)',
-                  transformOrigin: 'right',
-                  transition: 'transform 0.3s ease',
-                }}
-                _hover={{
-                  bg: 'whiteAlpha.100',
-                  _before: {
-                    transform: 'scaleX(1)',
-                    transformOrigin: 'left',
-                  },
-                }}
-              >
-                About
-              </Button>
-            </Link>
-            <Link to="/ai-worker">
-              <Button
-                variant="ghost"
-                color="white"
-                position="relative"
-                overflow="hidden"
-                px={4}
-                _before={{
-                  content: '""',
-                  position: 'absolute',
-                  width: '100%',
-                  height: '2px',
-                  bottom: 0,
-                  left: 0,
-                  background: 'brand.400',
-                  transform: isActive('/ai-worker') ? 'scaleX(1)' : 'scaleX(0)',
-                  transformOrigin: 'right',
-                  transition: 'transform 0.3s ease',
-                }}
-                _hover={{
-                  bg: 'whiteAlpha.100',
-                  _before: {
-                    transform: 'scaleX(1)',
-                    transformOrigin: 'left',
-                  },
-                }}
-              >
-                AI Worker
-              </Button>
-            </Link>
-            <Link to="/knowledge">
-              <Button
-                variant="ghost"
-                color="white"
-                position="relative"
-                overflow="hidden"
-                px={4}
-                _before={{
-                  content: '""',
-                  position: 'absolute',
-                  width: '100%',
-                  height: '2px',
-                  bottom: 0,
-                  left: 0,
-                  background: 'brand.400',
-                  transform: isActive('/knowledge') ? 'scaleX(1)' : 'scaleX(0)',
-                  transformOrigin: 'right',
-                  transition: 'transform 0.3s ease',
-                }}
-                _hover={{
-                  bg: 'whiteAlpha.100',
-                  _before: {
-                    transform: 'scaleX(1)',
-                    transformOrigin: 'left',
-                  },
-                }}
-              >
-                Knowledge
-              </Button>
-            </Link>
-            <Link to="/contact">
-              <Button
-                bg="brand.400"
-                color="white"
-                px={6}
-                _hover={{
-                  bg: 'brand.500',
-                  transform: 'translateY(-2px)',
-                  boxShadow: '0 4px 12px rgba(150, 56, 255, 0.3)',
-                }}
-                transition="all 0.3s ease"
-              >
-                Contact
-              </Button>
-            </Link>
+            <NavLinks />
           </MotionStack>
+
+          {/* Mobile Menu Button */}
+          <IconButton
+            aria-label="Open menu"
+            icon={<HamburgerIcon />}
+            variant="ghost"
+            color="white"
+            display={{ base: "flex", md: "none" }}
+            onClick={onOpen}
+          />
         </Stack>
       </Container>
+
+      {/* Mobile Navigation Drawer */}
+      <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
+        <DrawerOverlay />
+        <DrawerContent bg="gray.900">
+          <DrawerCloseButton color="white" />
+          <DrawerHeader borderBottomWidth="1px" color="white">Menu</DrawerHeader>
+          <DrawerBody>
+            <VStack spacing={4} mt={4}>
+              <NavLinks isMobile onClose={onClose} />
+            </VStack>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
     </MotionBox>
   )
 }
