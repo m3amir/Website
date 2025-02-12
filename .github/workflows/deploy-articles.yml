@@ -45,7 +45,7 @@ jobs:
       - name: Deploy to GoDaddy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: ftp.m3labs.co.uk
+          server: m3labs.co.uk
           username: info@m3labs.co.uk
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
