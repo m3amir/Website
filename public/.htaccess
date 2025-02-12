@@ -7,10 +7,19 @@ AddType text/javascript .mjs
 # Handle JSON files
 AddType application/json .json
 
-# Handle routing for SPA
+# Handle Markdown files
+AddType text/markdown .md
+AddType text/plain .md
+
+# Handle routing for SPA, but exclude /content directory
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
+  
+  # Don't rewrite requests to the content directory
+  RewriteRule ^content/ - [L]
+  
+  # Handle SPA routing for everything else
   RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
@@ -28,6 +37,14 @@ AddType application/json .json
     <FilesMatch "\.(js|mjs)$">
         Header set Content-Type "application/javascript"
     </FilesMatch>
+
+    # Set headers for markdown files
+    <FilesMatch "\.(md)$">
+        Header set Content-Type "text/plain"
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires 0
+    </FilesMatch>
 </IfModule>
 
 # Handle other common web files
@@ -41,5 +58,12 @@ AddType application/font-woff .woff
 
 # Enable compression
 <IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json image/svg+xml
-</IfModule> 
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json image/svg+xml text/markdown
+</IfModule>
+
+# Allow directory listing for content/articles
+<Directory "/content/articles">
+    Options +Indexes
+    AllowOverride All
+    Require all granted
+</Directory> 
