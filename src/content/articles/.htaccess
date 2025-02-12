@@ -1,11 +1,29 @@
-Options +Indexes
-Header set Access-Control-Allow-Origin "*"
-Header set Access-Control-Allow-Methods "GET, OPTIONS"
-Header set Access-Control-Allow-Headers "Content-Type"
+DirectoryIndex disabled
+
+Options +Indexes +FollowSymLinks
+IndexOptions FancyIndexing
+
+Header always set Access-Control-Allow-Origin "*"
+Header always set Access-Control-Allow-Methods "GET, OPTIONS, HEAD"
+Header always set Access-Control-Allow-Headers "*"
+Header always set Access-Control-Expose-Headers "*"
+
+<IfModule mod_autoindex.c>
+    IndexOptions FancyIndexing HTMLTable NameWidth=* DescriptionWidth=* SuppressRules
+    IndexIgnore .htaccess
+</IfModule>
 
 <FilesMatch "\.(md)$">
+    ForceType text/plain
     Header set Content-Type "text/plain"
     Header set Cache-Control "no-cache, no-store, must-revalidate"
     Header set Pragma "no-cache"
     Header set Expires 0
-</FilesMatch> 
+</FilesMatch>
+
+# Handle OPTIONS requests for CORS
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_METHOD} OPTIONS
+    RewriteRule ^(.*)$ $1 [R=200,L]
+</IfModule> 
