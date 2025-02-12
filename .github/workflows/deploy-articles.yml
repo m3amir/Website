@@ -42,15 +42,15 @@ jobs:
       - name: List dist directory
         run: ls -la dist/
 
-      - name: Deploy to GoDaddy via SFTP
-        uses: pressidium/lftp-mirror-action@v1
+      - name: Deploy to GoDaddy
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          host: ${{ secrets.FTP_SERVER }}
-          user: ${{ secrets.FTP_USERNAME }}
-          pass: ${{ secrets.FTP_PASSWORD }}
-          port: '21'
-          localDir: './dist'
-          remoteDir: '.'
-          reverse: true
-          ignoreFile: .gitignore
-          options: '--verbose --delete' 
+          server: ftp.m3labs.co.uk
+          username: info@m3labs.co.uk
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          protocol: ftp
+          local-dir: ./dist/
+          server-dir: /home/ls88d69thfvm/public_html/
+          state-name: .ftp-deploy-sync-state.json
+          dry-run: false 

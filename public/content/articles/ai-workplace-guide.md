@@ -85,6 +85,8 @@ Another refinement is **heuristic-guided pruning**, where we eliminate low-value
 
 To ensure adaptability, we incorporate Bayesian optimization and Thompson Sampling into the trajectory selection process. These probabilistic methods help the agent balance exploitation—following known high-performing trajectories—with exploration—testing new pathways that may yield better results. This adaptive approach enables the agent to remain resilient in dynamic environments while continuously improving its efficiency.
 
+
+
 <br><br>
 
 ---
