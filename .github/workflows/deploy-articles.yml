@@ -13,11 +13,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Deploy to GoDaddy
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      - name: Deploy to GoDaddy via SFTP
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./public/content/articles/
-          server-dir: /public/content/articles/ 
+          local_path: './public/content/articles/*'
+          remote_path: '/public/content/articles/'
+          sftpArgs: '-o StrictHostKeyChecking=no' 
