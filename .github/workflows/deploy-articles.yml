@@ -19,6 +19,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Check Source Articles
+        run: |
+          echo "Checking source articles directory:"
+          ls -la src/content/articles/
+          echo "Content of articles:"
+          cat src/content/articles/*.md
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -35,25 +42,58 @@ jobs:
 
       - name: Build Project
         run: |
+          echo "Starting build process..."
           npm run build
           if [ $? -ne 0 ]; then
             echo "build failed"
             exit 1
           fi
+          echo "Build completed successfully"
 
-      - name: List dist directory
+      - name: Verify Build Output
         run: |
           echo "Contents of dist directory:"
           ls -la dist/
-          echo "Contents of dist/content/articles:"
+          
+          echo "\nChecking if content directory exists:"
+          if [ -d "dist/content" ]; then
+            echo "Content directory exists"
+            ls -la dist/content/
+          else
+            echo "Content directory is missing!"
+          fi
+          
+          echo "\nChecking if articles directory exists:"
+          if [ -d "dist/content/articles" ]; then
+            echo "Articles directory exists"
+            ls -la dist/content/articles/
+          else
+            echo "Articles directory is missing!"
+          fi
+
+      - name: Copy Articles
+        run: |
+          echo "Creating articles directory..."
           mkdir -p dist/content/articles
-          cp -r src/content/articles/* dist/content/articles/
+          
+          echo "Copying articles..."
+          cp -rv src/content/articles/* dist/content/articles/
+          
+          echo "Verifying copied articles:"
           ls -la dist/content/articles/
+          echo "\nContent of copied articles:"
+          cat dist/content/articles/*.md
+
+      - name: Test FTP Connection
+        run: |
+          echo "Testing FTP connection..."
+          curl -v --ssl --ssl-reqd --insecure -u ${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }} ftp://ftp.m3labs.co.uk/
+          echo "FTP connection test completed"
 
       - name: Deploy to GoDaddy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: m3labs.co.uk
+          server: ftp.m3labs.co.uk
           username: info@m3labs.co.uk
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
@@ -65,7 +105,15 @@ jobs:
           dry-run: false
           dangerous-clean-slate: true
           timeout: 120000
+          verbose: true
           exclude: |
             **/.git*
             **/.git*/**
-            **/node_modules/** 
+            **/node_modules/**
+
+      - name: Verify Deployment
+        run: |
+          echo "Attempting to verify deployment..."
+          curl -v -L https://m3labs.co.uk/content/articles/
+          echo "\nAttempting to fetch a specific article..."
+          curl -v -L https://m3labs.co.uk/content/articles/ai-workplace-guide.md 
