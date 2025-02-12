@@ -5,7 +5,7 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '',
+  base: './', // Ensure assets are referenced relatively
   plugins: [
     react(),
     {
@@ -14,33 +14,37 @@ export default defineConfig({
         try {
           const contentDir = 'src/content';
           const distContentDir = 'dist/content';
-          
-          // Ensure the content directory exists in dist
+
+          // Check if content directory exists before proceeding
+          if (!(await fs.pathExists(contentDir))) {
+            console.warn(`Content directory "${contentDir}" not found. Skipping copy.`);
+            return;
+          }
+
+          // Ensure the destination directory exists
           await fs.ensureDir(distContentDir);
-          
+
           // Copy content directory to dist root
-          await fs.copy(contentDir, distContentDir, { 
+          await fs.copy(contentDir, distContentDir, {
             overwrite: true,
             filter: (src) => {
-              // Always include directories and .md files
-              const isDirectory = fs.lstatSync(src).isDirectory();
-              const isMdFile = src.endsWith('.md');
-              const isNodeModules = src.includes('node_modules');
-              
-              return isDirectory || (isMdFile && !isNodeModules);
+              try {
+                const isDirectory = fs.statSync(src).isDirectory();
+                const isMdFile = src.endsWith('.md');
+                const isNodeModules = src.includes('node_modules');
+                return isDirectory || (isMdFile && !isNodeModules);
+              } catch (err) {
+                return false; // Ignore errors from non-existent files
+              }
             }
           });
-          
-          // Remove the src/content from dist if it exists
+
+          // Remove `src/content` from dist if mistakenly copied
           const distSrcContent = path.join('dist', 'src', 'content');
           if (await fs.pathExists(distSrcContent)) {
             await fs.remove(distSrcContent);
           }
 
-          // List copied files for verification
-          const files = await fs.readdir(path.join(distContentDir, 'articles'));
-          console.log('Copied articles:', files);
-          
           console.log('Successfully copied content files to dist');
         } catch (error) {
           console.error('Error copying content:', error);
@@ -52,7 +56,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        format: 'es',
+        format: 'iife', // Ensure compatibility with static hosting
         entryFileNames: 'assets/[name].[hash].js',
         chunkFileNames: 'assets/[name].[hash].js',
         assetFileNames: 'assets/[name].[hash].[ext]'
@@ -72,4 +76,4 @@ export default defineConfig({
       { find: '@content', replacement: '/src/content' }
     ]
   }
-})
+});
