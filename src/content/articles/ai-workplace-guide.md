@@ -3,7 +3,7 @@ id: "2"
 title: "Optimizing Agentic Workflows with Trajectory-Based RL Approaches"
 slug: "agentic-workflows-rl"
 description: "Explore how reinforcement learning and trajectory-based optimization can enhance AI agent workflows, balancing efficiency and adaptability."
-author: "Amir"
+author: "M3 Team"
 date: "2025-02-11"
 readTime: "10 min"
 tags: ["AI", "reinforcement learning", "workflow optimization", "agentic workflows"]
