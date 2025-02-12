@@ -19,12 +19,13 @@ jobs:
       - name: Build Project
         run: npm run build
 
-      - name: Deploy via FTP
+      - name: Deploy via SFTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: m3labs.co.uk
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          port: 21
+          port: 22  # SFTP typically uses port 22
+          protocol: sftp  # Use SFTP if FTPS is not available
           local-dir: "dist/"  # Deploy only the built files
           server-dir: "/public_html/"  # Adjust if your site is inside a subfolder
