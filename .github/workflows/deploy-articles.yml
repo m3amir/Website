@@ -1,14 +1,17 @@
-name: Deploy Articles
+name: Deploy Site
 
 on:
   push:
     paths:
       - 'src/**'
       - 'public/**'
-      - 'src/content/articles/**'
       - 'index.html'
+      - 'package.json'
       - 'vite.config.ts'
       - '.github/workflows/deploy-articles.yml'
+      - 'tsconfig.json'
+      - 'tailwind.config.js'
+      - '*.css'
     branches:
       - main
 
@@ -18,6 +21,8 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -27,7 +32,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          npm install
+          npm ci
           if [ $? -ne 0 ]; then
             echo "npm install failed"
             exit 1
@@ -48,13 +53,8 @@ jobs:
           echo "Contents of dist directory:"
           ls -la dist/
           
-          echo "\nChecking if content directory exists:"
-          if [ -d "dist/content" ]; then
-            echo "Content directory exists"
-            ls -la dist/content/
-          else
-            echo "Content directory is missing!"
-          fi
+          echo "\nChecking build structure:"
+          find dist/ -type f -exec ls -l {} \;
 
       - name: Copy .htaccess Files
         run: |
@@ -71,7 +71,7 @@ jobs:
       - name: Deploy to GoDaddy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: ftp.m3labs.co.uk
+          server: m3labs.co.uk
           username: info@m3labs.co.uk
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
@@ -87,10 +87,11 @@ jobs:
             **/.git*
             **/.git*/**
             **/node_modules/**
+            **/.DS_Store
 
-      - name: Verify Deployment
+      - name: Verify Site Accessibility
         run: |
-          echo "Attempting to verify deployment..."
-          curl -v -L https://m3labs.co.uk/content/articles/
-          echo "\nAttempting to fetch a specific article..."
-          curl -v -L https://m3labs.co.uk/content/articles/ai-workplace-guide.md 
+          echo "Verifying site deployment..."
+          curl -sL -w "%{http_code}" https://m3labs.co.uk -o /dev/null
+          echo "\nVerifying articles access..."
+          curl -sL -w "%{http_code}" https://m3labs.co.uk/content/articles/ -o /dev/null 
