@@ -5,8 +5,10 @@ on:
     paths:
       - 'src/**'
       - 'public/**'
+      - 'src/content/articles/**'
       - 'index.html'
       - 'vite.config.ts'
+      - '.github/workflows/deploy-articles.yml'
     branches:
       - main
 
