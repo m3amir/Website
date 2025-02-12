@@ -28,4 +28,4 @@ jobs:
           port: 21  # SFTP typically uses port 22
           protocol: ftps
           local-dir: "dist/"  # Deploy only the built files
-          server-dir: "/public_html/"  # Adjust if your site is inside a subfolder
+          server-dir: "/home/ls88d69thfvm/public_html/"  # Adjust if your site is inside a subfolder
