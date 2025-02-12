@@ -3,24 +3,25 @@ name: Deploy Articles
 on:
   push:
     paths:
-      - 'public/content/articles/**'
-      - 'public/.htaccess'
       - 'src/**'
+      - 'public/**'
+      - 'index.html'
+      - 'vite.config.ts'
     branches:
       - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 2  # Add timeout to prevent hanging
+    timeout-minutes: 5  # Increased timeout for build
     steps:
-      - uses: actions/checkout@v3  # Update to v3
+      - uses: actions/checkout@v3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3  # Update to v3
+        uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'npm'  # Enable npm caching
+          cache: 'npm'
 
       - name: Install Dependencies
         run: npm install
@@ -35,6 +36,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
-          local_path: './dist/*'
+          local_path: './dist/'
           remote_path: './'
-          sftp_only: false 
+          sftp_only: false
+          delete: true  # This will ensure clean deployments 
