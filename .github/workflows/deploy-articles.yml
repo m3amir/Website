@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - 'public/content/articles/**'
+      - 'public/.htaccess'
+      - 'src/**'
     branches:
       - main
 
@@ -13,12 +15,33 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Project
+        run: npm run build
+
       - name: Deploy to GoDaddy
         uses: kevinpainchaud/simple-ftp-deploy-action@v1.2.1
         with:
           ftp_host: ${{ secrets.FTP_SERVER }}
           ftp_username: ${{ secrets.FTP_USERNAME }}
           ftp_password: ${{ secrets.FTP_PASSWORD }}
-          local_source_dir: "public/content/articles"
-          dist_target_dir: "public/content/articles"
+          local_source_dir: "dist"
+          dist_target_dir: "/"
+          delete: "false"
+
+      - name: Deploy .htaccess
+        uses: kevinpainchaud/simple-ftp-deploy-action@v1.2.1
+        with:
+          ftp_host: ${{ secrets.FTP_SERVER }}
+          ftp_username: ${{ secrets.FTP_USERNAME }}
+          ftp_password: ${{ secrets.FTP_PASSWORD }}
+          local_source_dir: "public"
+          dist_target_dir: "/"
           delete: "false" 

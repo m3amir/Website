@@ -28,7 +28,7 @@ class ArticleService {
       await this.loadArticles();
     } catch (error) {
       console.error('Error in init:', error);
-      throw error;re
+      throw error;
     }
   }
 
