@@ -55,13 +55,37 @@
 @media only screen and (min-width: 1170px) {
   .timeline-wrapper .vertical-timeline-element-content {
     padding: 2rem;
+    margin-right: 100px;
+  }
+
+  .timeline-wrapper .vertical-timeline-element-content.vertical-timeline-element--right,
+  .timeline-wrapper .vertical-timeline-element:nth-child(even):not(.vertical-timeline-element--left) .vertical-timeline-element-content {
+    margin-right: 0;
+    margin-left: 100px;
   }
 
   .timeline-wrapper .vertical-timeline-element-date {
     font-size: 1rem !important;
+    width: 90px !important;
+    text-align: center !important;
   }
 
   .timeline-wrapper .vertical-timeline-element {
     margin: 3rem 0;
+  }
+
+  /* Adjust date positioning */
+  .vertical-timeline--two-columns .vertical-timeline-element-content .vertical-timeline-element-date {
+    position: absolute;
+    right: -115px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .vertical-timeline--two-columns .vertical-timeline-element-content.vertical-timeline-element--right .vertical-timeline-element-date,
+  .vertical-timeline--two-columns .vertical-timeline-element:nth-child(even):not(.vertical-timeline-element--left) .vertical-timeline-element-content .vertical-timeline-element-date {
+    left: -115px;
+    right: auto;
+    text-align: right;
   }
 } 
