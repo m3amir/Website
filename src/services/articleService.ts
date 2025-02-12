@@ -77,9 +77,10 @@ class ArticleService {
     try {
       console.log('Starting to load articles...'); // Debug log
 
-      // Import markdown files using a literal glob pattern
+      // Import markdown files using both development and production paths
       const markdownFiles = {
-        ...import.meta.glob('../content/articles/*.md', { as: 'raw', eager: true })
+        ...import.meta.glob('../content/articles/*.md', { as: 'raw', eager: true }),
+        ...import.meta.glob('/content/articles/*.md', { as: 'raw', eager: true })
       };
       
       console.log('Found markdown files:', Object.keys(markdownFiles)); // Debug log
@@ -87,6 +88,23 @@ class ArticleService {
 
       if (Object.keys(markdownFiles).length === 0) {
         console.warn('No markdown files found in the articles directory');
+        // Try fetching articles directly in production
+        try {
+          const response = await fetch('/content/articles/index.json');
+          if (response.ok) {
+            const articles = await response.json();
+            for (const article of articles) {
+              const contentResponse = await fetch(`/content/articles/${article.slug}.md`);
+              if (contentResponse.ok) {
+                const content = await contentResponse.text();
+                await this.processArticle(`/content/articles/${article.slug}.md`, content);
+              }
+            }
+            return;
+          }
+        } catch (error) {
+          console.error('Error fetching articles in production:', error);
+        }
         return;
       }
 

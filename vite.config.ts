@@ -10,11 +10,28 @@ export default defineConfig({
     {
       name: 'copy-content',
       closeBundle: async () => {
-        // Copy content directory to dist root
-        await fs.copy('src/content', 'dist/content', { overwrite: true });
-        // Remove the src/content from dist if it exists
-        if (await fs.pathExists('dist/src/content')) {
-          await fs.remove('dist/src/content');
+        try {
+          // Ensure the content directory exists in dist
+          await fs.ensureDir('dist/content/articles');
+          
+          // Copy content directory to dist root
+          await fs.copy('src/content', 'dist/content', { 
+            overwrite: true,
+            filter: (src) => {
+              // Ensure we copy .md files
+              return !src.includes('node_modules') && (src.endsWith('.md') || !src.includes('.'));
+            }
+          });
+          
+          // Remove the src/content from dist if it exists
+          if (await fs.pathExists('dist/src/content')) {
+            await fs.remove('dist/src/content');
+          }
+
+          console.log('Successfully copied content files to dist');
+        } catch (error) {
+          console.error('Error copying content:', error);
+          throw error;
         }
       }
     }
