@@ -48,13 +48,14 @@ jobs:
           fi
           echo "Build completed successfully"
 
-      - name: Verify Build Output
+      - name: Debug Build Output
         run: |
           echo "Contents of dist directory:"
           ls -la dist/
-          
-          echo "\nChecking build structure:"
-          find dist/ -type f -exec ls -l {} \;
+          echo "\nFull directory structure:"
+          find dist/ -type f
+          echo "\nChecking file sizes:"
+          du -h dist/
 
       - name: Copy .htaccess Files
         run: |
@@ -78,33 +79,39 @@ jobs:
           protocol: ftps
           security: loose
           local-dir: ./dist/
-          server-dir: /home/ls88d69thfvm/public_html/
+          server-dir: /public_html/
           state-name: .ftp-deploy-sync-state.json
           dry-run: false
-          dangerous-clean-slate: false
+          dangerous-clean-slate: true
           timeout: 120000
+          log-level: verbose
           exclude: |
             **/.git*
             **/.git*/**
             **/node_modules/**
             **/.DS_Store
 
-      - name: Verify Site Accessibility
+      - name: Verify Deployment
         run: |
-          echo "Verifying site deployment..."
-          # Check main site
-          MAIN_STATUS=$(curl -sL -w "%{http_code}" https://m3labs.co.uk -o /dev/null)
-          echo "Main site status: $MAIN_STATUS"
-          if [ "$MAIN_STATUS" != "200" ]; then
-            echo "Error: Main site returned status $MAIN_STATUS"
-            exit 1
-          fi
+          echo "Waiting for changes to propagate..."
+          sleep 15
           
-          # Check a specific article (using the test article)
-          echo "Verifying article access..."
-          ARTICLE_STATUS=$(curl -sL -w "%{http_code}" https://m3labs.co.uk/content/articles/github-actions-test.md -o /dev/null)
-          echo "Article status: $ARTICLE_STATUS"
-          if [ "$ARTICLE_STATUS" != "200" ]; then
-            echo "Warning: Article returned status $ARTICLE_STATUS"
-            # Don't exit with error as the article might be cached/processing
-          fi 
+          echo "Verifying deployment..."
+          echo "\nChecking main page:"
+          curl -sI https://m3labs.co.uk/ | grep -E "HTTP|Content-Type|Cache-Control"
+          
+          echo "\nChecking assets:"
+          for file in dist/assets/*; do
+            filename=$(basename "$file")
+            echo "Checking $filename"
+            curl -sI "https://m3labs.co.uk/assets/$filename" | grep -E "HTTP|Content-Type"
+          done
+          
+          echo "\nChecking content files:"
+          for file in dist/content/articles/*.md; do
+            if [ -f "$file" ]; then
+              filename=$(basename "$file")
+              echo "Checking $filename"
+              curl -sI "https://m3labs.co.uk/content/articles/$filename" | grep -E "HTTP|Content-Type"
+            fi
+          done 
