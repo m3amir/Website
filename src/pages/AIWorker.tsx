@@ -363,81 +363,102 @@ const ConnectorFlow = () => {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            overflow="visible"
+            overflow={{ base: "hidden", md: "visible" }}
           >
             {/* Task Processing Animation */}
-            <Box position="absolute" top="0" left="0" right={{ base: "-60px", md: "-100px" }} bottom="0" pointerEvents="none" overflow="visible">
-              {[...Array(4)].map((_, index) => (
-                <MotionBox
-                  key={index}
-                  position="absolute"
-                  left="80%"
-                  top="50%"
-                  width={{ base: "120px", md: "160px" }}
-                  height={{ base: "32px", md: "40px" }}
-                  bg="whiteAlpha.100"
-                  backdropFilter="blur(4px)"
-                  borderRadius="lg"
-                  border="1px solid"
-                  borderColor="whiteAlpha.300"
-                  initial={{ 
-                    x: "-30%",
-                    y: -60 + index * 40,
-                    opacity: 0,
-                    scale: 0.8
-                  }}
-                  animate={{ 
-                    x: ["0%", "30%", "60%"],
-                    y: -60 + index * 40,
-                    opacity: [0, 1, 0],
-                    scale: [0.8, 1, 0.8]
-                  }}
-                  transition={{
-                    duration: 4,
-                    delay: index * 1.5,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                >
-                  <HStack 
-                    spacing={{ base: 2, md: 3 }}
-                    p={{ base: 2, md: 3 }}
-                    align="center"
-                    h="100%"
+            <Box 
+              position="absolute" 
+              top="0" 
+              left="0" 
+              right="0"
+              bottom="0" 
+              pointerEvents="none"
+              overflow="hidden"
+            >
+              {[...Array(4)].map((_, index) => {
+                // Calculate different positions for each task
+                const positions = [
+                  { left: "20%", top: "20%" },
+                  { left: "60%", top: "30%" },
+                  { left: "30%", top: "70%" },
+                  { left: "50%", top: "60%" }
+                ];
+                
+                return (
+                  <MotionBox
+                    key={index}
+                    position="absolute"
+                    left={positions[index].left}
+                    top={positions[index].top}
+                    width={{ base: "70px", md: "120px" }}
+                    height={{ base: "20px", md: "32px" }}
+                    bg="whiteAlpha.100"
+                    backdropFilter="blur(4px)"
+                    borderRadius="lg"
+                    border="1px solid"
+                    borderColor="whiteAlpha.300"
+                    initial={{ 
+                      opacity: 0,
+                      scale: 0.8
+                    }}
+                    animate={{ 
+                      opacity: [0, 1, 0],
+                      scale: [0.8, 1, 0.8],
+                      x: ["-10%", "10%", "-10%"],
+                      y: ["-5%", "5%", "-5%"]
+                    }}
+                    transition={{
+                      duration: 3,
+                      delay: index * 0.8,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
                   >
-                    <Box 
-                      w={{ base: "4px", md: "6px" }}
-                      h={{ base: "4px", md: "6px" }}
-                      borderRadius="full" 
-                      bg="brand.400"
-                      boxShadow="0 0 10px rgba(123, 31, 162, 0.5)"
-                    />
-                    <Box 
-                      flex="1" 
-                      h={{ base: "3px", md: "4px" }}
-                      bg="whiteAlpha.200" 
-                      borderRadius="full"
-                      overflow="hidden"
+                    <HStack 
+                      spacing={{ base: 1.5, md: 2 }}
+                      p={{ base: 1, md: 2 }}
+                      align="center"
+                      h="100%"
                     >
-                      <MotionBox
-                        h="100%"
+                      <Box 
+                        w={{ base: "2px", md: "4px" }}
+                        h={{ base: "2px", md: "4px" }}
+                        borderRadius="full" 
                         bg="brand.400"
-                        borderRadius="full"
-                        initial={{ width: "0%" }}
-                        animate={{ width: "100%" }}
-                        transition={{
-                          duration: 3,
-                          ease: "easeInOut",
-                          repeat: Infinity
-                        }}
+                        boxShadow="0 0 10px rgba(123, 31, 162, 0.5)"
                       />
-                    </Box>
-                    <Text color="whiteAlpha.900" fontSize={{ base: "10px", md: "xs" }} fontFamily="mono" display={{ base: "none", md: "block" }}>
-                      {["Processing", "Analyzing", "Learning", "Optimizing"][index]}
-                    </Text>
-                  </HStack>
-                </MotionBox>
-              ))}
+                      <Box 
+                        flex="1" 
+                        h={{ base: "2px", md: "3px" }}
+                        bg="whiteAlpha.200" 
+                        borderRadius="full"
+                        overflow="hidden"
+                      >
+                        <MotionBox
+                          h="100%"
+                          bg="brand.400"
+                          borderRadius="full"
+                          initial={{ width: "0%" }}
+                          animate={{ width: "100%" }}
+                          transition={{
+                            duration: 2,
+                            ease: "easeInOut",
+                            repeat: Infinity
+                          }}
+                        />
+                      </Box>
+                      <Text 
+                        color="whiteAlpha.900" 
+                        fontSize={{ base: "6px", md: "10px" }} 
+                        fontFamily="mono"
+                        display={{ base: "none", md: "block" }}
+                      >
+                        {["Processing", "Analyzing", "Learning", "Optimizing"][index]}
+                      </Text>
+                    </HStack>
+                  </MotionBox>
+                );
+              })}
             </Box>
 
             <Icon 

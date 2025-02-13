@@ -65,9 +65,9 @@ const Home = () => {
             {/* First Line: "Changing the" */}
             <MotionBox
               position="absolute"
-              top={{ base: "20px", md: "40px" }}
+              top={{ base: "20px", md: "30px" }}
               display="flex"
-              gap={{ base: 2, md: 4 }}
+              gap={{ base: 2, md: 3 }}
               alignItems="center"
               width="100%"
               justifyContent="center"
@@ -122,9 +122,9 @@ const Home = () => {
             {/* Second Line: "Paradigm of Work" */}
             <MotionBox
               position="absolute"
-              top={{ base: "120px", md: "180px" }}
+              top={{ base: "90px", md: "140px" }}
               display="flex"
-              gap={{ base: 2, md: 4 }}
+              gap={{ base: 2, md: 3 }}
               alignItems="center"
               width="100%"
               justifyContent="center"
@@ -199,11 +199,11 @@ const Home = () => {
             {/* Animated underlines */}
             <MotionBox
               position="absolute"
-              bottom={{ base: "40px", md: "60px" }}
+              bottom={{ base: "30px", md: "40px" }}
               width="100%"
               display="flex"
               flexDirection="column"
-              gap={{ base: 2, md: 4 }}
+              gap={{ base: 1, md: 2 }}
               alignItems="center"
               zIndex={1}
             >
