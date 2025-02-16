@@ -35,6 +35,7 @@ import emailjs from '@emailjs/browser';
 import { EMAILJS_CONFIG } from '../config/emailjs';
 import { motion } from 'framer-motion';
 import { FaSlack, FaMicrosoft, FaGithub, FaJira } from 'react-icons/fa';
+import ScrollToTop from '../components/ScrollToTop'
 
 interface IntegrationCardProps {
   icon: React.ElementType;
@@ -813,6 +814,9 @@ const AIWorker = () => {
           </MotionBox>
         </Container>
       </Box>
+
+      {/* Add ScrollToTop component */}
+      <ScrollToTop />
     </Box>
   );
 };

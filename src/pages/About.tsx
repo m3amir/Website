@@ -10,6 +10,7 @@ import { FiStar, FiCode, FiUsers, FiGlobe } from 'react-icons/fi'
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component'
 import 'react-vertical-timeline-component/style.min.css'
 import './About.css' // We'll create this file for custom timeline styles
+import ScrollToTop from '../components/ScrollToTop'
 
 interface TimelineItem {
   year: string;
@@ -47,11 +48,11 @@ const timelineData: TimelineItem[] = [
 
 const About = () => {
   const timelineIconSize = useBreakpointValue({ base: '24px', md: '28px' })
-  const timelineIconMarginLeft = useBreakpointValue({ base: '-12px', md: '-14px' })
-  const timelineIconMarginTop = useBreakpointValue({ base: '12px', md: '14px' })
-  const timelineIconInnerSize = useBreakpointValue({ base: 14, md: 16 })
-  const timelinePadding = useBreakpointValue({ base: '1.5rem', md: '2rem' })
-  const timelineMarginBottom = useBreakpointValue({ base: '1rem', md: '2rem' })
+  const timelineIconMarginLeft = useBreakpointValue({ base: '12px', md: '-14px' })
+  const timelineIconMarginTop = useBreakpointValue({ base: '0px', md: '14px' })
+  const timelineIconInnerSize = useBreakpointValue({ base: 12, md: 16 })
+  const timelinePadding = useBreakpointValue({ base: '1rem', md: '2rem' })
+  const timelineMarginBottom = useBreakpointValue({ base: '0.5rem', md: '2rem' })
   
   return (
     <Box bg="black" minH="100vh" pt={{ base: 24, md: 32 }} pb={{ base: 16, md: 20 }}>
@@ -81,9 +82,9 @@ const About = () => {
           </VStack>
 
           {/* Timeline Section */}
-          <Box className="timeline-wrapper">
+          <Box className="timeline-wrapper" px={{ base: 0, md: 4 }}>
             <VerticalTimeline lineColor="rgba(255, 255, 255, 0.1)">
-              {timelineData.map(item => (
+              {timelineData.map((item, index) => (
                 <VerticalTimelineElement
                   key={item.year}
                   className="vertical-timeline-element"
@@ -91,7 +92,7 @@ const About = () => {
                     background: '#171717',
                     color: '#fff',
                     border: '1px solid rgba(255, 255, 255, 0.1)',
-                    borderRadius: '1rem',
+                    borderRadius: '0.75rem',
                     boxShadow: 'none',
                     padding: timelinePadding,
                     marginBottom: timelineMarginBottom,
@@ -100,7 +101,7 @@ const About = () => {
                     borderRight: '7px solid rgba(255, 255, 255, 0.1)',
                   }}
                   date={item.year}
-                  dateClassName="timeline-date"
+                  dateClassName={`timeline-date timeline-date-${index % 2 === 0 ? 'left' : 'right'}`}
                   iconStyle={{
                     background: '#9638FF',
                     color: '#fff',
@@ -114,7 +115,7 @@ const About = () => {
                 >
                   <Heading
                     as="h3"
-                    fontSize={{ base: "lg", md: "xl" }}
+                    fontSize={{ base: "md", md: "xl" }}
                     color="white"
                     mb={{ base: 1, md: 2 }}
                   >
@@ -122,7 +123,7 @@ const About = () => {
                   </Heading>
                   <Text 
                     color="whiteAlpha.800"
-                    fontSize={{ base: "sm", md: "md" }}
+                    fontSize={{ base: "xs", md: "md" }}
                     lineHeight="1.6"
                   >
                     {item.description}
@@ -133,6 +134,7 @@ const About = () => {
           </Box>
         </VStack>
       </Container>
+      <ScrollToTop />
     </Box>
   )
 }
