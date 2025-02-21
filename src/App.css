@@ -59,20 +59,4 @@ a, button {
   transition: all 0.3s ease;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #1A1A1A;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #9638FF;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #7D0AFF;
-}
+/* Remove custom scrollbar styling */

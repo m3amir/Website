@@ -34,9 +34,15 @@ class ArticleService {
 
   private parseFrontMatter(content: string): { data: ArticleFrontmatter; content: string } {
     try {
+      // Ensure we're working with unix-style line endings
+      const normalizedContent = content.replace(/\r\n/g, '\n');
+      
+      // More precise frontmatter regex that ensures proper boundaries
       const frontMatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
-      const matches = content.match(frontMatterRegex);
+      const matches = normalizedContent.match(frontMatterRegex);
+      
       if (!matches) {
+        console.error('Content does not match frontmatter pattern:', normalizedContent.substring(0, 100));
         throw new Error('Invalid frontmatter format');
       }
 
@@ -45,23 +51,38 @@ class ArticleService {
       const data: ArticleFrontmatter = {} as ArticleFrontmatter;
 
       frontMatterLines.forEach(line => {
-        const [key, ...valueParts] = line.split(':');
-        if (key && valueParts.length > 0) {
-          let value: string | string[] = valueParts.join(':').trim();
-          
-          // Handle array values (e.g., tags: [tag1, tag2])
-          if (value.startsWith('[') && value.endsWith(']')) {
-            const arrayValue = value.slice(1, -1).split(',').map(v => v.trim());
-            data[key.trim() as keyof ArticleFrontmatter] = arrayValue;
-          } else {
-            // Handle string values
-            if (value.startsWith('"') && value.endsWith('"')) {
-              value = value.slice(1, -1);
-            }
-            data[key.trim() as keyof ArticleFrontmatter] = value;
-          }
+        // Skip empty lines
+        if (!line.trim()) return;
+        
+        const colonIndex = line.indexOf(':');
+        if (colonIndex === -1) return;
+        
+        const key = line.slice(0, colonIndex).trim();
+        let value = line.slice(colonIndex + 1).trim();
+        
+        // Handle array values (e.g., tags: [tag1, tag2])
+        if (value.startsWith('[') && value.endsWith(']')) {
+          const arrayStr = value.slice(1, -1);
+          const arrayValue = arrayStr.split(',').map(v => {
+            // Remove quotes and trim whitespace
+            return v.trim().replace(/^["']|["']$/g, '');
+          });
+          data[key as keyof ArticleFrontmatter] = arrayValue;
+        } else {
+          // Handle string values
+          value = value.replace(/^["']|["']$/g, ''); // Remove quotes if present
+          data[key as keyof ArticleFrontmatter] = value;
         }
       });
+
+      // Validate required fields
+      const requiredFields: (keyof ArticleFrontmatter)[] = ['id', 'title', 'slug', 'description', 'author', 'date', 'readTime'];
+      const missingFields = requiredFields.filter(field => !data[field]);
+      
+      if (missingFields.length > 0) {
+        console.error('Missing required frontmatter fields:', missingFields);
+        throw new Error(`Missing required frontmatter fields: ${missingFields.join(', ')}`);
+      }
 
       return {
         data,
@@ -79,7 +100,8 @@ class ArticleService {
 
       // Import markdown files using development path
       const devMarkdownFiles = import.meta.glob('../content/articles/*.md', { 
-        as: 'raw', 
+        query: '?raw',
+        import: 'default',
         eager: true 
       });
       
@@ -97,7 +119,8 @@ class ArticleService {
         console.log('Trying production path...');
         try {
           const prodMarkdownFiles = import.meta.glob('/content/articles/*.md', { 
-            as: 'raw', 
+            query: '?raw',
+            import: 'default',
             eager: true 
           });
 
@@ -151,7 +174,10 @@ class ArticleService {
       const slug = path.split('/').pop()?.replace('.md', '') || '';
       console.log(`Processing article: ${slug} from path: ${path}`); // Debug log
 
-      const { data: frontmatter, content: articleContent } = this.parseFrontMatter(content);
+      // Remove any BOM characters that might be present at the start of the content
+      const cleanContent = content.replace(/^\uFEFF/, '');
+      
+      const { data: frontmatter, content: articleContent } = this.parseFrontMatter(cleanContent);
       console.log(`Parsed frontmatter for ${slug}:`, frontmatter); // Debug log
 
       if (!frontmatter.title || !frontmatter.description) {

@@ -9,6 +9,7 @@ import Contact from './pages/Contact'
 import Knowledge from './pages/Knowledge'
 import Article from './pages/Article'
 import AIWorker from './pages/AIWorker'
+import Products from './pages/Products'
 import './App.css'
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/knowledge" element={<Knowledge />} />
           <Route path="/ai-worker" element={<AIWorker />} />
+          <Route path="/products" element={<Products />} />
           <Route path="/articles/:slug" element={<Article />} />
         </Routes>
         <Footer />

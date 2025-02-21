@@ -2,7 +2,7 @@ import { Box, Container, Text, Link, HStack } from '@chakra-ui/react'
 
 const Footer = () => {
   return (
-    <Box bg="background.secondary" py={4} mt="auto">
+    <Box py={4} mt="auto">
       <Container maxW="7xl">
         <HStack spacing={2} justify="center" color="text.secondary">
           <Text>© {new Date().getFullYear()} M3Labs.</Text>

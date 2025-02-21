@@ -16,10 +16,11 @@ const Navbar = () => {
     <>
       <Link to="/about" onClick={isMobile ? onClose : undefined}>
         <Button
-          variant="ghost"
+          variant="unstyled"
           color="white"
           position="relative"
           overflow="hidden"
+          py={2}
           px={4}
           width={isMobile ? "full" : "auto"}
           _before={{
@@ -35,7 +36,6 @@ const Navbar = () => {
             transition: 'transform 0.3s ease',
           }}
           _hover={{
-            bg: 'whiteAlpha.100',
             _before: {
               transform: 'scaleX(1)',
               transformOrigin: 'left',
@@ -45,12 +45,44 @@ const Navbar = () => {
           About
         </Button>
       </Link>
-      <Link to="/ai-worker" onClick={isMobile ? onClose : undefined}>
+      <Link to="/products" onClick={isMobile ? onClose : undefined}>
         <Button
-          variant="ghost"
+          variant="unstyled"
           color="white"
           position="relative"
           overflow="hidden"
+          py={2}
+          px={4}
+          width={isMobile ? "full" : "auto"}
+          _before={{
+            content: '""',
+            position: 'absolute',
+            width: '100%',
+            height: '2px',
+            bottom: 0,
+            left: 0,
+            background: 'brand.400',
+            transform: isActive('/products') ? 'scaleX(1)' : 'scaleX(0)',
+            transformOrigin: 'right',
+            transition: 'transform 0.3s ease',
+          }}
+          _hover={{
+            _before: {
+              transform: 'scaleX(1)',
+              transformOrigin: 'left',
+            },
+          }}
+        >
+          Products
+        </Button>
+      </Link>
+      <Link to="/ai-worker" onClick={isMobile ? onClose : undefined}>
+        <Button
+          variant="unstyled"
+          color="white"
+          position="relative"
+          overflow="hidden"
+          py={2}
           px={4}
           width={isMobile ? "full" : "auto"}
           _before={{
@@ -66,7 +98,6 @@ const Navbar = () => {
             transition: 'transform 0.3s ease',
           }}
           _hover={{
-            bg: 'whiteAlpha.100',
             _before: {
               transform: 'scaleX(1)',
               transformOrigin: 'left',
@@ -78,10 +109,11 @@ const Navbar = () => {
       </Link>
       <Link to="/knowledge" onClick={isMobile ? onClose : undefined}>
         <Button
-          variant="ghost"
+          variant="unstyled"
           color="white"
           position="relative"
           overflow="hidden"
+          py={2}
           px={4}
           width={isMobile ? "full" : "auto"}
           _before={{
@@ -97,7 +129,6 @@ const Navbar = () => {
             transition: 'transform 0.3s ease',
           }}
           _hover={{
-            bg: 'whiteAlpha.100',
             _before: {
               transform: 'scaleX(1)',
               transformOrigin: 'left',
@@ -208,9 +239,9 @@ const Navbar = () => {
       </Container>
 
       {/* Mobile Navigation Drawer */}
-      <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
+      <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="xs">
         <DrawerOverlay />
-        <DrawerContent bg="gray.900">
+        <DrawerContent bg="gray.900" maxW="200px">
           <DrawerCloseButton color="white" />
           <DrawerHeader borderBottomWidth="1px" color="white">Menu</DrawerHeader>
           <DrawerBody>

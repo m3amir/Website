@@ -63,6 +63,22 @@ const theme = extendTheme({
             color: 'white',
           },
         },
+        unstyled: {
+          background: 'transparent',
+          border: 'none',
+          padding: 0,
+          height: 'auto',
+          minWidth: 'auto',
+          _hover: {
+            background: 'transparent',
+          },
+          _active: {
+            background: 'transparent',
+          },
+          _focus: {
+            boxShadow: 'none',
+          },
+        },
       },
     },
     Container: {
