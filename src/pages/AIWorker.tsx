@@ -28,13 +28,14 @@ import {
 import { FiCheck, FiArrowRight, FiGrid, FiUser, FiMail, FiMessageSquare, FiBriefcase } from 'react-icons/fi';
 import { 
   SiSlack, 
-  SiSalesforce
+  SiSalesforce,
+  SiZendesk
 } from 'react-icons/si';
 import { useState } from 'react';
 import emailjs from '@emailjs/browser';
 import { EMAILJS_CONFIG } from '../config/emailjs';
 import { motion } from 'framer-motion';
-import { FaSlack, FaMicrosoft, FaGithub, FaJira } from 'react-icons/fa';
+import { FaSlack, FaMicrosoft, FaJira } from 'react-icons/fa';
 import ScrollToTop from '../components/ScrollToTop'
 
 interface IntegrationCardProps {
@@ -249,6 +250,9 @@ const ConnectorFlow = () => {
   
   return (
     <Box position="relative" h={{ base: "300px", md: "400px" }} w="100%" mt={0}>
+      <Text color="whiteAlpha.600" fontSize="sm" textAlign="center" mb={4}>
+        These are just some of our supported connectors. Contact us to learn more about all available integrations.
+      </Text>
       <HStack spacing={0} w="100%" h="100%" position="relative">
         {/* Left Side - Services */}
         <Box flex="1.5" h="100%" position="relative">
@@ -256,8 +260,8 @@ const ConnectorFlow = () => {
             {[
               { icon: FaSlack, color: "#E01E5A", name: "Slack" },
               { icon: FaMicrosoft, color: "#00A4EF", name: "Microsoft" },
-              { icon: FaGithub, color: "#ffffff", name: "GitHub" },
-              { icon: FaJira, color: "#0052CC", name: "Jira" }
+              { icon: SiZendesk, color: "#ffffff", name: "Zendesk" },
+              { icon: FaJira, color: "#0052CC", name: "Jira" },
             ].map((item, index) => (
               <HStack key={index} w="100%" spacing={{ base: 2, md: 4 }} position="relative">
                 {/* Service Icon */}
@@ -539,40 +543,59 @@ const AIWorker = () => {
       {/* Integrations Grid */}
       <Container maxW="6xl">
         <VStack spacing={8} align="stretch">
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
-            <IntegrationCard
-              icon={FiGrid}
-              title="Microsoft 365"
-              features={[
-                "Smart email management",
-                "Teams collaboration",
-                "SharePoint integration",
-                "OneDrive automation"
-              ]}
-            />
-            <IntegrationCard
-              icon={SiSlack}
-              title="Slack"
-              features={[
-                "Real-time analysis",
-                "Channel management",
-                "Smart notifications",
-                "Workflow automation"
-              ]}
-            />
-            <IntegrationCard
-              icon={SiSalesforce}
-              title="Salesforce"
-              features={[
-                "Lead scoring",
-                "Opportunity tracking",
-                "Sales analytics",
-                "Report automation"
-              ]}
-            />
-          </SimpleGrid>
+          <Box textAlign="center">
+            <Heading color="white" size="lg" mb={4}>
+              Enterprise Integrations
+            </Heading>
+            <Text color="whiteAlpha.700" fontSize="lg" maxW="2xl" mx="auto">
+              Connect your AI workers with industry-leading platforms
+            </Text>
+          </Box>
+          <Box overflowX="auto" pb={4} mx="-24px" px={6}>
+            <HStack spacing={6} minW="min-content">
+              <IntegrationCard
+                icon={FiGrid}
+                title="Microsoft 365"
+                features={[
+                  "Smart email management",
+                  "Teams collaboration",
+                  "SharePoint integration",
+                  "OneDrive automation"
+                ]}
+              />
+              <IntegrationCard
+                icon={SiSlack}
+                title="Slack"
+                features={[
+                  "Real-time analysis",
+                  "Channel management",
+                  "Smart notifications",
+                  "Workflow automation"
+                ]}
+              />
+              <IntegrationCard
+                icon={SiSalesforce}
+                title="Salesforce"
+                features={[
+                  "Lead scoring",
+                  "Opportunity tracking",
+                  "Sales analytics",
+                  "Report automation"
+                ]}
+              />
+              <IntegrationCard
+                icon={SiZendesk}
+                title="Zendesk"
+                features={[
+                  "Ticket automation",
+                  "Smart ticket routing",
+                  "Customer insights",
+                  "Support analytics"
+                ]}
+              />
+            </HStack>
+          </Box>
 
-          {/* Connector Flow Section */}
           <Box>
             <ConnectorFlow />
           </Box>
