@@ -31,13 +31,13 @@ const fadeInUp = {
 const glowVariants = {
   hidden: {
     opacity: 0,
-    scale: 0.9
+    scale: 1
   },
   visible: {
-    opacity: [0.2, 0.5, 0.2],
-    scale: [1, 1.05, 1],
+    opacity: [0.1, 0.3, 0.1],
+    scale: [1, 1.02, 1],
     transition: {
-      duration: 3,
+      duration: 4,
       ease: "easeInOut",
       repeat: Infinity,
       repeatType: "reverse"
@@ -48,9 +48,9 @@ const glowVariants = {
 const borderGlowVariants = {
   hidden: { opacity: 0 },
   visible: {
-    opacity: [0.3, 0.6, 0.3],
+    opacity: [0.1, 0.3, 0.1],
     transition: {
-      duration: 2,
+      duration: 3,
       ease: "easeInOut",
       repeat: Infinity,
     }
@@ -226,10 +226,15 @@ const SecuritySection = () => {
         position="absolute"
         top="50%"
         left="50%"
-        width="150%"
-        height="150%"
-        style={{ translateX: "-50%", translateY: "-50%" }}
-        bgGradient="radial(circle at center, rgba(150, 56, 255, 0.15), transparent 70%)"
+        width="130%"
+        height="130%"
+        style={{ 
+          translateX: "-50%", 
+          translateY: "-50%",
+          filter: "blur(20px)",
+          willChange: "transform"
+        }}
+        bgGradient="radial(circle at center, rgba(150, 56, 255, 0.08), transparent 70%)"
         variants={glowVariants}
         initial="hidden"
         animate={isVisible ? "visible" : "hidden"}
@@ -241,10 +246,11 @@ const SecuritySection = () => {
         right={0}
         bottom={0}
         bg="whiteAlpha.50"
-        backdropFilter="blur(100px)"
+        backdropFilter="blur(80px)"
+        style={{ willChange: "opacity" }}
         initial={{ opacity: 0 }}
-        animate={{ opacity: isVisible ? 0.5 : 0 }}
-        transition={{ duration: 1 }}
+        animate={{ opacity: isVisible ? 0.3 : 0 }}
+        transition={{ duration: 1.5 }}
       />
 
       <Container maxW="7xl" position="relative">
@@ -443,10 +449,15 @@ const AgentSection = () => {
         position="absolute"
         top="50%"
         left="50%"
-        width="150%"
-        height="150%"
-        style={{ translateX: "-50%", translateY: "-50%" }}
-        bgGradient="radial(circle at center, rgba(150, 56, 255, 0.15), transparent 70%)"
+        width="130%"
+        height="130%"
+        style={{ 
+          translateX: "-50%", 
+          translateY: "-50%",
+          filter: "blur(20px)",
+          willChange: "transform"
+        }}
+        bgGradient="radial(circle at center, rgba(150, 56, 255, 0.08), transparent 70%)"
         variants={glowVariants}
         initial="hidden"
         animate={isVisible ? "visible" : "hidden"}
@@ -458,10 +469,11 @@ const AgentSection = () => {
         right={0}
         bottom={0}
         bg="whiteAlpha.50"
-        backdropFilter="blur(100px)"
+        backdropFilter="blur(80px)"
+        style={{ willChange: "opacity" }}
         initial={{ opacity: 0 }}
-        animate={{ opacity: isVisible ? 0.5 : 0 }}
-        transition={{ duration: 1 }}
+        animate={{ opacity: isVisible ? 0.3 : 0 }}
+        transition={{ duration: 1.5 }}
       />
 
       <Container maxW="7xl" position="relative">
@@ -632,10 +644,15 @@ const HybridOpsSection = () => {
         position="absolute"
         top="50%"
         left="50%"
-        width="150%"
-        height="150%"
-        style={{ translateX: "-50%", translateY: "-50%" }}
-        bgGradient="radial(circle at center, rgba(150, 56, 255, 0.15), transparent 70%)"
+        width="130%"
+        height="130%"
+        style={{ 
+          translateX: "-50%", 
+          translateY: "-50%",
+          filter: "blur(20px)",
+          willChange: "transform"
+        }}
+        bgGradient="radial(circle at center, rgba(150, 56, 255, 0.08), transparent 70%)"
         variants={glowVariants}
         initial="hidden"
         animate={isVisible ? "visible" : "hidden"}
@@ -647,10 +664,11 @@ const HybridOpsSection = () => {
         right={0}
         bottom={0}
         bg="whiteAlpha.50"
-        backdropFilter="blur(100px)"
+        backdropFilter="blur(80px)"
+        style={{ willChange: "opacity" }}
         initial={{ opacity: 0 }}
-        animate={{ opacity: isVisible ? 0.5 : 0 }}
-        transition={{ duration: 1 }}
+        animate={{ opacity: isVisible ? 0.3 : 0 }}
+        transition={{ duration: 1.5 }}
       />
 
       <Container maxW="7xl" position="relative">
