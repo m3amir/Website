@@ -48,13 +48,11 @@ const glowVariants = {
 const borderGlowVariants = {
   hidden: { 
     opacity: 0,
-    WebkitFilter: "blur(4px)",
-    filter: "blur(4px)"
+    scale: 1
   },
   visible: {
-    opacity: [0.05, 0.1, 0.05],
-    WebkitFilter: "blur(4px)",
-    filter: "blur(4px)",
+    opacity: [0.02, 0.04, 0.02],
+    scale: 1,
     transition: {
       duration: 3,
       ease: "easeInOut",
@@ -303,33 +301,35 @@ const SecuritySection = () => {
                       position="relative"
                       whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
                     >
-                      <MotionBox
-                        position="absolute"
-                        top={-1}
-                        left={-1}
-                        right={-1}
-                        bottom={-1}
+                      <Box
+                        p={6}
+                        bg="whiteAlpha.50"
                         borderRadius="xl"
                         border="1px solid"
-                        borderColor="brand.400"
-                        variants={borderGlowVariants}
-                        initial="hidden"
-                        animate={isVisible ? "visible" : "hidden"}
-                        style={{ 
-                          filter: "blur(4px)",
-                          willChange: "opacity, filter"
-                        }}
-                      />
-                      <Box
-      p={6}
-                        bg="whiteAlpha.50"
-      borderRadius="xl"
-      border="1px solid"
-      borderColor="whiteAlpha.200"
+                        borderColor="whiteAlpha.200"
                         position="relative"
                         backdropFilter="blur(10px)"
+                        overflow="hidden"
+                        style={{
+                          transform: 'translate3d(0, 0, 0)',
+                          backfaceVisibility: 'hidden'
+                        }}
                       >
-                        <HStack spacing={4} align="start">
+                        <Box
+                          position="absolute"
+                          top={0}
+                          left={0}
+                          right={0}
+                          bottom={0}
+                          borderRadius="xl"
+                          opacity={0.05}
+                          bg="brand.400"
+                          style={{
+                            transform: 'translate3d(0, 0, 0)',
+                            backfaceVisibility: 'hidden'
+                          }}
+                        />
+                        <HStack spacing={4} align="start" position="relative">
                           <Icon as={item.icon} boxSize={6} color="brand.400" mt={1} />
                           <VStack align="start" spacing={2}>
                             <Heading size="sm" color="white">{item.title}</Heading>
