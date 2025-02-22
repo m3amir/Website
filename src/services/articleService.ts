@@ -95,7 +95,7 @@ class ArticleService {
 
   private async loadProdArticles() {
     try {
-      const files = import.meta.glob('/content/articles/*.md', {
+      const files = import.meta.glob('./content/articles/*.md', {
         eager: true,
         as: 'raw'
       });
