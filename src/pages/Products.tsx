@@ -46,13 +46,20 @@ const glowVariants = {
 };
 
 const borderGlowVariants = {
-  hidden: { opacity: 0 },
+  hidden: { 
+    opacity: 0,
+    WebkitFilter: "blur(4px)",
+    filter: "blur(4px)"
+  },
   visible: {
-    opacity: [0.1, 0.3, 0.1],
+    opacity: [0.05, 0.1, 0.05],
+    WebkitFilter: "blur(4px)",
+    filter: "blur(4px)",
     transition: {
       duration: 3,
       ease: "easeInOut",
       repeat: Infinity,
+      repeatType: "mirror"
     }
   }
 };
@@ -308,7 +315,10 @@ const SecuritySection = () => {
                         variants={borderGlowVariants}
                         initial="hidden"
                         animate={isVisible ? "visible" : "hidden"}
-                        style={{ filter: "blur(4px)" }}
+                        style={{ 
+                          filter: "blur(4px)",
+                          willChange: "opacity, filter"
+                        }}
                       />
                       <Box
       p={6}
@@ -535,7 +545,10 @@ const AgentSection = () => {
                       variants={borderGlowVariants}
                       initial="hidden"
                       animate={isVisible ? "visible" : "hidden"}
-                      style={{ filter: "blur(4px)" }}
+                      style={{ 
+                        filter: "blur(4px)",
+                        willChange: "opacity, filter"
+                      }}
                     />
                     <Box
                       p={6}
@@ -733,7 +746,10 @@ const HybridOpsSection = () => {
                       variants={borderGlowVariants}
                       initial="hidden"
                       animate={isVisible ? "visible" : "hidden"}
-                      style={{ filter: "blur(4px)" }}
+                      style={{ 
+                        filter: "blur(4px)",
+                        willChange: "opacity, filter"
+                      }}
                     />
                     <Box
                       p={6}
@@ -793,7 +809,10 @@ const HybridOpsSection = () => {
             variants={borderGlowVariants}
             initial="hidden"
             animate={isVisible ? "visible" : "hidden"}
-            style={{ filter: "blur(4px)" }}
+            style={{ 
+              filter: "blur(4px)",
+              willChange: "opacity, filter"
+            }}
           />
           <VStack spacing={4} position="relative">
             <Heading 
