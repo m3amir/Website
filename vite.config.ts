@@ -49,7 +49,7 @@ export default defineConfig({
                 const isMdFile = src.endsWith('.md');
                 const isNodeModules = src.includes('node_modules');
                 return isDirectory || (isMdFile && !isNodeModules);
-              } catch (_) {
+              } catch {
                 return false; // Ignore errors from non-existent files
               }
             }
