@@ -2,12 +2,28 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import fs from 'fs-extra'
 import path from 'path'
+import { Plugin } from 'vite'
+
+// Custom markdown plugin
+const markdownPlugin = (): Plugin => ({
+  name: 'markdown',
+  transform(code, id) {
+    if (!id.endsWith('.md')) return null;
+    
+    // Return the content as a string
+    return {
+      code: `export default ${JSON.stringify(code)}`,
+      map: null
+    };
+  }
+});
 
 // https://vitejs.dev/config/
 export default defineConfig({
   base: './', // Ensure assets are referenced relatively
   plugins: [
     react(),
+    markdownPlugin(),
     {
       name: 'copy-content',
       closeBundle: async () => {
@@ -33,7 +49,7 @@ export default defineConfig({
                 const isMdFile = src.endsWith('.md');
                 const isNodeModules = src.includes('node_modules');
                 return isDirectory || (isMdFile && !isNodeModules);
-              } catch (err) {
+              } catch {
                 return false; // Ignore errors from non-existent files
               }
             }
@@ -44,8 +60,6 @@ export default defineConfig({
           if (await fs.pathExists(distSrcContent)) {
             await fs.remove(distSrcContent);
           }
-
-          console.log('Successfully copied content files to dist');
         } catch (error) {
           console.error('Error copying content:', error);
           throw error;

@@ -126,24 +126,18 @@ const Knowledge = () => {
   
   useEffect(() => {
     const loadArticles = async () => {
+      setLoading(true)
       try {
-        console.log('Starting to load articles...') // Debug log
-        setLoading(true)
         const metadata = await articleService.getAllMetadata()
-        console.log('Loaded articles metadata:', metadata) // Debug log with actual metadata
-        if (metadata.length === 0) {
-          console.log('No articles found in metadata') // Debug log for empty metadata
+        if (metadata && metadata.length > 0) {
+          setArticles(metadata)
         }
-        setArticles(metadata)
-        setError(null)
-      } catch (err) {
-        console.error('Error loading articles:', err)
-        setError('Failed to load articles')
-      } finally {
-        setLoading(false)
-        console.log('Finished loading articles, loading state set to false') // Debug log
+      } catch (e) {
+        setError((e as Error).message)
       }
+      setLoading(false)
     }
+
     loadArticles()
   }, [])
 
@@ -153,15 +147,9 @@ const Knowledge = () => {
     article.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
   )
 
-  console.log('Current articles state:', articles) // Debug log
-  console.log('Current loading state:', loading) // Debug log
-  console.log('Current error state:', error) // Debug log
-
-  // Add loading state
   if (loading) {
-    console.log('Rendering loading state') // Debug log
     return (
-      <Box bg="black" minH="100vh">
+      <Box minH="100vh" bg="black" pt="64px">
         <Container maxW="7xl" py={24}>
           <Text color="whiteAlpha.800" textAlign="center">Loading articles...</Text>
         </Container>
@@ -169,11 +157,9 @@ const Knowledge = () => {
     )
   }
 
-  // Add error state
   if (error) {
-    console.log('Rendering error state:', error) // Debug log
     return (
-      <Box bg="black" minH="100vh">
+      <Box minH="100vh" bg="black" pt="64px">
         <Container maxW="7xl" py={24}>
           <Text color="red.400" textAlign="center">{error}</Text>
         </Container>

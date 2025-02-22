@@ -48,7 +48,7 @@ const IntegrationCard = ({ icon, title, features }: IntegrationCardProps) => {
   return (
     <Box
       bg="whiteAlpha.100"
-      p={6}
+      p={{ base: 4, md: 6 }}
       borderRadius="xl"
       border="1px solid"
       borderColor="whiteAlpha.200"
@@ -57,16 +57,17 @@ const IntegrationCard = ({ icon, title, features }: IntegrationCardProps) => {
         transition: 'transform 0.2s',
         borderColor: 'brand.400'
       }}
+      w="100%"
     >
-      <Icon as={icon} boxSize={10} color="brand.400" mb={4} />
-      <Heading size="md" mb={4} color="white">
+      <Icon as={icon} boxSize={{ base: 8, md: 10 }} color="brand.400" mb={{ base: 3, md: 4 }} />
+      <Heading size={{ base: "sm", md: "md" }} mb={{ base: 3, md: 4 }} color="white">
         {title}
       </Heading>
-      <VStack align="start" spacing={3}>
+      <VStack align="start" spacing={{ base: 2, md: 3 }}>
         {features.map((feature, index) => (
           <HStack key={index} color="whiteAlpha.900">
-            <Icon as={FiCheck} color="green.400" />
-            <Text>{feature}</Text>
+            <Icon as={FiCheck} color="green.400" boxSize={{ base: 4, md: 5 }} />
+            <Text fontSize={{ base: "sm", md: "md" }}>{feature}</Text>
           </HStack>
         ))}
       </VStack>
@@ -243,7 +244,6 @@ const MotionBox = motion(Box);
 const MotionHeading = motion(Heading);
 const MotionText = motion(Text);
 const MotionStack = motion(VStack);
-const MotionIcon = motion(Icon);
 
 const ConnectorFlow = () => {
   const iconSize = useBreakpointValue({ base: 16, md: 24 });
@@ -265,7 +265,8 @@ const ConnectorFlow = () => {
             ].map((item, index) => (
               <HStack key={index} w="100%" spacing={{ base: 2, md: 4 }} position="relative">
                 {/* Service Icon */}
-                <MotionBox
+                <Box
+                  as={MotionBox}
                   p={{ base: 3, md: 4 }}
                   bg="whiteAlpha.50"
                   backdropFilter="blur(8px)"
@@ -277,22 +278,16 @@ const ConnectorFlow = () => {
                     x: 0,
                     opacity: 1
                   }}
-                  transition={{
-                    duration: 0.5,
-                    delay: index * 0.1
-                  }}
+                  transition="0.5s ease-out"
+                  style={{ transitionDelay: `${index * 0.1}s` }}
                   _hover={{
                     transform: "translateX(5px)",
                     boxShadow: `0 0 30px ${item.color}30`,
                     borderColor: item.color
                   }}
                 >
-                  <MotionIcon
-                    as={item.icon}
-                    fontSize={iconSize}
-                    color={item.color}
-                  />
-                </MotionBox>
+                  <Box as={item.icon} fontSize={iconSize} color={item.color} />
+                </Box>
 
                 {/* Connection Line */}
                 <Box flex="1" position="relative">
@@ -498,40 +493,41 @@ const AIWorker = () => {
       {/* Hero Section */}
       <Box
         bg="linear-gradient(180deg, rgba(76, 29, 149, 0.1) 0%, rgba(0, 0, 0, 0) 100%)"
-        py={20}
+        py={{ base: 12, md: 20 }}
       >
-        <Container maxW="6xl">
-          <VStack spacing={6} align="center" textAlign="center">
+        <Container maxW="6xl" px={{ base: 4, md: 6 }}>
+          <VStack spacing={{ base: 4, md: 6 }} align="center" textAlign="center">
             <Badge
               colorScheme="purple"
               px={3}
               py={1}
               borderRadius="full"
               textTransform="uppercase"
-              fontSize="sm"
+              fontSize={{ base: "xs", md: "sm" }}
             >
               Enterprise Ready
             </Badge>
             <Heading
-              size="2xl"
+              size={{ base: "xl", md: "2xl" }}
               color="white"
               fontWeight="bold"
               lineHeight="shorter"
+              px={{ base: 2, md: 0 }}
             >
               AI Workers with{' '}
               <Text as="span" color="brand.400">
                 Enterprise Integrations
               </Text>
             </Heading>
-            <Text fontSize="xl" color="whiteAlpha.900" maxW="2xl">
+            <Text fontSize={{ base: "lg", md: "xl" }} color="whiteAlpha.900" maxW="2xl">
               Seamlessly connect our AI workers with your existing business tools.
               Enhance productivity and streamline workflows with intelligent automation.
             </Text>
             <Button
-              size="lg"
+              size={{ base: "md", md: "lg" }}
               colorScheme="brand"
               rightIcon={<FiArrowRight />}
-              mt={4}
+              mt={{ base: 2, md: 4 }}
               onClick={onOpen}
             >
               Get Started
@@ -541,18 +537,18 @@ const AIWorker = () => {
       </Box>
 
       {/* Integrations Grid */}
-      <Container maxW="6xl">
-        <VStack spacing={8} align="stretch">
+      <Container maxW="6xl" px={{ base: 4, md: 6 }}>
+        <VStack spacing={{ base: 6, md: 8 }} align="stretch">
           <Box textAlign="center">
-            <Heading color="white" size="lg" mb={4}>
+            <Heading color="white" size={{ base: "lg", md: "xl" }} mb={{ base: 2, md: 4 }}>
               Enterprise Integrations
             </Heading>
-            <Text color="whiteAlpha.700" fontSize="lg" maxW="2xl" mx="auto">
+            <Text color="whiteAlpha.700" fontSize={{ base: "md", md: "lg" }} maxW="2xl" mx="auto">
               Connect your AI workers with industry-leading platforms
             </Text>
           </Box>
-          <Box overflowX="auto" pb={4} mx="-24px" px={6}>
-            <HStack spacing={6} minW="min-content">
+          <Box px={{ base: 4, md: 6 }}>
+            <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={{ base: 4, md: 6 }}>
               <IntegrationCard
                 icon={FiGrid}
                 title="Microsoft 365"
@@ -593,7 +589,7 @@ const AIWorker = () => {
                   "Support analytics"
                 ]}
               />
-            </HStack>
+            </SimpleGrid>
           </Box>
 
           <Box>
@@ -603,7 +599,12 @@ const AIWorker = () => {
       </Container>
 
       {/* Testimonials Section */}
-      <Box py={20} position="relative" overflow="hidden">
+      <Box 
+        py={{ base: 12, md: 20 }} 
+        position="relative" 
+        overflow="hidden"
+        mt={{ base: 12, md: 20 }}
+      >
         {/* Background Gradient Effect */}
         <Box
           position="absolute"
@@ -616,18 +617,18 @@ const AIWorker = () => {
           pointerEvents="none"
         />
 
-        <Container maxW="6xl" position="relative">
-          <VStack spacing={16}>
-            <VStack spacing={4} textAlign="center">
-              <Heading color="white" size="xl">
+        <Container maxW="6xl" px={{ base: 4, md: 6 }} position="relative">
+          <VStack spacing={{ base: 10, md: 16 }}>
+            <VStack spacing={{ base: 3, md: 4 }} textAlign="center">
+              <Heading color="white" size={{ base: "lg", md: "xl" }}>
                 Trusted by Industry Leaders
               </Heading>
-              <Text color="whiteAlpha.900" fontSize="lg" maxW="2xl">
+              <Text color="whiteAlpha.900" fontSize={{ base: "md", md: "lg" }} maxW="2xl">
                 Hear what our enterprise partners say about M3Labs AI Workers
               </Text>
             </VStack>
 
-            <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={8} w="full">
+            <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={{ base: 6, md: 8 }} w="full">
               {/* LSEG Testimonial */}
               <Box
                 bg="whiteAlpha.100"

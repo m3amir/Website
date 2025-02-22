@@ -655,7 +655,7 @@ const HybridOpsSection = () => {
 
       <Container maxW="7xl" position="relative">
         <Grid templateColumns={{ base: "1fr", lg: "1fr 1fr" }} gap={{ base: 8, md: 12 }} alignItems="center">
-          <GridItem>
+          <GridItem order={{ base: 1, lg: 1 }}>
             <VStack spacing={{ base: 8, md: 12 }} align={{ base: "center", lg: "start" }}>
               <VStack spacing={{ base: 3, md: 4 }} align={{ base: "center", lg: "start" }}>
                 <Heading
@@ -740,7 +740,7 @@ const HybridOpsSection = () => {
             </VStack>
           </GridItem>
 
-          <GridItem order={{ base: -1, lg: 1 }}>
+          <GridItem order={{ base: 2, lg: 2 }}>
             <MotionBox
               initial={{ opacity: 0, scale: 0.95 }}
               animate={isVisible ? { opacity: 1, scale: 1 } : {}}
