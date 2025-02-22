@@ -49,7 +49,7 @@ export default defineConfig({
                 const isMdFile = src.endsWith('.md');
                 const isNodeModules = src.includes('node_modules');
                 return isDirectory || (isMdFile && !isNodeModules);
-              } catch {
+              } catch (_) {
                 return false; // Ignore errors from non-existent files
               }
             }
@@ -60,6 +60,8 @@ export default defineConfig({
           if (await fs.pathExists(distSrcContent)) {
             await fs.remove(distSrcContent);
           }
+
+          console.log('Successfully copied content files to dist');
         } catch (error) {
           console.error('Error copying content:', error);
           throw error;
