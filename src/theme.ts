@@ -6,8 +6,8 @@ const theme = extendTheme({
     useSystemColorMode: false,
   },
   fonts: {
-    heading: 'Inter, sans-serif',
-    body: 'Inter, sans-serif',
+    heading: 'JetBrains Mono, monospace',
+    body: 'JetBrains Mono, monospace',
   },
   colors: {
     brand: {
@@ -23,25 +23,47 @@ const theme = extendTheme({
       900: '#1C0072',
     },
     background: {
-      primary: '#000000',
-      secondary: '#1A1A1A',
-      accent: '#2D2D2D',
+      primary: '#FFFFFF',
+      secondary: '#F5F5F5',
+      accent: '#E0E0E0',
     },
     text: {
-      primary: '#FFFFFF',
-      secondary: '#E0E0E0',
+      primary: '#000000',
+      secondary: '#333333',
       accent: '#9638FF',
     }
   },
   styles: {
     global: {
       body: {
-        bg: 'background.primary',
-        color: 'text.primary',
+        bg: 'white',
+        color: 'black',
+      },
+      'html, body': {
+        bg: 'white',
+        color: 'black',
+      },
+      '#root': {
+        bg: 'white',
+        color: 'black',
       },
     },
   },
   components: {
+    Box: {
+      baseStyle: {
+        bg: 'white',
+        color: 'black',
+      },
+    },
+    Container: {
+      baseStyle: {
+        maxW: '7xl',
+        px: { base: '4', md: '8' },
+        bg: 'white',
+        color: 'black',
+      },
+    },
     Button: {
       baseStyle: {
         fontWeight: 'semibold',
@@ -79,12 +101,6 @@ const theme = extendTheme({
             boxShadow: 'none',
           },
         },
-      },
-    },
-    Container: {
-      baseStyle: {
-        maxW: '7xl',
-        px: { base: '4', md: '8' },
       },
     },
   },

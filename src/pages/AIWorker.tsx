@@ -31,7 +31,7 @@ import {
   SiSalesforce,
   SiZendesk
 } from 'react-icons/si';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 import { EMAILJS_CONFIG } from '../config/emailjs';
 import { motion } from 'framer-motion';
@@ -47,11 +47,11 @@ interface IntegrationCardProps {
 const IntegrationCard = ({ icon, title, features }: IntegrationCardProps) => {
   return (
     <Box
-      bg="whiteAlpha.100"
+      bg="gray.50"
       p={{ base: 4, md: 6 }}
       borderRadius="xl"
       border="1px solid"
-      borderColor="whiteAlpha.200"
+      borderColor="gray.200"
       _hover={{
         transform: 'translateY(-5px)',
         transition: 'transform 0.2s',
@@ -60,13 +60,13 @@ const IntegrationCard = ({ icon, title, features }: IntegrationCardProps) => {
       w="100%"
     >
       <Icon as={icon} boxSize={{ base: 8, md: 10 }} color="brand.400" mb={{ base: 3, md: 4 }} />
-      <Heading size={{ base: "sm", md: "md" }} mb={{ base: 3, md: 4 }} color="white">
+      <Heading size={{ base: "sm", md: "md" }} mb={{ base: 3, md: 4 }} color="black">
         {title}
       </Heading>
       <VStack align="start" spacing={{ base: 2, md: 3 }}>
         {features.map((feature, index) => (
-          <HStack key={index} color="whiteAlpha.900">
-            <Icon as={FiCheck} color="green.400" boxSize={{ base: 4, md: 5 }} />
+          <HStack key={index} color="gray.700">
+            <Icon as={FiCheck} color="green.500" boxSize={{ base: 4, md: 5 }} />
             <Text fontSize={{ base: "sm", md: "md" }}>{feature}</Text>
           </HStack>
         ))}
@@ -120,7 +120,7 @@ const DemoRequestModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl">
       <ModalOverlay backdropFilter="blur(10px)" />
-      <ModalContent bg="gray.900" color="white">
+      <ModalContent bg="white" color="black">
         <ModalHeader>Request a Demo</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
@@ -130,14 +130,14 @@ const DemoRequestModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
                 <FormLabel>Name</FormLabel>
                 <InputGroup>
                   <InputLeftElement pointerEvents="none">
-                    <FiUser color="gray.300" />
+                    <FiUser color="gray.500" />
                   </InputLeftElement>
                   <Input
                     name="from_name"
                     placeholder="Your name"
-                    bg="whiteAlpha.100"
+                    bg="gray.50"
                     border="1px solid"
-                    borderColor="whiteAlpha.200"
+                    borderColor="gray.200"
                     _hover={{ borderColor: 'brand.400' }}
                     _focus={{
                       borderColor: "brand.400",
@@ -150,15 +150,15 @@ const DemoRequestModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
                 <FormLabel>Email</FormLabel>
                 <InputGroup>
                   <InputLeftElement pointerEvents="none">
-                    <FiMail color="gray.300" />
+                    <FiMail color="gray.500" />
                   </InputLeftElement>
                   <Input
                     name="from_email"
                     type="email"
                     placeholder="your.email@company.com"
-                    bg="whiteAlpha.100"
+                    bg="gray.50"
                     border="1px solid"
-                    borderColor="whiteAlpha.200"
+                    borderColor="gray.200"
                     _hover={{ borderColor: 'brand.400' }}
                     _focus={{
                       borderColor: "brand.400",
@@ -171,14 +171,14 @@ const DemoRequestModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
                 <FormLabel>Company</FormLabel>
                 <InputGroup>
                   <InputLeftElement pointerEvents="none">
-                    <FiBriefcase color="gray.300" />
+                    <FiBriefcase color="gray.500" />
                   </InputLeftElement>
                   <Input
                     name="company"
                     placeholder="Your company name"
-                    bg="whiteAlpha.100"
+                    bg="gray.50"
                     border="1px solid"
-                    borderColor="whiteAlpha.200"
+                    borderColor="gray.200"
                     _hover={{ borderColor: 'brand.400' }}
                     _focus={{
                       borderColor: "brand.400",
@@ -191,14 +191,14 @@ const DemoRequestModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
                 <FormLabel>Message</FormLabel>
                 <InputGroup>
                   <InputLeftElement pointerEvents="none">
-                    <FiMessageSquare color="gray.300" />
+                    <FiMessageSquare color="gray.500" />
                   </InputLeftElement>
                   <Textarea
                     name="message"
                     placeholder="Tell us about your needs..."
-                    bg="whiteAlpha.100"
+                    bg="gray.50"
                     border="1px solid"
-                    borderColor="whiteAlpha.200"
+                    borderColor="gray.200"
                     _hover={{ borderColor: 'brand.400' }}
                     _focus={{
                       borderColor: "brand.400",
@@ -250,7 +250,7 @@ const ConnectorFlow = () => {
   
   return (
     <Box position="relative" h={{ base: "300px", md: "400px" }} w="100%" mt={0}>
-      <Text color="whiteAlpha.600" fontSize="sm" textAlign="center" mb={4}>
+      <Text color="gray.600" fontSize="sm" textAlign="center" mb={4}>
         These are just some of our supported connectors. Contact us to learn more about all available integrations.
       </Text>
       <HStack spacing={0} w="100%" h="100%" position="relative">
@@ -260,19 +260,19 @@ const ConnectorFlow = () => {
             {[
               { icon: FaSlack, color: "#E01E5A", name: "Slack" },
               { icon: FaMicrosoft, color: "#00A4EF", name: "Microsoft" },
-              { icon: SiZendesk, color: "#ffffff", name: "Zendesk" },
+              { icon: SiZendesk, color: "#03363D", name: "Zendesk" },
               { icon: FaJira, color: "#0052CC", name: "Jira" },
             ].map((item, index) => (
-              <HStack key={index} w="100%" spacing={{ base: 2, md: 4 }} position="relative">
+              <HStack key={index} w="100%" spacing={{ base: 0, md: 0 }} position="relative">
                 {/* Service Icon */}
                 <Box
                   as={MotionBox}
                   p={{ base: 3, md: 4 }}
-                  bg="whiteAlpha.50"
+                  bg="gray.50"
                   backdropFilter="blur(8px)"
                   borderRadius="xl"
                   border="1px solid"
-                  borderColor="whiteAlpha.200"
+                  borderColor="gray.200"
                   initial={{ x: -20, opacity: 0 }}
                   animate={{ 
                     x: 0,
@@ -285,22 +285,24 @@ const ConnectorFlow = () => {
                     boxShadow: `0 0 30px ${item.color}30`,
                     borderColor: item.color
                   }}
+                  zIndex={3}
                 >
                   <Box as={item.icon} fontSize={iconSize} color={item.color} />
                 </Box>
 
                 {/* Connection Line */}
-                <Box flex="1" position="relative">
+                <Box flex="1" position="relative" ml={0}>
                   <MotionBox
                     position="absolute"
                     top="50%"
-                    right={{ base: "-60px", md: "-120px" }}
-                    width={{ base: "calc(100% + 80px)", md: "calc(100% + 160px)" }}
+                    left="-8px"
+                    right={{ base: "-200px", md: "-320px" }}
                     height="2px"
-                    bg={`linear-gradient(to right, ${item.color}40, ${item.color})`}
+                    bg={`linear-gradient(to right, ${item.color}, ${item.color})`}
                     style={{
                       transformOrigin: "left center",
-                      transform: `rotate(${-15 + index * 10}deg)`,
+                      transform: `rotate(${-10 + index * 8}deg) translateY(${50 + index * 30}px)`,
+                      zIndex: 2
                     }}
                     initial={{ scaleX: 0, opacity: 0 }}
                     animate={{ 
@@ -328,7 +330,7 @@ const ConnectorFlow = () => {
                           opacity: [0, 1, 0]
                         }}
                         transition={{
-                          duration: 2,
+                          duration: 3,
                           repeat: Infinity,
                           delay: i * 0.5 + index * 0.2,
                           ease: "linear"
@@ -350,11 +352,11 @@ const ConnectorFlow = () => {
             top="0"
             width={{ base: "160px", md: "280px" }}
             height={{ base: "280px", md: "400px" }}
-            bg="whiteAlpha.50"
+            bg="white"
             backdropFilter="blur(8px)"
             borderRadius="2xl"
             border="1px solid"
-            borderColor="whiteAlpha.200"
+            borderColor="black"
             display="flex"
             flexDirection="column"
             alignItems="center"
@@ -364,6 +366,8 @@ const ConnectorFlow = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
             overflow={{ base: "hidden", md: "visible" }}
+            boxShadow="lg"
+            zIndex={5}
           >
             {/* Task Processing Animation */}
             <Box 
@@ -390,13 +394,13 @@ const ConnectorFlow = () => {
                     position="absolute"
                     left={positions[index].left}
                     top={positions[index].top}
-                    width={{ base: "70px", md: "120px" }}
-                    height={{ base: "20px", md: "32px" }}
-                    bg="whiteAlpha.100"
+                    width={{ base: "80px", md: "130px" }}
+                    height={{ base: "24px", md: "38px" }}
+                    bg="white"
                     backdropFilter="blur(4px)"
                     borderRadius="lg"
-                    border="1px solid"
-                    borderColor="whiteAlpha.300"
+                    border="2px solid"
+                    borderColor="black"
                     initial={{ 
                       opacity: 0,
                       scale: 0.8
@@ -416,42 +420,83 @@ const ConnectorFlow = () => {
                   >
                     <HStack 
                       spacing={{ base: 1.5, md: 2 }}
-                      p={{ base: 1, md: 2 }}
+                      p={{ base: 1.5, md: 2.5 }}
                       align="center"
                       h="100%"
                     >
                       <Box 
-                        w={{ base: "2px", md: "4px" }}
-                        h={{ base: "2px", md: "4px" }}
+                        w={{ base: "5px", md: "8px" }}
+                        h={{ base: "5px", md: "8px" }}
                         borderRadius="full" 
-                        bg="brand.400"
-                        boxShadow="0 0 10px rgba(123, 31, 162, 0.5)"
+                        bg="#9638FF"
+                        boxShadow="0 0 10px rgba(150, 56, 255, 1)"
                       />
                       <Box 
                         flex="1" 
-                        h={{ base: "2px", md: "3px" }}
-                        bg="whiteAlpha.200" 
+                        h={{ base: "6px", md: "8px" }}
+                        bg="transparent" 
                         borderRadius="full"
                         overflow="hidden"
+                        position="relative"
+                        border="1px solid rgba(150, 56, 255, 0.5)"
                       >
+                        {/* Background track */}
+                        <Box
+                          position="absolute"
+                          top={0}
+                          left={0}
+                          right={0}
+                          bottom={0}
+                          bg="rgba(0, 0, 0, 0.05)"
+                        />
+                        
+                        {/* Animated fill */}
                         <MotionBox
                           h="100%"
-                          bg="brand.400"
+                          bg="#9638FF"
                           borderRadius="full"
+                          position="absolute"
+                          left={0}
+                          top={0}
                           initial={{ width: "0%" }}
                           animate={{ width: "100%" }}
                           transition={{
                             duration: 2,
+                            ease: "linear",
+                            repeat: Infinity,
+                            repeatType: "loop",
+                            repeatDelay: 0.2
+                          }}
+                          transformOrigin="left center"
+                          boxShadow="0 0 8px rgba(150, 56, 255, 0.8)"
+                        />
+                        
+                        {/* Shimmer effect */}
+                        <MotionBox
+                          position="absolute"
+                          top={0}
+                          left={0}
+                          right={0}
+                          bottom={0}
+                          pointerEvents="none"
+                          backgroundImage="linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)"
+                          initial={{ x: "-100%" }}
+                          animate={{ x: "100%" }}
+                          transition={{
+                            duration: 1,
                             ease: "easeInOut",
-                            repeat: Infinity
+                            repeat: Infinity,
+                            repeatType: "loop",
+                            repeatDelay: 0.5
                           }}
                         />
                       </Box>
                       <Text 
-                        color="whiteAlpha.900" 
+                        color="gray.800" 
                         fontSize={{ base: "6px", md: "10px" }} 
                         fontFamily="mono"
                         display={{ base: "none", md: "block" }}
+                        fontWeight="bold"
                       >
                         {["Processing", "Analyzing", "Learning", "Optimizing"][index]}
                       </Text>
@@ -463,16 +508,16 @@ const ConnectorFlow = () => {
 
             <Icon 
               as={FiGrid} 
-              color="white" 
+              color="black" 
               fontSize={{ base: "32px", md: "56px" }}
               position="relative"
-              zIndex={1}
+              zIndex={10}
             />
-            <VStack spacing={{ base: 1, md: 2 }} position="relative" zIndex={1}>
-              <Text color="white" fontSize={{ base: "lg", md: "2xl" }} fontWeight="medium">
+            <VStack spacing={{ base: 1, md: 2 }} position="relative" zIndex={10} bg="white" px={4} py={2} borderRadius="md">
+              <Text color="black" fontSize={{ base: "lg", md: "2xl" }} fontWeight="bold">
                 AI Worker
               </Text>
-              <Text color="whiteAlpha.700" fontSize={{ base: "sm", md: "lg" }}>
+              <Text color="black" fontSize={{ base: "sm", md: "lg" }}>
                 Platform
               </Text>
             </VStack>
@@ -485,15 +530,80 @@ const ConnectorFlow = () => {
 
 const AIWorker = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  
+  // Add refs for each section
+  const heroRef = useRef<HTMLDivElement>(null);
+  const integrationsRef = useRef<HTMLDivElement>(null);
+  const testimonialsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Create intersection observer for auto-scrolling
+    const smoothScrollTo = (target: Element) => {
+      const startPosition = window.pageYOffset;
+      const targetPosition = target.getBoundingClientRect().top + startPosition;
+      const distance = targetPosition - startPosition;
+      const duration = 1500; // 1.5 seconds for slower scrolling
+      let start: number | null = null;
+
+      const animation = (currentTime: number) => {
+        if (start === null) start = currentTime;
+        const timeElapsed = currentTime - start;
+        const progress = Math.min(timeElapsed / duration, 1);
+
+        // Easing function for smoother animation
+        const easeInOutCubic = (t: number) => {
+          return t < 0.5
+            ? 4 * t * t * t
+            : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        };
+
+        window.scrollTo(0, startPosition + (distance * easeInOutCubic(progress)));
+
+        if (timeElapsed < duration) {
+          requestAnimationFrame(animation);
+        }
+      };
+
+      requestAnimationFrame(animation);
+    };
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.3, // Trigger when 30% of the section is visible
+    };
+
+    const handleIntersect = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          smoothScrollTo(entry.target);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersect, observerOptions);
+
+    // Observe each section
+    if (heroRef.current) observer.observe(heroRef.current);
+    if (integrationsRef.current) observer.observe(integrationsRef.current);
+    if (testimonialsRef.current) observer.observe(testimonialsRef.current);
+
+    // Clean up observer on unmount
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <Box bg="black" minH="100vh" pt="64px">
+    <Box bg="white" minH="100vh" pt="64px">
       <DemoRequestModal isOpen={isOpen} onClose={onClose} />
       
       {/* Hero Section */}
       <Box
-        bg="linear-gradient(180deg, rgba(76, 29, 149, 0.1) 0%, rgba(0, 0, 0, 0) 100%)"
+        ref={heroRef}
+        bg="white"
         py={{ base: 12, md: 20 }}
+        minH="100vh"
+        display="flex"
+        alignItems="center"
       >
         <Container maxW="6xl" px={{ base: 4, md: 6 }}>
           <VStack spacing={{ base: 4, md: 6 }} align="center" textAlign="center">
@@ -509,7 +619,7 @@ const AIWorker = () => {
             </Badge>
             <Heading
               size={{ base: "xl", md: "2xl" }}
-              color="white"
+              color="black"
               fontWeight="bold"
               lineHeight="shorter"
               px={{ base: 2, md: 0 }}
@@ -519,16 +629,42 @@ const AIWorker = () => {
                 Enterprise Integrations
               </Text>
             </Heading>
-            <Text fontSize={{ base: "lg", md: "xl" }} color="whiteAlpha.900" maxW="2xl">
+            <Text 
+              fontSize={{ base: "lg", md: "xl" }} 
+              color="gray.800" 
+              maxW="2xl" 
+              bg="white" 
+              p={4} 
+              borderRadius="md"
+              fontWeight="medium"
+              boxShadow="0 2px 8px rgba(0,0,0,0.05)"
+            >
               Seamlessly connect our AI workers with your existing business tools.
               Enhance productivity and streamline workflows with intelligent automation.
             </Text>
             <Button
-              size={{ base: "md", md: "lg" }}
-              colorScheme="brand"
+              size={{ base: "lg", md: "lg" }}
               rightIcon={<FiArrowRight />}
-              mt={{ base: 2, md: 4 }}
+              mt={{ base: 2, md: 6 }}
               onClick={onOpen}
+              bg="white"
+              color="black"
+              fontWeight="bold"
+              boxShadow="0 4px 12px rgba(0, 0, 0, 0.2)"
+              _hover={{
+                bg: "gray.100",
+                transform: 'translateY(-2px)',
+                boxShadow: '0 6px 16px rgba(0, 0, 0, 0.3)',
+              }}
+              _active={{
+                bg: "gray.200",
+                transform: 'translateY(0)',
+                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+              }}
+              px={8}
+              py={6}
+              fontSize={{ base: "md", md: "lg" }}
+              border="2px solid black"
             >
               Get Started
             </Button>
@@ -537,73 +673,85 @@ const AIWorker = () => {
       </Box>
 
       {/* Integrations Grid */}
-      <Container maxW="6xl" px={{ base: 4, md: 6 }}>
-        <VStack spacing={{ base: 6, md: 8 }} align="stretch">
-          <Box textAlign="center">
-            <Heading color="white" size={{ base: "lg", md: "xl" }} mb={{ base: 2, md: 4 }}>
-              Enterprise Integrations
-            </Heading>
-            <Text color="whiteAlpha.700" fontSize={{ base: "md", md: "lg" }} maxW="2xl" mx="auto">
-              Connect your AI workers with industry-leading platforms
-            </Text>
-          </Box>
-          <Box px={{ base: 4, md: 6 }}>
-            <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={{ base: 4, md: 6 }}>
-              <IntegrationCard
-                icon={FiGrid}
-                title="Microsoft 365"
-                features={[
-                  "Smart email management",
-                  "Teams collaboration",
-                  "SharePoint integration",
-                  "OneDrive automation"
-                ]}
-              />
-              <IntegrationCard
-                icon={SiSlack}
-                title="Slack"
-                features={[
-                  "Real-time analysis",
-                  "Channel management",
-                  "Smart notifications",
-                  "Workflow automation"
-                ]}
-              />
-              <IntegrationCard
-                icon={SiSalesforce}
-                title="Salesforce"
-                features={[
-                  "Lead scoring",
-                  "Opportunity tracking",
-                  "Sales analytics",
-                  "Report automation"
-                ]}
-              />
-              <IntegrationCard
-                icon={SiZendesk}
-                title="Zendesk"
-                features={[
-                  "Ticket automation",
-                  "Smart ticket routing",
-                  "Customer insights",
-                  "Support analytics"
-                ]}
-              />
-            </SimpleGrid>
-          </Box>
+      <Box
+        ref={integrationsRef}
+        minH="100vh"
+        display="flex"
+        alignItems="center"
+        py={{ base: 12, md: 20 }}
+      >
+        <Container maxW="6xl" px={{ base: 4, md: 6 }}>
+          <VStack spacing={{ base: 6, md: 8 }} align="stretch">
+            <Box textAlign="center">
+              <Heading color="black" size={{ base: "lg", md: "xl" }} mb={{ base: 2, md: 4 }}>
+                Enterprise Integrations
+              </Heading>
+              <Text color="gray.700" fontSize={{ base: "md", md: "lg" }} maxW="2xl" mx="auto">
+                Connect your AI workers with industry-leading platforms
+              </Text>
+            </Box>
+            <Box px={{ base: 4, md: 6 }}>
+              <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={{ base: 4, md: 6 }}>
+                <IntegrationCard
+                  icon={FiGrid}
+                  title="Microsoft 365"
+                  features={[
+                    "Smart email management",
+                    "Teams collaboration",
+                    "SharePoint integration",
+                    "OneDrive automation"
+                  ]}
+                />
+                <IntegrationCard
+                  icon={SiSlack}
+                  title="Slack"
+                  features={[
+                    "Real-time analysis",
+                    "Channel management",
+                    "Smart notifications",
+                    "Workflow automation"
+                  ]}
+                />
+                <IntegrationCard
+                  icon={SiSalesforce}
+                  title="Salesforce"
+                  features={[
+                    "Lead scoring",
+                    "Opportunity tracking",
+                    "Sales analytics",
+                    "Report automation"
+                  ]}
+                />
+                <IntegrationCard
+                  icon={SiZendesk}
+                  title="Zendesk"
+                  features={[
+                    "Ticket automation",
+                    "Smart ticket routing",
+                    "Customer insights",
+                    "Support analytics"
+                  ]}
+                />
+              </SimpleGrid>
+            </Box>
 
-          <Box>
-            <ConnectorFlow />
-          </Box>
-        </VStack>
-      </Container>
+            <Box>
+              <ConnectorFlow />
+            </Box>
+          </VStack>
+        </Container>
+      </Box>
 
       {/* Testimonials Section */}
       <Box 
+        ref={testimonialsRef}
         py={{ base: 12, md: 20 }} 
         position="relative" 
         overflow="hidden"
         mt={{ base: 12, md: 20 }}
+        minH="100vh"
+        display="flex"
+        alignItems="center"
       >
         {/* Background Gradient Effect */}
         <Box
@@ -613,17 +761,17 @@ const AIWorker = () => {
           transform="translate(-50%, -50%)"
           width="140%"
           height="140%"
-          background="radial-gradient(circle, rgba(76, 29, 149, 0.1) 0%, rgba(0, 0, 0, 0) 70%)"
+          background="white"
           pointerEvents="none"
         />
 
         <Container maxW="6xl" px={{ base: 4, md: 6 }} position="relative">
           <VStack spacing={{ base: 10, md: 16 }}>
             <VStack spacing={{ base: 3, md: 4 }} textAlign="center">
-              <Heading color="white" size={{ base: "lg", md: "xl" }}>
+              <Heading color="black" size={{ base: "lg", md: "xl" }}>
                 Trusted by Industry Leaders
               </Heading>
-              <Text color="whiteAlpha.900" fontSize={{ base: "md", md: "lg" }} maxW="2xl">
+              <Text color="gray.700" fontSize={{ base: "md", md: "lg" }} maxW="2xl">
                 Hear what our enterprise partners say about M3Labs AI Workers
               </Text>
             </VStack>
@@ -631,11 +779,11 @@ const AIWorker = () => {
             <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={{ base: 6, md: 8 }} w="full">
               {/* LSEG Testimonial */}
               <Box
-                bg="whiteAlpha.100"
+                bg="gray.50"
                 p={8}
                 borderRadius="2xl"
                 border="1px solid"
-                borderColor="whiteAlpha.200"
+                borderColor="gray.200"
                 position="relative"
                 _hover={{
                   transform: 'translateY(-5px)',
@@ -657,7 +805,7 @@ const AIWorker = () => {
                 </Box>
                 
                 <VStack align="start" spacing={6}>
-                  <Text color="whiteAlpha.900" fontSize="lg" pt={8} fontStyle="italic">
+                  <Text color="gray.700" fontSize="lg" pt={8} fontStyle="italic">
                     AI Workers represent the future of enterprise automation. The potential for improving data processing accuracy and workflow efficiency is immense. I believe organizations that adopt this technology early will have a significant competitive advantage.
                   </Text>
                   
@@ -678,7 +826,7 @@ const AIWorker = () => {
                       SJ
                     </Box>
                     <Box>
-                      <Text color="whiteAlpha.800" fontSize="sm">
+                      <Text color="gray.800" fontSize="sm">
                         Senior Technology Manager, LSEG
                       </Text>
                     </Box>
@@ -688,11 +836,11 @@ const AIWorker = () => {
 
               {/* Grant Thornton Testimonial */}
               <Box
-                bg="whiteAlpha.100"
+                bg="gray.50"
                 p={8}
                 borderRadius="2xl"
                 border="1px solid"
-                borderColor="whiteAlpha.200"
+                borderColor="gray.200"
                 position="relative"
                 _hover={{
                   transform: 'translateY(-5px)',
@@ -714,7 +862,7 @@ const AIWorker = () => {
                 </Box>
                 
                 <VStack align="start" spacing={6}>
-                  <Text color="whiteAlpha.900" fontSize="lg" pt={8} fontStyle="italic">
+                  <Text color="gray.700" fontSize="lg" pt={8} fontStyle="italic">
                     The concept of AI Workers is transformative for professional services. As we look to the future of audit and consulting, intelligent automation will be key to delivering higher quality services while allowing our teams to focus on strategic thinking.
                   </Text>
                   
@@ -735,7 +883,7 @@ const AIWorker = () => {
                       SC
                     </Box>
                     <Box>
-                      <Text color="whiteAlpha.800" fontSize="sm">
+                      <Text color="gray.800" fontSize="sm">
                         Technology Director, Grant Thornton UK
                       </Text>
                     </Box>
@@ -750,16 +898,18 @@ const AIWorker = () => {
       {/* CTA Section */}
       <Container maxW="6xl" py={16}>
         <Box
-          bg="linear-gradient(180deg, rgba(76, 29, 149, 0.1) 0%, rgba(0, 0, 0, 0) 100%)"
+          bg="white"
           p={12}
           borderRadius="2xl"
           textAlign="center"
+          border="1px solid"
+          borderColor="gray.200"
         >
           <VStack spacing={6}>
-            <Heading color="white" size="xl">
+            <Heading color="black" size="xl">
               Ready to Transform Your Workflow?
             </Heading>
-            <Text color="whiteAlpha.900" fontSize="lg" maxW="2xl">
+            <Text color="gray.700" fontSize="lg" maxW="2xl">
               Join leading enterprises in revolutionizing their operations with our AI workers.
               Schedule a demo today and see the power of intelligent automation.
             </Text>
@@ -768,6 +918,20 @@ const AIWorker = () => {
               colorScheme="brand"
               rightIcon={<FiArrowRight />}
               onClick={onOpen}
+              color="black"
+              bg="white"
+              border="2px solid black"
+              boxShadow="0 4px 12px rgba(0, 0, 0, 0.2)"
+              _hover={{
+                bg: "gray.100",
+                transform: 'translateY(-2px)',
+                boxShadow: '0 6px 16px rgba(0, 0, 0, 0.3)',
+              }}
+              _active={{
+                bg: "gray.200",
+                transform: 'translateY(0)',
+                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+              }}
             >
               Request Demo
             </Button>
@@ -776,12 +940,12 @@ const AIWorker = () => {
       </Container>
 
       {/* Demo Video Section */}
-      <Box py={20} bg="whiteAlpha.50">
+      <Box py={20} bg="gray.50">
         <Container maxW="7xl">
           <MotionBox
             p={8}
             borderRadius="xl"
-            bg="whiteAlpha.100"
+            bg="white"
             border="1px dashed"
             borderColor="brand.400"
             w="full"
@@ -790,6 +954,7 @@ const AIWorker = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
+            boxShadow="sm"
           >
             <MotionStack spacing={4} align="center">
               <MotionHeading
@@ -805,7 +970,7 @@ const AIWorker = () => {
               <MotionBox
                 w="full"
                 h="300px"
-                bg="whiteAlpha.50"
+                bg="gray.50"
                 borderRadius="lg"
                 display="flex"
                 alignItems="center"
@@ -813,10 +978,12 @@ const AIWorker = () => {
                 initial={{ scale: 0.95, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.8 }}
+                border="1px solid"
+                borderColor="gray.200"
               >
                 <MotionText
                   fontSize="xl"
-                  color="text.secondary"
+                  color="gray.700"
                   fontWeight="medium"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -826,7 +993,7 @@ const AIWorker = () => {
                 </MotionText>
               </MotionBox>
               <MotionText
-                color="text.secondary"
+                color="gray.700"
                 fontSize="sm"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}

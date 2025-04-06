@@ -18,6 +18,7 @@
     "@emailjs/browser": "^4.4.1",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@lottiefiles/dotlottie-react": "^0.13.2",
     "@reactflow/background": "^11.3.14",
     "@reactflow/controls": "^11.2.14",
     "@reactflow/core": "^11.11.4",

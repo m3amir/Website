@@ -9,7 +9,6 @@ import {
   Tag,
   Input,
   InputGroup,
-  InputLeftElement,
   Icon,
   Grid,
   GridItem,
@@ -18,7 +17,7 @@ import {
 import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { FiSearch, FiBook, FiClock, FiArrowRight } from 'react-icons/fi'
+import { FiBook, FiClock, FiArrowRight } from 'react-icons/fi'
 import { ArticleMetadata } from '../types/article'
 import { articleService } from '../services/articleService'
 
@@ -36,9 +35,9 @@ const KnowledgeCard = ({ article }: { article: ArticleMetadata }) => {
       <Box
         p={6}
         borderRadius="xl"
-        bg="gray.900"
+        bg="gray.100"
         border="1px solid"
-        borderColor="whiteAlpha.200"
+        borderColor="gray.300"
         h="full"
         position="relative"
         _hover={{
@@ -53,14 +52,14 @@ const KnowledgeCard = ({ article }: { article: ArticleMetadata }) => {
           <VStack align="stretch" spacing={3} flex="1">
             <HStack spacing={2}>
               <Icon as={FiBook} color="brand.400" />
-              <Text color="brand.400" fontSize="sm" fontWeight="semibold" letterSpacing="wide" textTransform="uppercase">
+              <Text color="black" fontSize="sm" fontWeight="semibold" letterSpacing="wide" textTransform="uppercase">
                 Article
               </Text>
             </HStack>
 
             <Heading 
               size="md" 
-              color="white"
+              color="black"
               lineHeight="1.4"
               letterSpacing="tight"
             >
@@ -68,7 +67,7 @@ const KnowledgeCard = ({ article }: { article: ArticleMetadata }) => {
             </Heading>
 
             <Text 
-              color="whiteAlpha.800" 
+              color="black" 
               fontSize="sm"
               lineHeight="1.6"
             >
@@ -77,23 +76,25 @@ const KnowledgeCard = ({ article }: { article: ArticleMetadata }) => {
           </VStack>
 
           <Box>
-            <Divider borderColor="whiteAlpha.100" mb={4} />
+            <Divider borderColor="gray.300" mb={4} />
             <HStack spacing={2} flexWrap="wrap" mb={4}>
               {article.tags.map(tag => (
                 <Tag
                   key={tag}
                   size="sm"
-                  variant="subtle"
+                  variant="solid"
                   colorScheme="purple"
                   borderRadius="full"
                   px={3}
+                  border="1px solid"
+                  borderColor="purple.300"
                 >
                   {tag}
                 </Tag>
               ))}
             </HStack>
 
-            <HStack justify="space-between" fontSize="sm" color="whiteAlpha.800">
+            <HStack justify="space-between" fontSize="sm" color="black">
               <HStack spacing={2}>
                 <Icon as={FiClock} />
                 <Text>{article.readTime}</Text>
@@ -149,9 +150,9 @@ const Knowledge = () => {
 
   if (loading) {
     return (
-      <Box minH="100vh" bg="black" pt="64px">
+      <Box minH="100vh" bg="white" pt="64px">
         <Container maxW="7xl" py={24}>
-          <Text color="whiteAlpha.800" textAlign="center">Loading articles...</Text>
+          <Text color="brand.400" textAlign="center">Loading articles...</Text>
         </Container>
       </Box>
     )
@@ -159,7 +160,7 @@ const Knowledge = () => {
 
   if (error) {
     return (
-      <Box minH="100vh" bg="black" pt="64px">
+      <Box minH="100vh" bg="white" pt="64px">
         <Container maxW="7xl" py={24}>
           <Text color="red.400" textAlign="center">{error}</Text>
         </Container>
@@ -168,31 +169,40 @@ const Knowledge = () => {
   }
 
   return (
-    <Box bg="black" minH="100vh">
+    <Box bg="white" minH="100vh">
       {/* Hero Section */}
       <Box 
         pt={24} 
         pb={12} 
         borderBottom="1px solid"
-        borderColor="whiteAlpha.100"
-        bg="linear-gradient(180deg, rgba(150, 56, 255, 0.05) 0%, rgba(0, 0, 0, 0) 100%)"
+        borderColor="gray.200"
+        bg="white"
       >
         <Container maxW="7xl">
           <VStack spacing={4} align="center" textAlign="center">
             <Heading 
-              color="white"
+              color="black"
               fontSize={{ base: "3xl", md: "4xl" }}
               fontWeight="bold"
               letterSpacing="tight"
               lineHeight="1.2"
+              bg="white"
+              px={4}
+              py={2}
+              borderRadius="md"
             >
               Knowledge Hub
             </Heading>
             <Text 
-              fontSize={{ base: "md", md: "lg" }} 
-              color="whiteAlpha.800" 
+              fontSize={{ base: "lg", md: "xl" }} 
               maxW="2xl"
               lineHeight="1.6"
+              fontWeight="medium"
+              color="black"
+              bg="white"
+              px={4}
+              py={2}
+              borderRadius="md"
             >
               Comprehensive guides and resources to help you implement modern workplace solutions.
             </Text>
@@ -208,19 +218,16 @@ const Knowledge = () => {
             <GridItem>
               <Box position="sticky" top="84px">
                 <InputGroup>
-                  <InputLeftElement pointerEvents="none">
-                    <Icon as={FiSearch} color="gray.500" />
-                  </InputLeftElement>
                   <Input
                     placeholder="Search..."
-                    bg="gray.900"
+                    bg="gray.100"
                     border="1px solid"
-                    borderColor="whiteAlpha.200"
+                    borderColor="gray.300"
                     borderRadius="xl"
-                    color="white"
+                    color="black"
                     fontSize="md"
                     height="44px"
-                    _placeholder={{ color: 'whiteAlpha.400' }}
+                    _placeholder={{ color: 'gray.500' }}
                     _hover={{
                       borderColor: "brand.400",
                     }}
@@ -251,7 +258,7 @@ const Knowledge = () => {
 
               {filteredArticles.length === 0 && (
                 <VStack spacing={4} align="center" py={12}>
-                  <Text color="whiteAlpha.800" fontSize="lg">
+                  <Text color="brand.400" fontSize="lg">
                     No articles found matching your search.
                   </Text>
                 </VStack>

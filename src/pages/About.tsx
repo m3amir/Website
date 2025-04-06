@@ -55,13 +55,13 @@ const About = () => {
   const timelineMarginBottom = useBreakpointValue({ base: '0.5rem', md: '2rem' })
   
   return (
-    <Box bg="black" minH="100vh" pt={{ base: 24, md: 32 }} pb={{ base: 16, md: 20 }}>
+    <Box bg="white" minH="100vh" pt={{ base: 24, md: 32 }} pb={{ base: 16, md: 20 }}>
       <Container maxW="5xl" px={{ base: 4, md: 8 }}>
         <VStack spacing={{ base: 12, md: 16 }} align="stretch">
           {/* Hero Section */}
           <VStack spacing={{ base: 4, md: 6 }} align="center" textAlign="center">
             <Heading
-              color="white"
+              color="black"
               fontSize={{ base: "2xl", sm: "3xl", md: "4xl" }}
               fontWeight="bold"
               letterSpacing="tight"
@@ -72,7 +72,7 @@ const About = () => {
             </Heading>
             <Text
               fontSize={{ base: "md", sm: "lg", md: "xl" }}
-              color="whiteAlpha.800"
+              color="gray.700"
               maxW="2xl"
               lineHeight="1.6"
               px={{ base: 4, md: 0 }}
@@ -83,22 +83,22 @@ const About = () => {
 
           {/* Timeline Section */}
           <Box className="timeline-wrapper" px={{ base: 0, md: 4 }}>
-            <VerticalTimeline lineColor="rgba(255, 255, 255, 0.1)">
+            <VerticalTimeline lineColor="rgba(0, 0, 0, 0.1)">
               {timelineData.map((item, index) => (
                 <VerticalTimelineElement
                   key={item.year}
                   className="vertical-timeline-element"
                   contentStyle={{
-                    background: '#171717',
-                    color: '#fff',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    background: '#FFFFFF',
+                    color: '#000000',
+                    border: '1px solid rgba(0, 0, 0, 0.1)',
                     borderRadius: '0.75rem',
                     boxShadow: 'none',
                     padding: timelinePadding,
                     marginBottom: timelineMarginBottom,
                   }}
                   contentArrowStyle={{
-                    borderRight: '7px solid rgba(255, 255, 255, 0.1)',
+                    borderRight: '7px solid rgba(0, 0, 0, 0.1)',
                   }}
                   date={item.year}
                   dateClassName={`timeline-date timeline-date-${index % 2 === 0 ? 'left' : 'right'}`}
@@ -116,13 +116,13 @@ const About = () => {
                   <Heading
                     as="h3"
                     fontSize={{ base: "md", md: "xl" }}
-                    color="white"
+                    color="black"
                     mb={{ base: 1, md: 2 }}
                   >
                     {item.title}
                   </Heading>
                   <Text 
-                    color="whiteAlpha.800"
+                    color="gray.700"
                     fontSize={{ base: "xs", md: "md" }}
                     lineHeight="1.6"
                   >

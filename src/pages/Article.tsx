@@ -60,7 +60,7 @@ const MarkdownImage = ({ src, alt }: MarkdownImageProps) => {
       {altText && (
         <Text
           fontSize="sm"
-          color="whiteAlpha.800"
+          color="gray.600"
           textAlign="center"
           mt={1}
           fontStyle="italic"
@@ -127,7 +127,7 @@ const Article = () => {
 
   if (loading) {
     return (
-      <Box bg="black" minH="calc(100vh - 64px)" mt="64px">
+      <Box bg="white" minH="calc(100vh - 64px)" mt="64px">
         <Container maxW="4xl">
           <VStack spacing={4} align="stretch">
             <Skeleton height="40px" />
@@ -142,9 +142,9 @@ const Article = () => {
 
   if (error || !article) {
     return (
-      <Box bg="black" minH="calc(100vh - 64px)" mt="64px">
+      <Box bg="white" minH="calc(100vh - 64px)" mt="64px">
         <Container maxW="4xl">
-          <Text color="red.400" textAlign="center">
+          <Text color="red.500" textAlign="center">
             {error || 'Article not found'}
           </Text>
         </Container>
@@ -154,7 +154,7 @@ const Article = () => {
   return (
     <>
       <Box as="article" py={{ base: 8, md: 12 }}>
-        <Box bg="black" minH="calc(100vh - 64px)" mt="64px">
+        <Box bg="white" minH="calc(100vh - 64px)" mt="64px">
           <Container maxW="4xl">
             <VStack spacing={4} align="stretch">
               {/* Header */}
@@ -177,7 +177,7 @@ const Article = () => {
                 )}
                 
                 <Heading
-                  color="white"
+                  color="black"
                   fontSize={{ base: "3xl", md: "4xl" }}
                   lineHeight="1.2"
                   fontWeight="bold"
@@ -187,7 +187,7 @@ const Article = () => {
                 </Heading>
 
                 {/* Metadata */}
-                <HStack spacing={6} color="whiteAlpha.700" fontSize="sm">
+                <HStack spacing={6} color="gray.600" fontSize="sm">
                   <HStack spacing={2}>
                     <Icon as={FiCalendar} />
                     <Text>{article.date}</Text>
@@ -218,7 +218,7 @@ const Article = () => {
                 </HStack>
 
                 <Text
-                  color="whiteAlpha.800"
+                  color="gray.700"
                   fontSize="lg"
                   fontStyle="italic"
                 >
@@ -226,15 +226,15 @@ const Article = () => {
                 </Text>
               </VStack>
 
-              <Divider borderColor="whiteAlpha.200" />
+              <Divider borderColor="gray.300" />
 
               {/* Article Body */}
               <Box
                 className="markdown-content"
-                color="whiteAlpha.900"
+                color="black"
                 sx={{
                   'h1, h2, h3, h4, h5, h6': {
-                    color: 'white',
+                    color: 'black',
                     fontWeight: 'bold',
                     marginTop: '1.5em',
                     marginBottom: '0.5em',
@@ -270,10 +270,12 @@ const Article = () => {
                     paddingLeft: '1em',
                     marginY: '1.5em',
                     fontStyle: 'italic',
+                    color: 'gray.700',
                     textAlign: 'left'
                   },
                   'code': {
-                    bg: 'gray.800',
+                    bg: 'gray.100',
+                    color: 'black',
                     padding: '0.2em 0.4em',
                     borderRadius: 'md',
                     fontSize: '0.9em'

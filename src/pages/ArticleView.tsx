@@ -36,16 +36,16 @@ const ArticleView = () => {
 
   if (!article) {
     return (
-      <Box py={20}>
+      <Box py={20} bg="white">
         <Container maxW="7xl">
-          <Text>Article not found</Text>
+          <Text color="black">Article not found</Text>
         </Container>
       </Box>
     )
   }
 
   return (
-    <Box py={20}>
+    <Box py={20} bg="white">
       <Container maxW="4xl">
         <MotionBox
           initial={{ opacity: 0, y: 20 }}
@@ -65,9 +65,9 @@ const ArticleView = () => {
             )}
 
             <VStack spacing={4} align="stretch">
-              <Heading size="2xl">{article.title}</Heading>
+              <Heading size="2xl" color="black">{article.title}</Heading>
               
-              <HStack spacing={4} color="text.secondary">
+              <HStack spacing={4} color="gray.700">
                 <Text>{article.author}</Text>
                 <Text>•</Text>
                 <Text>{new Date(article.date).toLocaleDateString()}</Text>
@@ -89,14 +89,14 @@ const ArticleView = () => {
               </HStack>
             </VStack>
 
-            <Divider borderColor="whiteAlpha.200" />
+            <Divider borderColor="gray.300" />
 
             <Box
               className="article-content"
               dangerouslySetInnerHTML={{ __html: marked(article.content) }}
               sx={{
                 'h1, h2, h3, h4, h5, h6': {
-                  color: 'text.primary',
+                  color: 'black',
                   fontWeight: 'bold',
                   marginTop: '1.5em',
                   marginBottom: '0.5em',
@@ -105,12 +105,12 @@ const ArticleView = () => {
                 'h2': { fontSize: '2xl' },
                 'h3': { fontSize: 'xl' },
                 'p': {
-                  color: 'text.secondary',
+                  color: 'gray.800',
                   marginBottom: '1em',
                   lineHeight: '1.7',
                 },
                 'ul, ol': {
-                  color: 'text.secondary',
+                  color: 'gray.800',
                   paddingLeft: '1.5em',
                   marginBottom: '1em',
                 },
@@ -129,12 +129,12 @@ const ArticleView = () => {
                   borderColor: 'brand.400',
                   paddingLeft: '1em',
                   marginY: '1.5em',
-                  color: 'text.secondary',
+                  color: 'gray.700',
                   fontStyle: 'italic',
                 },
                 'code': {
-                  bg: 'background.accent',
-                  color: 'text.primary',
+                  bg: 'gray.100',
+                  color: 'black',
                   padding: '0.2em 0.4em',
                   borderRadius: 'md',
                   fontSize: '0.9em',

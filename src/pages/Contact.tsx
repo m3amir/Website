@@ -10,9 +10,8 @@ import {
   Button,
   VStack,
   useToast,
-  InputGroup,
-  InputLeftElement,
-  useBreakpointValue
+  useBreakpointValue,
+  Icon
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
@@ -26,7 +25,7 @@ const MotionVStack = motion(VStack)
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const toast = useToast()
-  const iconSize = useBreakpointValue({ base: "1rem", md: "1.2rem" })
+  const iconSize = useBreakpointValue({ base: "0.65rem", md: "0.8rem" })
   const inputPadding = useBreakpointValue({ base: "0.75rem", md: "1rem" })
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -67,10 +66,14 @@ const Contact = () => {
   }
 
   return (
-    <Box py={{ base: 12, md: 20 }} position="relative" overflow="hidden">
+    <Box 
+      py={{ base: 28, md: 36 }} 
+      position="relative" 
+      overflow="hidden"
+    >
       <Container maxW="7xl" position="relative" px={{ base: 4, md: 8 }}>
         <MotionVStack
-          spacing={{ base: 6, md: 8 }}
+          spacing={{ base: 8, md: 10 }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -79,6 +82,8 @@ const Contact = () => {
             size={{ base: "xl", md: "2xl" }} 
             textAlign="center"
             px={{ base: 2, md: 0 }}
+            bgGradient="linear(to-r, brand.300, brand.500)"
+            bgClip="text"
           >
             Get in Touch
           </Heading>
@@ -104,86 +109,89 @@ const Contact = () => {
           >
             <VStack spacing={{ base: 4, md: 6 }} align="stretch">
               <FormControl isRequired>
-                <FormLabel fontSize={{ base: "sm", md: "md" }}>Name</FormLabel>
-                <InputGroup size={{ base: "md", md: "lg" }}>
-                  <InputLeftElement pointerEvents="none" h="100%">
-                    <FiUser size={iconSize} color="gray.300" />
-                  </InputLeftElement>
-                  <Input
-                    name="from_name"
-                    type="text"
-                    placeholder="Your name"
-                    bg="whiteAlpha.100"
-                    border="1px solid"
-                    borderColor="whiteAlpha.200"
-                    fontSize={{ base: "sm", md: "md" }}
-                    h="auto"
-                    py={inputPadding}
-                    _hover={{
-                      borderColor: "brand.400",
-                    }}
-                    _focus={{
-                      borderColor: "brand.400",
-                      boxShadow: "0 0 0 1px var(--chakra-colors-brand-400)",
-                    }}
-                  />
-                </InputGroup>
+                <FormLabel fontSize={{ base: "sm", md: "md" }} fontWeight="medium">Name</FormLabel>
+                <Input
+                  name="from_name"
+                  type="text"
+                  placeholder="Your name"
+                  border="2px solid"
+                  borderColor="gray.300"
+                  bg="white"
+                  color="gray.800"
+                  borderRadius="md"
+                  fontSize={{ base: "sm", md: "md" }}
+                  h="auto"
+                  py={inputPadding}
+                  pl="2.5rem"
+                  _hover={{
+                    borderColor: "brand.300",
+                    boxShadow: "0 0 0 1px var(--chakra-colors-brand-300)",
+                  }}
+                  _focus={{
+                    borderColor: "brand.400",
+                    boxShadow: "0 0 0 2px var(--chakra-colors-brand-400)",
+                  }}
+                />
+                <Box position="absolute" left="1rem" top="2.5rem" pointerEvents="none">
+                  <Icon as={FiUser} color="brand.300" boxSize={iconSize} />
+                </Box>
               </FormControl>
 
               <FormControl isRequired>
-                <FormLabel fontSize={{ base: "sm", md: "md" }}>Email</FormLabel>
-                <InputGroup size={{ base: "md", md: "lg" }}>
-                  <InputLeftElement pointerEvents="none" h="100%">
-                    <FiMail size={iconSize} color="gray.300" />
-                  </InputLeftElement>
-                  <Input
-                    name="from_email"
-                    type="email"
-                    placeholder="your.email@example.com"
-                    bg="whiteAlpha.100"
-                    border="1px solid"
-                    borderColor="whiteAlpha.200"
-                    fontSize={{ base: "sm", md: "md" }}
-                    h="auto"
-                    py={inputPadding}
-                    _hover={{
-                      borderColor: "brand.400",
-                    }}
-                    _focus={{
-                      borderColor: "brand.400",
-                      boxShadow: "0 0 0 1px var(--chakra-colors-brand-400)",
-                    }}
-                  />
-                </InputGroup>
+                <FormLabel fontSize={{ base: "sm", md: "md" }} fontWeight="medium">Email</FormLabel>
+                <Input
+                  name="from_email"
+                  type="email"
+                  placeholder="your.email@example.com"
+                  border="2px solid"
+                  borderColor="gray.300"
+                  bg="white"
+                  color="gray.800"
+                  borderRadius="md"
+                  fontSize={{ base: "sm", md: "md" }}
+                  h="auto"
+                  py={inputPadding}
+                  pl="2.5rem"
+                  _hover={{
+                    borderColor: "brand.300",
+                    boxShadow: "0 0 0 1px var(--chakra-colors-brand-300)",
+                  }}
+                  _focus={{
+                    borderColor: "brand.400",
+                    boxShadow: "0 0 0 2px var(--chakra-colors-brand-400)",
+                  }}
+                />
+                <Box position="absolute" left="1rem" top="2.5rem" pointerEvents="none">
+                  <Icon as={FiMail} color="brand.300" boxSize={iconSize} />
+                </Box>
               </FormControl>
 
               <FormControl isRequired>
-                <FormLabel fontSize={{ base: "sm", md: "md" }}>Message</FormLabel>
-                <InputGroup size={{ base: "md", md: "lg" }}>
-                  <InputLeftElement pointerEvents="none" h="auto">
-                    <Box pt={2}>
-                      <FiMessageSquare size={iconSize} color="gray.300" />
-                    </Box>
-                  </InputLeftElement>
-                  <Textarea
-                    name="message"
-                    placeholder="Your message"
-                    minH={{ base: "120px", md: "150px" }}
-                    bg="whiteAlpha.100"
-                    border="1px solid"
-                    borderColor="whiteAlpha.200"
-                    fontSize={{ base: "sm", md: "md" }}
-                    py={inputPadding}
-                    _hover={{
-                      borderColor: "brand.400",
-                    }}
-                    _focus={{
-                      borderColor: "brand.400",
-                      boxShadow: "0 0 0 1px var(--chakra-colors-brand-400)",
-                    }}
-                    pl={10}
-                  />
-                </InputGroup>
+                <FormLabel fontSize={{ base: "sm", md: "md" }} fontWeight="medium">Message</FormLabel>
+                <Textarea
+                  name="message"
+                  placeholder="Your message"
+                  minH={{ base: "120px", md: "150px" }}
+                  border="2px solid"
+                  borderColor="gray.300"
+                  bg="white"
+                  color="gray.800"
+                  borderRadius="md"
+                  fontSize={{ base: "sm", md: "md" }}
+                  py={inputPadding}
+                  pl="2.5rem"
+                  _hover={{
+                    borderColor: "brand.300",
+                    boxShadow: "0 0 0 1px var(--chakra-colors-brand-300)",
+                  }}
+                  _focus={{
+                    borderColor: "brand.400",
+                    boxShadow: "0 0 0 2px var(--chakra-colors-brand-400)",
+                  }}
+                />
+                <Box position="absolute" left="1rem" top="2.5rem" pointerEvents="none">
+                  <Icon as={FiMessageSquare} color="brand.300" boxSize={iconSize} />
+                </Box>
               </FormControl>
 
               {/* Hidden input for recipient email */}
@@ -195,7 +203,7 @@ const Contact = () => {
 
               <Button
                 type="submit"
-                bg="brand.400"
+                bg="purple.600"
                 color="white"
                 size={{ base: "md", md: "lg" }}
                 w="full"
@@ -203,52 +211,31 @@ const Contact = () => {
                 fontSize={{ base: "sm", md: "md" }}
                 h="auto"
                 py={inputPadding}
+                mt={4}
+                fontWeight="semibold"
+                borderRadius="md"
+                border="none"
+                boxShadow="0 4px 12px rgba(150, 56, 255, 0.2)"
                 _hover={{
-                  bg: 'brand.500',
+                  bg: 'purple.500',
                   transform: 'translateY(-2px)',
-                  boxShadow: '0 4px 12px rgba(150, 56, 255, 0.3)',
+                  boxShadow: '0 6px 16px rgba(150, 56, 255, 0.4)',
+                }}
+                _active={{
+                  bg: 'purple.700',
+                  transform: 'translateY(0)',
+                  boxShadow: '0 2px 8px rgba(150, 56, 255, 0.3)',
                 }}
                 transition="all 0.3s ease"
+                style={{
+                  background: 'linear-gradient(135deg, #9363ff 0%, #6e38cc 100%)',
+                }}
               >
                 Send Message
               </Button>
             </VStack>
           </MotionBox>
         </MotionVStack>
-
-        {/* Decorative elements */}
-        <MotionBox
-          position="absolute"
-          top="20%"
-          left="0"
-          width={{ base: "150px", md: "200px" }}
-          height={{ base: "150px", md: "200px" }}
-          borderRadius="full"
-          bg="brand.400"
-          filter="blur(100px)"
-          opacity={0.1}
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ delay: 0.5, duration: 1 }}
-          zIndex={-1}
-          display={{ base: "none", md: "block" }}
-        />
-        <MotionBox
-          position="absolute"
-          bottom="10%"
-          right="0"
-          width={{ base: "200px", md: "250px" }}
-          height={{ base: "200px", md: "250px" }}
-          borderRadius="full"
-          bg="brand.500"
-          filter="blur(120px)"
-          opacity={0.1}
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ delay: 0.7, duration: 1 }}
-          zIndex={-1}
-          display={{ base: "none", md: "block" }}
-        />
       </Container>
     </Box>
   )

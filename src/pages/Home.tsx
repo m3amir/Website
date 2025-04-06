@@ -1,11 +1,10 @@
-import { Box, Container, Heading, Text, Button, Stack, useBreakpointValue } from '@chakra-ui/react'
+import { Box, Container, Text, Button, Stack, useBreakpointValue } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import RobotIcon from '../components/RobotIcon'
 
 // Styled components with motion
 const MotionBox = motion(Box)
-const MotionHeading = motion(Heading)
 const MotionText = motion(Text)
 const MotionStack = motion(Stack)
 
@@ -23,32 +22,6 @@ const Home = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <MotionHeading 
-            size={{ base: "xl", md: "2xl" }}
-            initial={{ scale: 0.5, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ 
-              duration: 0.8,
-              delay: 0.2,
-              type: "spring",
-              stiffness: 200
-            }}
-            px={{ base: 2, md: 0 }}
-          >
-            Welcome to{' '}
-            <MotionText
-              as="span"
-              bgGradient="linear(to-r, brand.400, brand.600)"
-              bgClip="text"
-              display="inline"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-            >
-              M3Labs
-            </MotionText>
-          </MotionHeading>
-
           {/* Animated Slogan */}
           <MotionBox
             mt={{ base: 8, md: 12 }}
@@ -208,22 +181,24 @@ const Home = () => {
               zIndex={1}
             >
               <MotionBox
-                h={{ base: "4px", md: "6px" }}
-                bg="brand.400"
+                h={{ base: "8px", md: "12px" }}
+                bg="#b026ff"
                 initial={{ width: "0%", x: -200 }}
                 animate={{ width: ["0%", "80%"], x: 0 }}
                 transition={{ delay: 1.6, duration: 1, ease: "easeOut" }}
                 borderRadius="full"
-                boxShadow="0 0 20px rgba(123, 31, 162, 0.3)"
+                className="dark-theme purple-underline"
+                style={{ backgroundColor: "#b026ff" }}
               />
               <MotionBox
-                h={{ base: "4px", md: "6px" }}
-                bg="brand.500"
+                h={{ base: "8px", md: "12px" }}
+                bg="#c160ff"
                 initial={{ width: "0%", x: 200 }}
                 animate={{ width: ["0%", "60%"], x: 0 }}
                 transition={{ delay: 1.8, duration: 1, ease: "easeOut" }}
                 borderRadius="full"
-                boxShadow="0 0 20px rgba(123, 31, 162, 0.3)"
+                className="dark-theme purple-underline"
+                style={{ backgroundColor: "#c160ff" }}
               />
             </MotionBox>
           </MotionBox>
@@ -248,27 +223,52 @@ const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 2.2, duration: 0.8 }}
             px={{ base: 4, sm: 0 }}
+            justifyContent="center"
+            display="flex"
+            flexWrap="nowrap"
           >
-            <Link to="/contact" style={{ width: '100%' }}>
+            <Link to="/products" style={{ display: 'inline-block' }}>
               <Button 
                 size="lg" 
-                bg="brand.400" 
-                color="white"
-                width={{ base: "100%", sm: "auto" }}
-                _hover={{ bg: 'brand.500', transform: 'translateY(-2px)' }}
-                transition="all 0.3s ease"
-              >
-                Get Started
-              </Button>
-            </Link>
-            <Link to="/knowledge" style={{ width: '100%' }}>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                borderColor="brand.400"
-                color="text.primary"
-                width={{ base: "100%", sm: "auto" }}
-                _hover={{ bg: 'brand.400', color: 'white', transform: 'translateY(-2px)' }}
+                variant="unstyled" 
+                color="black"
+                mx={2}
+                position="relative"
+                border="none"
+                outline="none"
+                boxShadow="none"
+                display="inline-block"
+                _after={{
+                  content: '""',
+                  position: 'absolute',
+                  width: '0%',
+                  height: '2px',
+                  bottom: '0',
+                  left: '0',
+                  backgroundColor: 'brand.400',
+                  transition: 'width 0.3s ease'
+                }}
+                _hover={{ 
+                  transform: 'translateY(-2px)',
+                  bg: 'transparent',
+                  border: 'none',
+                  outline: 'none',
+                  boxShadow: 'none',
+                  _after: {
+                    width: '100%',
+                    backgroundColor: 'brand.500',
+                  }
+                }}
+                _active={{
+                  outline: 'none',
+                  boxShadow: 'none',
+                  bg: 'transparent',
+                }}
+                _focus={{
+                  outline: 'none',
+                  boxShadow: 'none',
+                  bg: 'transparent',
+                }}
                 transition="all 0.3s ease"
               >
                 Learn More
