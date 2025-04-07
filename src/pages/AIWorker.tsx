@@ -224,9 +224,14 @@ const DemoRequestModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
                 width="full"
                 mt={4}
                 isLoading={isSubmitting}
+                color="black"
+                fontWeight="bold"
+                bg="#9638FF"
+                border="2px solid #000000"
                 _hover={{
                   transform: 'translateY(-2px)',
                   boxShadow: '0 4px 12px rgba(150, 56, 255, 0.3)',
+                  bg: "#8228EF"
                 }}
               >
                 Submit Request

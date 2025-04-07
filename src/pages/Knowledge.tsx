@@ -3,108 +3,208 @@ import {
   Container,
   Heading,
   Text,
-  SimpleGrid,
   VStack,
   HStack,
   Tag,
-  Input,
-  InputGroup,
   Icon,
   Grid,
-  GridItem,
   Divider,
+  Button,
+  Flex,
+  Badge,
+  useColorModeValue,
+  Image,
+  LinkBox,
+  LinkOverlay
 } from '@chakra-ui/react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { FiBook, FiClock, FiArrowRight } from 'react-icons/fi'
+import { FiUser, FiArrowRight, FiBookOpen } from 'react-icons/fi'
 import { ArticleMetadata } from '../types/article'
 import { articleService } from '../services/articleService'
 
 const MotionBox = motion(Box)
-const MotionSimpleGrid = motion(SimpleGrid)
+const MotionGrid = motion(Grid)
 
-const KnowledgeCard = ({ article }: { article: ArticleMetadata }) => {
+// Default images for articles that don't have one
+const defaultImages = [
+  '/images/articles/default1.png',
+  '/images/articles/default2.png',
+  '/images/articles/default3.png',
+  '/images/articles/dashboard.png',
+  '/images/articles/metrics.png',
+  '/images/articles/enterprise-connect.png',
+  '/images/articles/index.png',
+  '/images/articles/rl.png',
+  '/images/articles/SAT.png',
+  '/images/articles/STR.png',
+]
+
+const BlogCard = ({ article, index }: { article: ArticleMetadata; index: number }) => {
+  // Get a default image if the article doesn't have one
+  const imageSource = article.imageUrl || defaultImages[index % defaultImages.length]
+  
+  // Hover animation variants
+  const cardVariants = {
+    initial: { y: 0, opacity: 1 },
+    hover: { 
+      y: -8, 
+      boxShadow: "0 20px 30px rgba(150, 56, 255, 0.15)",
+      transition: { duration: 0.3, ease: "easeOut" }
+    }
+  }
+  
+  // Color modes
+  const borderColor = useColorModeValue('gray.200', 'whiteAlpha.200')
+  const hoverBorderColor = 'brand.400'
+  const bgColor = useColorModeValue('white', 'gray.800')
+  const textColor = useColorModeValue('gray.700', 'gray.300')
+  const headingColor = useColorModeValue('gray.900', 'white')
+  
   return (
-    <MotionBox
-      as={Link}
-      to={`/articles/${article.slug}`}
-      whileHover={{ y: -5 }}
-      transition={{ duration: 0.2 }}
+    <LinkBox as={MotionBox}
+      initial="initial"
+      whileHover="hover"
+      variants={cardVariants}
+      maxW={{ base: "full", md: "95%", lg: "95%" }}
     >
       <Box
-        p={6}
-        borderRadius="xl"
-        bg="gray.100"
+        borderRadius="none"
+        overflow="hidden"
+        bg={bgColor}
         border="1px solid"
-        borderColor="gray.300"
-        h="full"
-        position="relative"
+        borderColor={borderColor}
+        transition="all 0.3s ease"
         _hover={{
-          borderColor: "brand.400",
-          boxShadow: "0 4px 20px rgba(150, 56, 255, 0.15)",
-          '& .arrow-icon': {
-            transform: 'translateX(4px)',
-          }
+          borderColor: hoverBorderColor,
         }}
+        boxShadow="md"
+        height="100%"
+        display="flex"
+        flexDirection="column"
       >
-        <VStack align="stretch" spacing={4} h="full">
-          <VStack align="stretch" spacing={3} flex="1">
-            <HStack spacing={2}>
-              <Icon as={FiBook} color="brand.400" />
-              <Text color="black" fontSize="sm" fontWeight="semibold" letterSpacing="wide" textTransform="uppercase">
-                Article
-              </Text>
-            </HStack>
-
-            <Heading 
-              size="md" 
-              color="black"
-              lineHeight="1.4"
-              letterSpacing="tight"
-            >
-              {article.title}
-            </Heading>
-
+        {/* Image container with hover zoom effect */}
+        <Box 
+          position="relative" 
+          height="160px" 
+          overflow="hidden"
+          borderTopRadius="none"
+        >
+          <MotionBox
+            width="100%"
+            height="100%"
+            variants={{
+              hover: { scale: 1.05 }
+            }}
+            transition={{ duration: 0.4 }}
+          >
+            <Image
+              src={imageSource}
+              alt={article.title}
+              w="full"
+              h="full"
+              objectFit="cover"
+              fallbackSrc="https://via.placeholder.com/400x250?text=Blog"
+            />
+          </MotionBox>
+          
+          {/* Overlay gradient */}
+          <Box
+            position="absolute"
+            top="0"
+            left="0"
+            right="0"
+            bottom="0"
+            bgGradient="linear(to-t, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%)"
+          />
+          
+          {/* Category badge */}
+          <Badge
+            position="absolute"
+            top="3"
+            left="3"
+            px={2}
+            py={1}
+            borderRadius="none"
+            colorScheme="purple"
+            fontSize="xs"
+            textTransform="uppercase"
+            letterSpacing="wide"
+            fontWeight="bold"
+          >
+            Blog
+          </Badge>
+        </Box>
+        
+        {/* Content section */}
+        <VStack 
+          align="stretch" 
+          p={5} 
+          spacing={4} 
+          flex="1"
+          justify="space-between"
+        >
+          <VStack align="stretch" spacing={3}>
+            <LinkOverlay as={Link} to={`/articles/${article.slug}`}>
+              <MotionBox variants={{
+                hover: { x: 3 }
+              }}>
+                <Heading 
+                  size="md" 
+                  color={headingColor}
+                  lineHeight="1.4"
+                  noOfLines={2}
+                >
+                  {article.title}
+                </Heading>
+              </MotionBox>
+            </LinkOverlay>
+            
             <Text 
-              color="black" 
+              color={textColor} 
               fontSize="sm"
-              lineHeight="1.6"
+              noOfLines={3}
             >
               {article.description}
             </Text>
           </VStack>
-
+          
           <Box>
-            <Divider borderColor="gray.300" mb={4} />
+            <Divider borderColor={borderColor} mb={4} />
+            
             <HStack spacing={2} flexWrap="wrap" mb={4}>
-              {article.tags.map(tag => (
+              {article.tags.slice(0, 3).map(tag => (
                 <Tag
                   key={tag}
                   size="sm"
-                  variant="solid"
+                  variant="subtle"
                   colorScheme="purple"
-                  borderRadius="full"
-                  px={3}
-                  border="1px solid"
-                  borderColor="purple.300"
+                  borderRadius="none"
                 >
                   {tag}
                 </Tag>
               ))}
+              {article.tags.length > 3 && (
+                <Tag
+                  size="sm"
+                  variant="subtle"
+                  colorScheme="gray"
+                  borderRadius="none"
+                >
+                  +{article.tags.length - 3}
+                </Tag>
+              )}
             </HStack>
 
-            <HStack justify="space-between" fontSize="sm" color="black">
-              <HStack spacing={2}>
-                <Icon as={FiClock} />
-                <Text>{article.readTime}</Text>
+            <HStack justify="space-between" fontSize="xs" color={textColor}>
+              <HStack spacing={1}>
+                <Icon as={FiUser} />
+                <Text>{article.author}</Text>
               </HStack>
-              <HStack 
-                spacing={2}
-                color="brand.400"
-                _hover={{ color: "brand.300" }}
-              >
-                <Text fontWeight="medium">Read More</Text>
+              
+              <HStack spacing={1} color="brand.400">
+                <Text fontWeight="medium">Read Article</Text>
                 <Icon 
                   as={FiArrowRight} 
                   className="arrow-icon"
@@ -115,15 +215,44 @@ const KnowledgeCard = ({ article }: { article: ArticleMetadata }) => {
           </Box>
         </VStack>
       </Box>
-    </MotionBox>
+    </LinkBox>
   )
 }
 
-const Knowledge = () => {
+const Blog = () => {
   const [articles, setArticles] = useState<ArticleMetadata[]>([])
-  const [searchQuery, setSearchQuery] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  }
+  
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 }
+    }
+  }
+  
+  // Color modes - defined at the top to avoid conditional Hook calls
+  const bgGradient = useColorModeValue(
+    'linear(to-br, purple.50, white, white)',
+    'linear(to-br, gray.900, gray.800)'
+  )
+  const textColor = useColorModeValue('gray.700', 'gray.300')
+  const headingColor = useColorModeValue('gray.900', 'white')
+  const cardBg = useColorModeValue('white', 'gray.800')
+  const borderColorValue = useColorModeValue('gray.100', 'gray.700')
   
   useEffect(() => {
     const loadArticles = async () => {
@@ -131,7 +260,11 @@ const Knowledge = () => {
       try {
         const metadata = await articleService.getAllMetadata()
         if (metadata && metadata.length > 0) {
-          setArticles(metadata)
+          // Sort by date (newest first)
+          const sortedArticles = [...metadata].sort((a, b) => 
+            new Date(b.date).getTime() - new Date(a.date).getTime()
+          )
+          setArticles(sortedArticles)
         }
       } catch (e) {
         setError((e as Error).message)
@@ -142,17 +275,27 @@ const Knowledge = () => {
     loadArticles()
   }, [])
 
-  const filteredArticles = articles.filter(article =>
-    article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    article.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    article.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
-  )
-
   if (loading) {
     return (
-      <Box minH="100vh" bg="white" pt="64px">
-        <Container maxW="7xl" py={24}>
-          <Text color="brand.400" textAlign="center">Loading articles...</Text>
+      <Box minH="100vh" py={24}>
+        <Container maxW="7xl">
+          <Flex justify="center" align="center" h="50vh">
+            <MotionBox
+              animate={{ 
+                scale: [1, 1.05, 1],
+                opacity: [0.8, 1, 0.8]
+              }}
+              transition={{ 
+                duration: 1.5,
+                repeat: Infinity,
+                repeatType: "reverse"
+              }}
+            >
+              <Text color="brand.400" fontSize="xl" fontWeight="medium">
+                Loading blog posts...
+              </Text>
+            </MotionBox>
+          </Flex>
         </Container>
       </Box>
     )
@@ -160,115 +303,169 @@ const Knowledge = () => {
 
   if (error) {
     return (
-      <Box minH="100vh" bg="white" pt="64px">
-        <Container maxW="7xl" py={24}>
-          <Text color="red.400" textAlign="center">{error}</Text>
+      <Box minH="100vh" py={24}>
+        <Container maxW="7xl">
+          <VStack spacing={6} align="center" justify="center" h="50vh">
+            <Heading color="red.400" size="md">Error Loading Content</Heading>
+            <Text color={textColor}>{error}</Text>
+            <Button colorScheme="purple" onClick={() => window.location.reload()}>
+              Try Again
+            </Button>
+          </VStack>
         </Container>
       </Box>
     )
   }
 
   return (
-    <Box bg="white" minH="100vh">
+    <Box minH="100vh" bgGradient={bgGradient}>
       {/* Hero Section */}
       <Box 
-        pt={24} 
-        pb={12} 
-        borderBottom="1px solid"
-        borderColor="gray.200"
-        bg="white"
+        pt={28} 
+        pb={24} 
+        position="relative"
+        overflow="hidden"
+        bg="#3A3A3A"
       >
-        <Container maxW="7xl">
-          <VStack spacing={4} align="center" textAlign="center">
-            <Heading 
-              color="black"
-              fontSize={{ base: "3xl", md: "4xl" }}
-              fontWeight="bold"
-              letterSpacing="tight"
-              lineHeight="1.2"
-              bg="white"
-              px={4}
-              py={2}
-              borderRadius="md"
+        <Container maxW="7xl" position="relative" zIndex={1} bg="transparent" boxShadow="none" backdropFilter="none">
+          <Flex justifyContent="space-between" alignItems="center">
+            <MotionBox
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7 }}
             >
-              Knowledge Hub
-            </Heading>
-            <Text 
-              fontSize={{ base: "lg", md: "xl" }} 
-              maxW="2xl"
-              lineHeight="1.6"
-              fontWeight="medium"
-              color="black"
-              bg="white"
-              px={4}
-              py={2}
-              borderRadius="md"
+              <VStack spacing={6} align={{ base: "center", md: "flex-start" }} maxW="2xl">
+                <HStack>
+                  <Box 
+                    h="30px" 
+                    w="5px" 
+                    bgGradient="linear(to-b, brand.400, purple.600)" 
+                    borderRadius="full"
+                  />
+                  <Text
+                    fontSize="lg"
+                    fontWeight="semibold"
+                    color="brand.300"
+                    letterSpacing="wider"
+                  >
+                    INSIGHTS & STORIES
+                  </Text>
+                </HStack>
+                
+                <Heading 
+                  color="white"
+                  fontSize={{ base: "4xl", md: "5xl" }}
+                  fontWeight="bold"
+                  lineHeight="1.2"
+                  letterSpacing="tight"
+                >
+                  Blog
+                </Heading>
+                
+                <Text 
+                  fontSize={{ base: "lg", md: "xl" }} 
+                  lineHeight="1.6"
+                  color="gray.300"
+                  maxW="2xl"
+                >
+                  Explore our collection of insights, best practices, and stories about AI, machine learning, and digital transformation.
+                </Text>
+              </VStack>
+            </MotionBox>
+            
+            {/* Large decorative icon */}
+            <MotionBox
+              display={{ base: "none", md: "flex" }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              justifyContent="center"
+              alignItems="center"
+              mr={{ md: 6, lg: 10 }}
             >
-              Comprehensive guides and resources to help you implement modern workplace solutions.
-            </Text>
-          </VStack>
+              <Icon 
+                as={FiBookOpen} 
+                boxSize={{ md: "100px", lg: "130px" }} 
+                color="rgba(150, 56, 255, 0.15)" 
+                strokeWidth={1.5}
+              />
+            </MotionBox>
+          </Flex>
         </Container>
       </Box>
 
       {/* Content Section */}
-      <Box py={12}>
-        <Container maxW="7xl">
-          <Grid templateColumns={{ base: "1fr", lg: "250px 1fr" }} gap={8}>
-            {/* Sidebar with search */}
-            <GridItem>
-              <Box position="sticky" top="84px">
-                <InputGroup>
-                  <Input
-                    placeholder="Search..."
-                    bg="gray.100"
-                    border="1px solid"
-                    borderColor="gray.300"
-                    borderRadius="xl"
-                    color="black"
-                    fontSize="md"
-                    height="44px"
-                    _placeholder={{ color: 'gray.500' }}
-                    _hover={{
-                      borderColor: "brand.400",
-                    }}
-                    _focus={{
-                      borderColor: "brand.400",
-                      boxShadow: "0 0 0 1px var(--chakra-colors-brand-400)",
-                    }}
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                  />
-                </InputGroup>
-              </Box>
-            </GridItem>
+      <Box pt={16} pb={20}>
+        <Container 
+          maxW="8xl" 
+          bg="transparent" 
+          boxShadow="none" 
+          backdropFilter="none" 
+          px={{ base: 4, lg: 4 }} 
+          margin="0"
+          marginInlineStart="0"
+        >
+          {/* Articles Grid */}
+          <AnimatePresence>
+            <MotionGrid
+              templateColumns={{ 
+                base: "repeat(1, 1fr)", 
+                md: "repeat(2, 1fr)", 
+                lg: "repeat(2, 1fr)" 
+              }}
+              columnGap={{ base: 8, lg: 12 }}
+              rowGap={{ base: 8, lg: 12 }}
+              maxW={{ base: "full", lg: "850px" }}
+              mx={{ base: "auto", lg: "0" }}
+              ml={{ base: "auto", lg: "100px" }}
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              {articles.map((article, index) => (
+                <MotionBox
+                  key={article.id}
+                  variants={itemVariants}
+                  maxW={{ base: "full", md: "370px", lg: "400px" }}
+                >
+                  <BlogCard article={article} index={index} />
+                </MotionBox>
+              ))}
+            </MotionGrid>
+          </AnimatePresence>
 
-            {/* Main content */}
-            <GridItem>
-              <MotionSimpleGrid
-                columns={{ base: 1, xl: 2 }}
-                spacing={8}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
+          {/* Empty state */}
+          {articles.length === 0 && !loading && !error && (
+            <MotionBox
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Flex 
+                direction="column" 
+                align="center" 
+                justify="center" 
+                py={16} 
+                px={8}
+                bg={cardBg}
+                borderRadius="xl"
+                boxShadow="md"
+                border="1px solid"
+                borderColor={borderColorValue}
               >
-                {filteredArticles.map(article => (
-                  <KnowledgeCard key={article.slug} article={article} />
-                ))}
-              </MotionSimpleGrid>
-
-              {filteredArticles.length === 0 && (
-                <VStack spacing={4} align="center" py={12}>
-                  <Text color="brand.400" fontSize="lg">
-                    No articles found matching your search.
-                  </Text>
-                </VStack>
-              )}
-            </GridItem>
-          </Grid>
+                <Heading size="md" mb={4} color={headingColor}>
+                  No articles found
+                </Heading>
+                <Text color={textColor} textAlign="center" maxW="lg" mb={6}>
+                  We don't have any blog posts yet. Check back soon for new content!
+                </Text>
+              </Flex>
+            </MotionBox>
+          )}
         </Container>
       </Box>
     </Box>
   )
 }
 
-export default Knowledge 
+export default Blog 

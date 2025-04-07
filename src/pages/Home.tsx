@@ -215,6 +215,20 @@ const Home = () => {
             Revolutionizing how teams collaborate, innovate, and achieve their goals in the modern workplace.
           </MotionText>
 
+          <MotionText 
+            fontSize={{ base: "lg", md: "xl" }}
+            fontWeight="bold"
+            color="brand.500"
+            maxW="2xl"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2.1, duration: 0.8 }}
+            px={{ base: 4, md: 0 }}
+            mt={{ base: 6, md: 8 }}
+          >
+            Interested in participating in our closed beta?
+          </MotionText>
+
           <MotionStack 
             direction={{ base: 'column', sm: 'row' }} 
             gap={{ base: 3, md: 4 }}

@@ -14,46 +14,10 @@ const Navbar = () => {
 
   const NavLinks = ({ isMobile = false, onClose = () => {} }) => (
     <>
-      <Link to="/about" onClick={isMobile ? onClose : undefined}>
-        <Button
-          variant="unstyled"
-          color={location.pathname === '/security' ? "white" : "text.primary"}
-          position="relative"
-          overflow="hidden"
-          py={2}
-          px={4}
-          width={isMobile ? "full" : "auto"}
-          _before={{
-            content: '""',
-            position: 'absolute',
-            width: '100%',
-            height: '2px',
-            bottom: 0,
-            left: 0,
-            background: 'brand.400',
-            transform: isActive('/about') ? 'scaleX(1)' : 'scaleX(0)',
-            transformOrigin: 'right',
-            transition: 'transform 0.3s ease',
-          }}
-          _hover={{
-            _before: {
-              transform: 'scaleX(1)',
-              transformOrigin: 'left',
-            },
-            cursor: "pointer"
-          }}
-          _focus={{
-            boxShadow: "none",
-            outline: "none"
-          }}
-        >
-          About
-        </Button>
-      </Link>
       <Link to="/products" onClick={isMobile ? onClose : undefined}>
         <Button
           variant="unstyled"
-          color={location.pathname === '/security' ? "white" : "text.primary"}
+          color={location.pathname === '/security' || location.pathname === '/knowledge' ? "white" : "text.primary"}
           position="relative"
           overflow="hidden"
           py={2}
@@ -89,7 +53,7 @@ const Navbar = () => {
       <Link to="/ai-worker" onClick={isMobile ? onClose : undefined}>
         <Button
           variant="unstyled"
-          color={location.pathname === '/security' ? "white" : "text.primary"}
+          color={location.pathname === '/security' || location.pathname === '/knowledge' ? "white" : "text.primary"}
           position="relative"
           overflow="hidden"
           py={2}
@@ -125,7 +89,7 @@ const Navbar = () => {
       <Link to="/knowledge" onClick={isMobile ? onClose : undefined}>
         <Button
           variant="unstyled"
-          color={location.pathname === '/security' ? "white" : "text.primary"}
+          color={location.pathname === '/security' || location.pathname === '/knowledge' ? "white" : "text.primary"}
           position="relative"
           overflow="hidden"
           py={2}
@@ -161,7 +125,7 @@ const Navbar = () => {
       <Link to="/security" onClick={isMobile ? onClose : undefined}>
         <Button
           variant="unstyled"
-          color={location.pathname === '/security' ? "white" : "text.primary"}
+          color={location.pathname === '/security' || location.pathname === '/knowledge' ? "white" : "text.primary"}
           position="relative"
           overflow="hidden"
           py={2}
@@ -197,7 +161,7 @@ const Navbar = () => {
       <Link to="/contact" onClick={isMobile ? onClose : undefined}>
         <Button
           variant="unstyled"
-          color={location.pathname === '/security' ? "white" : "text.primary"}
+          color={location.pathname === '/security' || location.pathname === '/knowledge' ? "white" : "text.primary"}
           position="relative"
           overflow="hidden"
           py={2}
@@ -242,29 +206,29 @@ const Navbar = () => {
         left={0}
         right={0}
         zIndex={1000}
-        backdropFilter={location.pathname === '/security' ? "none" : "blur(10px)"}
-        bg={location.pathname === '/security' ? "#000000" : "rgba(255, 255, 255, 0.9)"}
+        backdropFilter={location.pathname === '/security' || location.pathname === '/knowledge' ? "none" : "blur(10px)"}
+        bg={location.pathname === '/security' || location.pathname === '/knowledge' ? "#000000" : "rgba(255, 255, 255, 0.9)"}
         borderBottom="1px solid"
-        borderColor={location.pathname === '/security' ? "gray.800" : "gray.200"}
+        borderColor={location.pathname === '/security' || location.pathname === '/knowledge' ? "gray.800" : "gray.200"}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
-        style={location.pathname === '/security' ? { backgroundColor: "#000000" } : {}}
-        className={location.pathname === '/security' ? "security-page-nav" : ""}
+        style={location.pathname === '/security' || location.pathname === '/knowledge' ? { backgroundColor: "#000000" } : {}}
+        className={location.pathname === '/security' || location.pathname === '/knowledge' ? "security-page-nav" : ""}
       >
         <Container 
           maxW="7xl" 
           py={4} 
           px={{ base: 2, md: 4 }}
-          className={location.pathname === '/security' ? "security-page-nav" : ""} 
-          style={location.pathname === '/security' ? { backgroundColor: "#000000" } : {}}
+          className={location.pathname === '/security' || location.pathname === '/knowledge' ? "security-page-nav" : ""} 
+          style={location.pathname === '/security' || location.pathname === '/knowledge' ? { backgroundColor: "#000000" } : {}}
         >
           <Stack 
             direction="row" 
             justify="space-between" 
             align="center"
-            className={location.pathname === '/security' ? "security-page-nav" : ""}
-            style={location.pathname === '/security' ? { backgroundColor: "#000000" } : {}}
+            className={location.pathname === '/security' || location.pathname === '/knowledge' ? "security-page-nav" : ""}
+            style={location.pathname === '/security' || location.pathname === '/knowledge' ? { backgroundColor: "#000000" } : {}}
           >
             <Link to="/">
               <MotionBox
@@ -277,7 +241,7 @@ const Navbar = () => {
                 transition={{ duration: 0.2 }}
                 pl={{ base: 0, md: 0 }}
                 style={{ backgroundColor: "transparent !important" }}
-                className={location.pathname === '/security' ? "security-page-nav-logo" : ""}
+                className={location.pathname === '/security' || location.pathname === '/knowledge' ? "security-page-nav-logo" : ""}
                 sx={{
                   "& *": {
                     backgroundColor: "transparent !important"
@@ -310,15 +274,15 @@ const Navbar = () => {
                 >
                   <Text 
                     as="span" 
-                    color={location.pathname === '/security' ? "#FFFFFF" : "#000000"}
-                    style={{ backgroundColor: "transparent !important", color: location.pathname === '/security' ? "#FFFFFF !important" : "#000000 !important" }}
+                    color={location.pathname === '/security' || location.pathname === '/knowledge' ? "#FFFFFF" : "#000000"}
+                    style={{ backgroundColor: "transparent !important", color: location.pathname === '/security' || location.pathname === '/knowledge' ? "#FFFFFF !important" : "#000000 !important" }}
                   >
                     M3
                   </Text>
                   <Text 
                     as="span" 
-                    color={location.pathname === '/security' ? "#FFFFFF" : "#000000"}
-                    style={{ backgroundColor: "transparent !important", color: location.pathname === '/security' ? "#FFFFFF !important" : "#000000 !important" }}
+                    color={location.pathname === '/security' || location.pathname === '/knowledge' ? "#FFFFFF" : "#000000"}
+                    style={{ backgroundColor: "transparent !important", color: location.pathname === '/security' || location.pathname === '/knowledge' ? "#FFFFFF !important" : "#000000 !important" }}
                   >
                     Labs
                   </Text>
@@ -343,7 +307,7 @@ const Navbar = () => {
               aria-label="Open menu"
               icon={<HamburgerIcon />}
               variant="ghost"
-              color={location.pathname === '/security' ? "white" : "text.primary"}
+              color={location.pathname === '/security' || location.pathname === '/knowledge' ? "white" : "text.primary"}
               display={{ base: "flex", md: "none" }}
               onClick={onOpen}
               _focus={{
@@ -361,13 +325,13 @@ const Navbar = () => {
         <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="xs">
           <DrawerOverlay />
           <DrawerContent 
-            bg={location.pathname === '/security' ? "#000000" : "white"} 
+            bg={location.pathname === '/security' || location.pathname === '/knowledge' ? "#000000" : "white"} 
             maxW="200px"
-            style={location.pathname === '/security' ? { backgroundColor: "#000000" } : {}}
-            className={location.pathname === '/security' ? "security-page-nav" : ""}
+            style={location.pathname === '/security' || location.pathname === '/knowledge' ? { backgroundColor: "#000000" } : {}}
+            className={location.pathname === '/security' || location.pathname === '/knowledge' ? "security-page-nav" : ""}
           >
-            <DrawerCloseButton color={location.pathname === '/security' ? "white" : "text.primary"} />
-            <DrawerHeader borderBottomWidth="1px" color={location.pathname === '/security' ? "white" : "text.primary"}>Menu</DrawerHeader>
+            <DrawerCloseButton color={location.pathname === '/security' || location.pathname === '/knowledge' ? "white" : "text.primary"} />
+            <DrawerHeader borderBottomWidth="1px" color={location.pathname === '/security' || location.pathname === '/knowledge' ? "white" : "text.primary"}>Menu</DrawerHeader>
             <DrawerBody>
               <VStack spacing={4} mt={4}>
                 <NavLinks isMobile onClose={onClose} />
