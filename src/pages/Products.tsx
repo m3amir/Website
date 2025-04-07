@@ -1099,9 +1099,8 @@ const Products = () => {
       let highestRatio = 0;
       
       entries.forEach(entry => {
-        // @ts-expect-error - intersectionRatio exists on IntersectionObserverEntry
+        // intersectionRatio is a standard property on IntersectionObserverEntry
         if (entry.isIntersecting && entry.intersectionRatio > highestRatio) {
-          // @ts-expect-error - intersectionRatio exists on IntersectionObserverEntry
           highestRatio = entry.intersectionRatio;
           bestEntry = entry;
         }
@@ -1109,11 +1108,9 @@ const Products = () => {
       
       // Only scroll if the intersection ratio is significant enough
       if (bestEntry && highestRatio > 0.15 && 
-        // @ts-expect-error - target exists on IntersectionObserverEntry
-        bestEntry.target !== activeSection) {
+        (bestEntry as IntersectionObserverEntry).target !== activeSection) {
         lastScrollTime = now;
-        // @ts-expect-error - target exists on IntersectionObserverEntry
-        smoothScrollTo(bestEntry.target);
+        smoothScrollTo((bestEntry as IntersectionObserverEntry).target);
       }
     };
 
