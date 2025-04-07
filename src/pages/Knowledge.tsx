@@ -20,30 +20,19 @@ import {
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { FiUser, FiArrowRight, FiBookOpen } from 'react-icons/fi'
+import { FiUser, FiArrowRight } from 'react-icons/fi'
 import { ArticleMetadata } from '../types/article'
 import { articleService } from '../services/articleService'
 
 const MotionBox = motion(Box)
 const MotionGrid = motion(Grid)
 
-// Default images for articles that don't have one
-const defaultImages = [
-  '/images/articles/default1.png',
-  '/images/articles/default2.png',
-  '/images/articles/default3.png',
-  '/images/articles/dashboard.png',
-  '/images/articles/metrics.png',
-  '/images/articles/enterprise-connect.png',
-  '/images/articles/index.png',
-  '/images/articles/rl.png',
-  '/images/articles/SAT.png',
-  '/images/articles/STR.png',
-]
+// Default image for articles that don't have one
+const defaultImage = '/images/TBRL.png';
 
-const BlogCard = ({ article, index }: { article: ArticleMetadata; index: number }) => {
+const BlogCard = ({ article }: { article: ArticleMetadata }) => {
   // Get a default image if the article doesn't have one
-  const imageSource = article.imageUrl || defaultImages[index % defaultImages.length]
+  const imageSource = article.imageUrl || defaultImage
   
   // Hover animation variants
   const cardVariants = {
@@ -83,11 +72,12 @@ const BlogCard = ({ article, index }: { article: ArticleMetadata; index: number 
         height="100%"
         display="flex"
         flexDirection="column"
+        position="relative"
       >
         {/* Image container with hover zoom effect */}
         <Box 
           position="relative" 
-          height="160px" 
+          height="200px" 
           overflow="hidden"
           borderTopRadius="none"
         >
@@ -98,26 +88,16 @@ const BlogCard = ({ article, index }: { article: ArticleMetadata; index: number 
               hover: { scale: 1.05 }
             }}
             transition={{ duration: 0.4 }}
+            style={{ transform: "translateY(-40px)" }}
           >
             <Image
               src={imageSource}
-              alt={article.title}
-              w="full"
-              h="full"
+              alt=""
+              width="full"
+              height="full"
               objectFit="cover"
-              fallbackSrc="https://via.placeholder.com/400x250?text=Blog"
             />
           </MotionBox>
-          
-          {/* Overlay gradient */}
-          <Box
-            position="absolute"
-            top="0"
-            left="0"
-            right="0"
-            bottom="0"
-            bgGradient="linear(to-t, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%)"
-          />
           
           {/* Category badge */}
           <Badge
@@ -132,6 +112,7 @@ const BlogCard = ({ article, index }: { article: ArticleMetadata; index: number 
             textTransform="uppercase"
             letterSpacing="wide"
             fontWeight="bold"
+            zIndex={2}
           >
             Blog
           </Badge>
@@ -144,6 +125,7 @@ const BlogCard = ({ article, index }: { article: ArticleMetadata; index: number 
           spacing={4} 
           flex="1"
           justify="space-between"
+          position="relative"
         >
           <VStack align="stretch" spacing={3}>
             <LinkOverlay as={Link} to={`/articles/${article.slug}`}>
@@ -372,24 +354,6 @@ const Blog = () => {
                 </Text>
               </VStack>
             </MotionBox>
-            
-            {/* Large decorative icon */}
-            <MotionBox
-              display={{ base: "none", md: "flex" }}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              justifyContent="center"
-              alignItems="center"
-              mr={{ md: 6, lg: 10 }}
-            >
-              <Icon 
-                as={FiBookOpen} 
-                boxSize={{ md: "100px", lg: "130px" }} 
-                color="rgba(150, 56, 255, 0.15)" 
-                strokeWidth={1.5}
-              />
-            </MotionBox>
           </Flex>
         </Container>
       </Box>
@@ -422,13 +386,13 @@ const Blog = () => {
               initial="hidden"
               animate="visible"
             >
-              {articles.map((article, index) => (
+              {articles.map((article: ArticleMetadata) => (
                 <MotionBox
                   key={article.id}
                   variants={itemVariants}
                   maxW={{ base: "full", md: "370px", lg: "400px" }}
                 >
-                  <BlogCard article={article} index={index} />
+                  <BlogCard article={article} />
                 </MotionBox>
               ))}
             </MotionGrid>

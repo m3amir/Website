@@ -13,7 +13,7 @@ import {
   Flex,
   Image
 } from '@chakra-ui/react'
-import { FiCheck, FiGrid, FiCpu, FiDatabase, FiShield, FiTrendingUp, FiZap, FiTarget, FiUsers, FiRepeat, FiDollarSign } from 'react-icons/fi'
+import { FiCheck, FiGrid, FiCpu, FiDatabase, FiShield, FiTrendingUp, FiZap, FiTarget } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import ScrollToTop from '../components/ScrollToTop'
 import { motion, useInView } from 'framer-motion'
@@ -609,67 +609,6 @@ const AgentSection = () => {
   );
 };
 
-const HybridOpsAnimation = ({ shouldAnimate }: { shouldAnimate: boolean }) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const lottieRef = useRef<any>(null);
-  const [animationData, setAnimationData] = useState<LottieData | null>(null);
-
-  useEffect(() => {
-    fetch('/animations/hybrid_ops.json')
-      .then(response => response.json())
-      .then(data => setAnimationData(data))
-      .catch(error => console.error('Error loading animation:', error));
-  }, []);
-
-  useEffect(() => {
-    if (!lottieRef.current || !animationData) return;
-    
-    if (shouldAnimate) {
-      lottieRef.current.goToAndPlay(0, true);
-    }
-  }, [shouldAnimate, animationData]);
-
-  return (
-    <MotionBox 
-      width="100%" 
-      height="100%"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      initial={{ opacity: 0 }}
-      animate={{ 
-        opacity: shouldAnimate ? 1 : 0,
-        scale: shouldAnimate ? 1 : 0.95
-      }}
-      transition={{ 
-        duration: 0.8,
-        ease: "easeOut"
-      }}
-    >
-      <Box 
-        width={{ base: "220px", sm: "260px", md: "350px" }}
-        height={{ base: "220px", sm: "260px", md: "350px" }}
-        position="relative"
-      >
-        <Lottie
-          lottieRef={lottieRef}
-          animationData={animationData}
-          loop={true}
-          autoplay={true}
-          style={{
-            width: '100%',
-            height: '100%',
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)'
-          }}
-        />
-      </Box>
-    </MotionBox>
-  );
-};
-
 const HybridOpsSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -680,24 +619,6 @@ const HybridOpsSection = () => {
       setIsVisible(true);
     }
   }, [isInView]);
-
-  const features = [
-    {
-      icon: FiUsers,
-      title: "Expertise at Every Step",
-      description: "Our team of data scientists and AI engineers work closely with your team to ensure the best possible outcomes."
-    },
-    {
-      icon: FiRepeat,
-      title: "Iterative Development",
-      description: "We follow an iterative approach, continuously refining and improving our solutions based on your feedback."
-    },
-    {
-      icon: FiDollarSign,
-      title: "Cost-Effective",
-      description: "Our solutions are designed to deliver high value at a fraction of the cost of traditional approaches."
-    }
-  ];
 
   return (
     <Box py={{ base: 10, md: 16 }} ref={sectionRef}>
@@ -869,67 +790,6 @@ const HybridOpsSection = () => {
         </Flex>
       </Container>
     </Box>
-  );
-};
-
-const ActionPlanAnimation = ({ shouldAnimate }: { shouldAnimate: boolean }) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const lottieRef = useRef<any>(null);
-  const [animationData, setAnimationData] = useState<LottieData | null>(null);
-
-  useEffect(() => {
-    fetch('/animations/action_plan.json')
-      .then(response => response.json())
-      .then(data => setAnimationData(data))
-      .catch(error => console.error('Error loading animation:', error));
-  }, []);
-
-  useEffect(() => {
-    if (!lottieRef.current || !animationData) return;
-    
-    if (shouldAnimate) {
-      lottieRef.current.goToAndPlay(0, true);
-    }
-  }, [shouldAnimate, animationData]);
-
-  return (
-    <MotionBox 
-      width="100%" 
-      height="100%"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      initial={{ opacity: 0 }}
-      animate={{ 
-        opacity: shouldAnimate ? 1 : 0,
-        scale: shouldAnimate ? 1 : 0.95
-      }}
-      transition={{ 
-        duration: 0.8,
-        ease: "easeOut"
-      }}
-    >
-      <Box 
-        width={{ base: "220px", sm: "260px", md: "350px" }}
-        height={{ base: "220px", sm: "260px", md: "350px" }}
-        position="relative"
-      >
-        <Lottie
-          lottieRef={lottieRef}
-          animationData={animationData}
-          loop={true}
-          autoplay={true}
-          style={{
-            width: '100%',
-            height: '100%',
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)'
-          }}
-        />
-      </Box>
-    </MotionBox>
   );
 };
 
@@ -1239,16 +1099,21 @@ const Products = () => {
       let highestRatio = 0;
       
       entries.forEach(entry => {
+        // @ts-expect-error - intersectionRatio exists on IntersectionObserverEntry
         if (entry.isIntersecting && entry.intersectionRatio > highestRatio) {
+          // @ts-expect-error - intersectionRatio exists on IntersectionObserverEntry
           highestRatio = entry.intersectionRatio;
           bestEntry = entry;
         }
       });
       
       // Only scroll if the intersection ratio is significant enough
-      if (bestEntry && bestEntry.intersectionRatio > 0.15 && (bestEntry as IntersectionObserverEntry).target !== activeSection) {
+      if (bestEntry && highestRatio > 0.15 && 
+        // @ts-expect-error - target exists on IntersectionObserverEntry
+        bestEntry.target !== activeSection) {
         lastScrollTime = now;
-        smoothScrollTo((bestEntry as IntersectionObserverEntry).target);
+        // @ts-expect-error - target exists on IntersectionObserverEntry
+        smoothScrollTo(bestEntry.target);
       }
     };
 
