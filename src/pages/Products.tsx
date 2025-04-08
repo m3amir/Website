@@ -637,14 +637,16 @@ const HybridOpsSection = () => {
   }, [isInView]);
 
   return (
-    <Box py={{ base: 10, md: 16 }} ref={sectionRef} overflow="hidden">
-      <Container maxW="7xl">
+    <Box py={{ base: 10, md: 16 }} ref={sectionRef} overflow="visible">
+      <Container maxW="7xl" overflow="visible">
         <Flex 
           direction={{ base: "column", md: "row" }} 
           alignItems="flex-start"
           justifyContent="space-between"
           width="100%"
           gap={{ base: 8, md: 12 }}
+          pr={{ md: "-100px" }}
+          overflow="visible"
         >
           {/* Left column with all text content */}
           <Box width={{ base: "100%", md: "65%" }} px={{ base: 4, md: 0 }}>
@@ -743,28 +745,31 @@ const HybridOpsSection = () => {
           
           {/* Right column with image */}
           <Box 
-            display={{ base: 'block', md: 'block' }} 
-            width={{ base: "100%", md: "35%" }}
+            width={{ base: "100%", md: "50%" }} 
             position="relative"
-            alignSelf="center"
-            mr={{ base: 0, md: "-400px" }}
-            mt={{ base: 8, md: 20 }}
+            zIndex={20}
+            overflow="visible"
           >
             <MotionBox
               initial={{ opacity: 0, x: 20 }}
               animate={isVisible ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.3 }}
-              overflow="visible"
+              width="100%"
               position="relative"
+              mx="auto"
+              ml={{ base: 0, lg: "400px" }}
+              mr={{ base: 0, lg: "-550px" }}
+              zIndex={20}
+              overflow="visible"
             >
               {/* Top right corner decoration */}
               <Box
                 position="absolute"
                 top="-20px"
-                right="0px"
+                right={{ base: "0px", md: "1px" }}
                 width="30px"
                 height="30px"
-                zIndex={2}
+                zIndex={22}
               >
                 <Image 
                   src="/images/corner.png" 
@@ -779,10 +784,10 @@ const HybridOpsSection = () => {
               <Box
                 position="absolute"
                 bottom="10px"
-                left={{ base: "20px", md: "-50px" }}
+                left={{ base: "20px", md: "0px" }}
                 width="30px"
                 height="30px"
-                zIndex={2}
+                zIndex={22}
                 transform="rotate(180deg)"
               >
                 <Image 
@@ -800,12 +805,15 @@ const HybridOpsSection = () => {
                 alt="Human-in-the-Loop"
                 maxH={{ base: "300px", md: "450px" }}
                 width="auto"
+                maxWidth="100%"
                 objectFit="contain"
                 borderRadius="md"
                 position="relative"
-                zIndex={1}
+                zIndex={21}
                 mx="auto"
                 display="block"
+                mt="40px"
+                overflow="visible"
               />
             </MotionBox>
           </Box>
@@ -845,7 +853,7 @@ const ActionPlanSection = () => {
   ];
 
   return (
-    <Box py={{ base: 8, md: 16 }} position="relative" ref={sectionRef} overflow="hidden">
+    <Box py={{ base: 8, md: 16 }} position="relative" ref={sectionRef} overflow="visible">
       {/* Background layers */}
       <MotionBox
         position="absolute"
@@ -878,9 +886,9 @@ const ActionPlanSection = () => {
         transition={{ duration: 1.5 }}
       />
 
-      <Container maxW="100%" position="relative" px={{ base: 4, lg: 4 }} overflow="hidden">
-        <Box position="relative" width="100%"> 
-          <Flex direction={{ base: "column", md: "row" }} alignItems="center">
+      <Container maxW="100%" position="relative" px={{ base: 4, lg: 4 }} overflow="visible">
+        <Box position="relative" width="100%" overflow="visible"> 
+          <Flex direction={{ base: "column", md: "row" }} alignItems="center" overflow="visible">
             {/* Content on the left */}
             <Box width={{ base: "100%", md: "50%" }} ml={{ base: 0, md: "150px" }} px={{ base: 4, md: 0 }}>
               <MotionVStack
@@ -979,24 +987,31 @@ const ActionPlanSection = () => {
             <Box 
               width={{ base: "100%", md: "50%" }} 
               ml={{ base: 0, md: "auto" }} 
-              mr={{ base: 0, md: "-350px" }}
+              mr={{ base: 0, md: "-400px" }}
               px={{ base: 4, md: 0 }}
               mx={{ base: "auto", md: "auto" }}
+              position={{ md: "relative" }}
+              right={{ base: 0, md: "-100px" }}
+              zIndex={20}
+              overflow="visible"
             >
               <MotionBox
                 initial={{ opacity: 0, x: 20 }}
                 animate={isVisible ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.6 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
                 width="100%"
                 position="relative"
-                right={{ base: "0", md: "100px" }}
                 mx="auto"
+                ml={{ base: 0, lg: "50px" }}
+                mr={{ base: 0, lg: "-550px" }}
+                zIndex={20}
+                overflow="visible"
               >
                 {/* Top right corner decoration */}
                 <Box
                   position="absolute"
                   top="-5px"
-                  right="-10px"
+                  right={{ base: "-10px", md: "55px" }}
                   width="30px"
                   height="30px"
                   zIndex={2}
@@ -1014,10 +1029,10 @@ const ActionPlanSection = () => {
                 <Box
                   position="absolute"
                   bottom="10px"
-                  left="-10px"
+                  left={{ base: "-10px", md: "80px" }}
                   width="30px"
                   height="30px"
-                  zIndex={2}
+                  zIndex={22}
                   transform="rotate(180deg)"
                 >
                   <Image 
@@ -1035,13 +1050,15 @@ const ActionPlanSection = () => {
                   alt="Action Plan"
                   maxH="550px"
                   width="auto"
+                  maxWidth="100%"
                   objectFit="contain"
                   borderRadius="md"
                   position="relative"
-                  zIndex={1}
+                  zIndex={21}
                   mx="auto"
                   display="block"
                   mt="40px"
+                  overflow="visible"
                 />
               </MotionBox>
             </Box>
