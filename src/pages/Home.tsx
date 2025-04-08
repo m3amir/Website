@@ -157,19 +157,40 @@ const Home = () => {
                 >
                   of Work
                 </Text>
+                {/* Robot for desktop view */}
                 <Box
                   position="absolute"
-                  right={{ base: "-60px", sm: "-80px", md: "-100px" }}
-                  top={{ base: "0px", sm: "0px", md: "0px" }}
-                  height={{ base: "100px", sm: "120px", md: "140px" }}
-                  width={{ base: "160px", sm: "200px", md: "240px" }}
+                  right={{ base: "auto", sm: "-60px", md: "-150px" }}
+                  top={{ base: "auto", sm: "0px", md: "0px" }}
+                  height={{ base: "auto", sm: "120px", md: "140px" }}
+                  width={{ base: "auto", sm: "180px", md: "220px" }}
                   overflow="visible"
                   zIndex={1}
+                  display={{ base: "none", sm: "flex", md: "flex" }}
+                  justifyContent="center"
+                  alignItems="center"
                 >
                   <RobotIcon />
                 </Box>
               </MotionBox>
             </MotionBox>
+            
+            {/* Robot centered under the entire sentence - mobile only */}
+            <Box
+              position="absolute"
+              left="50%"
+              top="140px"
+              height="100px"
+              width="140px"
+              overflow="visible"
+              zIndex={1}
+              transform="translateX(-50%)"
+              display={{ base: "flex", sm: "none", md: "none" }}
+              justifyContent="center"
+              alignItems="center"
+            >
+              <RobotIcon />
+            </Box>
 
             {/* Animated underlines */}
             <MotionBox

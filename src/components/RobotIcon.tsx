@@ -1,19 +1,22 @@
 import { motion } from 'framer-motion'
+import { useBreakpointValue } from '@chakra-ui/react'
 
 const RobotIcon = () => {
+  const robotSize = useBreakpointValue({ base: 100, sm: 120, md: 160 })
+  const robotLeft = useBreakpointValue({ base: 0, sm: 20, md: 30 })
+  
   return (
     <motion.div
       style={{
-        position: 'absolute',
-        left: 30,
-        top: 0,
-        width: '160px',
-        height: '160px',
+        position: 'relative',
+        left: robotLeft,
+        width: `${robotSize}px`,
+        height: `${robotSize}px`,
         zIndex: 1
       }}
       initial={{ x: -40, opacity: 0 }}
       animate={{ 
-        x: 100,
+        x: 0,
         opacity: 1
       }}
       transition={{
@@ -23,8 +26,8 @@ const RobotIcon = () => {
       }}
     >
       <motion.svg
-        width="120"
-        height="120"
+        width={robotSize}
+        height={robotSize}
         viewBox="0 0 160 160"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
