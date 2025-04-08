@@ -5,10 +5,11 @@ const RobotIcon = () => {
     <motion.div
       style={{
         position: 'absolute',
-        left: 0,
-        bottom: 0,
-        width: '120px',
-        height: '120px'
+        left: 30,
+        top: 0,
+        width: '160px',
+        height: '160px',
+        zIndex: 1
       }}
       initial={{ x: -40, opacity: 0 }}
       animate={{ 

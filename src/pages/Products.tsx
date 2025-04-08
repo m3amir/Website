@@ -147,11 +147,13 @@ const SecurityAnimation = ({ shouldAnimate }: { shouldAnimate: boolean }) => {
           ease: "easeInOut" 
         }
       }}
+      overflow="hidden"
     >
       <Box 
-        width={{ base: "280px", sm: "320px", md: "400px" }}
-        height={{ base: "280px", sm: "320px", md: "400px" }}
+        width={{ base: "240px", sm: "280px", md: "320px" }}
+        height={{ base: "240px", sm: "280px", md: "320px" }}
         position="relative"
+        overflow="hidden"
       >
         <Lottie
           lottieRef={lottieRef}
@@ -219,7 +221,7 @@ const SecuritySection = () => {
   };
 
   return (
-    <Box py={{ base: 8, md: 16 }} position="relative" ref={sectionRef} overflow="visible" pr={{ lg: "80px" }}>
+    <Box py={{ base: 8, md: 16 }} position="relative" ref={sectionRef} overflow="hidden" pr={{ base: 0, lg: "80px" }}>
       {/* Background layers */}
       <MotionBox
         position="absolute"
@@ -252,7 +254,7 @@ const SecuritySection = () => {
         transition={{ duration: 1.5 }}
       />
 
-      <Container maxW="7xl" position="relative" overflow="visible">
+      <Container maxW="7xl" position="relative" overflow="hidden">
         <MotionBox
           variants={containerVariants}
           initial="hidden"
@@ -260,11 +262,12 @@ const SecuritySection = () => {
         >
           <Grid 
             templateColumns={{ base: "1fr", lg: "5fr 7fr" }} 
-            gap={{ base: 6, md: 8 }}
+            gap={{ base: 8, md: 12 }}
             alignItems="center"
+            width="100%"
           >
             <GridItem>
-              <VStack spacing={{ base: 4, md: 6 }} textAlign={{ base: "center", lg: "left" }} align={{ base: "center", lg: "start" }} width="100%" ml={{ lg: "150px" }}>
+              <VStack spacing={{ base: 6, md: 8 }} textAlign={{ base: "center", lg: "left" }} align={{ base: "center", lg: "start" }} width="100%" ml={{ base: 0, lg: "150px" }}>
                 <MotionBox
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -280,7 +283,7 @@ const SecuritySection = () => {
                 </Text>
               </VStack>
               
-              <SimpleGrid columns={{ base: 1, md: 1 }} spacing={{ base: 4, md: 8 }} width="100%" ml={{ lg: "150px" }}>
+              <SimpleGrid columns={{ base: 1, md: 1 }} spacing={{ base: 6, md: 8 }} width="100%" ml={{ lg: "150px" }} mt={{ base: 10, md: 12 }}>
                 {[
                   {
                     icon: FiShield,
@@ -298,9 +301,10 @@ const SecuritySection = () => {
                     variants={itemVariants}
                     position="relative"
                     whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+                    mb={{ base: 4, md: 6 }}
                   >
                     <Box
-                      p={6}
+                      p={{ base: 5, md: 6 }}
                       bg="transparent"
                       borderRadius="xl"
                       border="1px solid"
@@ -308,7 +312,8 @@ const SecuritySection = () => {
                       position="relative"
                       backdropFilter="blur(10px)"
                       overflow="hidden"
-                      height="150px"
+                      height="auto"
+                      minHeight={{ base: "180px", md: "150px" }}
                       display="flex"
                       alignItems="center"
                       style={{
@@ -330,11 +335,11 @@ const SecuritySection = () => {
                           backfaceVisibility: 'hidden'
                         }}
                       />
-                      <HStack spacing={4} align="start" position="relative">
-                        <Icon as={item.icon} boxSize={6} color="brand.400" mt={1} />
-                        <VStack align="start" spacing={2}>
-                          <Heading size="sm" color="black">{item.title}</Heading>
-                          <Text color="gray.700" fontSize="sm">
+                      <HStack spacing={{ base: 4, md: 6 }} align="start" position="relative" width="100%">
+                        <Icon as={item.icon} boxSize={{ base: 8, md: 6 }} color="brand.400" mt={1} flexShrink={0} />
+                        <VStack align="start" spacing={{ base: 2, md: 2 }} width="100%">
+                          <Heading size="sm" color="black" fontSize={{ base: "lg", md: "md" }}>{item.title}</Heading>
+                          <Text color="gray.700" fontSize={{ base: "sm", md: "sm" }} lineHeight="1.6">
                             {item.description}
                           </Text>
                         </VStack>
@@ -353,8 +358,8 @@ const SecuritySection = () => {
                 transition={{ duration: 0.3 }}
                 width="100%"
                 height="100%"
-                ml={{ lg: "200px" }}
-                mr={{ lg: "-550px" }}
+                ml={{ base: 0, lg: "200px" }}
+                mr={{ base: 0, lg: "-550px" }}
               >
                 <SecurityAnimation shouldAnimate={isVisible} />
               </MotionBox>
@@ -402,11 +407,13 @@ const AgentAnimation = ({ shouldAnimate }: { shouldAnimate: boolean }) => {
         duration: 0.8,
         ease: "easeOut"
       }}
+      overflow="hidden"
     >
       <Box 
-        width={{ base: "280px", sm: "320px", md: "450px" }}
-        height={{ base: "280px", sm: "320px", md: "450px" }}
+        width={{ base: "240px", sm: "280px", md: "320px" }}
+        height={{ base: "240px", sm: "280px", md: "320px" }}
         position="relative"
+        overflow="hidden"
       >
         <Lottie
           lottieRef={lottieRef}
@@ -457,7 +464,7 @@ const AgentSection = () => {
   ];
 
   return (
-    <Box py={{ base: 8, md: 16 }} position="relative" ref={sectionRef} overflow="visible">
+    <Box py={{ base: 8, md: 16 }} position="relative" ref={sectionRef} overflow="hidden">
       {/* Background layers */}
       <MotionBox
         position="absolute"
@@ -490,11 +497,19 @@ const AgentSection = () => {
         transition={{ duration: 1.5 }}
       />
 
-      <Container maxW="100%" position="relative" px={{ base: 4, lg: 4 }} overflow="visible">
+      <Container maxW="100%" position="relative" px={{ base: 4, lg: 4 }} overflow="hidden">
         <Box position="relative" width="100%"> 
           <Flex direction={{ base: "column", lg: "row" }} alignItems="center">
             {/* Animation on the left */}
-            <Box width={{ base: "100%", lg: "30%" }} position={{ lg: "absolute" }} left="50px" top="50%" transform={{ lg: "translateY(-50%)" }}>
+            <Box 
+              width={{ base: "100%", lg: "30%" }} 
+              position={{ lg: "relative" }} 
+              left={{ base: "auto", lg: "auto" }} 
+              top={{ base: "auto", lg: "auto" }} 
+              transform={{ base: "none", lg: "none" }}
+              mx="auto"
+              px={{ base: 4, md: 0 }}
+            >
               <MotionBox
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={isVisible ? { opacity: 1, scale: 1 } : {}}
@@ -506,7 +521,7 @@ const AgentSection = () => {
             </Box>
             
             {/* Content on the right */}
-            <Box width={{ base: "100%", lg: "80%" }} ml={{ lg: "20%" }} mr={{ lg: "0" }}>
+            <Box width={{ base: "100%", lg: "80%" }} mx="auto" mr={{ base: 0, lg: "0" }}>
               <MotionVStack
                 spacing={{ base: 6, md: 8 }}
                 align={{ base: "center", lg: "start" }}
@@ -514,7 +529,7 @@ const AgentSection = () => {
                 animate={isVisible ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5 }}
                 width="100%"
-                pl={{ lg: "500px" }}
+                pl={{ base: 0, lg: "500px" }}
               >
                 <VStack spacing={{ base: 3, md: 4 }} align={{ base: "center", lg: "start" }} width="100%" mb={2}>
                   <Heading 
@@ -536,7 +551,7 @@ const AgentSection = () => {
                   </Text>
                 </VStack>
 
-                <VStack spacing={6} width="100%">
+                <VStack spacing={{ base: 8, md: 10 }} width="100%">
                   {features.map((feature, index) => (
                     <MotionBox
                       key={index}
@@ -545,6 +560,7 @@ const AgentSection = () => {
                       transition={{ duration: 0.5, delay: index * 0.2 }}
                       position="relative"
                       width="100%"
+                      mb={{ base: 4, md: 6 }}
                     >
                       <MotionBox
                         position="absolute"
@@ -564,7 +580,7 @@ const AgentSection = () => {
                         }}
                       />
                       <Box
-                        p={6}
+                        p={{ base: 5, md: 6 }}
                         bg="transparent"
                         borderRadius="xl"
                         border="1px solid"
@@ -589,11 +605,11 @@ const AgentSection = () => {
                           backfaceVisibility: 'hidden'
                         }}
                       >
-                        <HStack spacing={6} align="center" width="100%">
-                          <Icon as={feature.icon} boxSize={8} color="brand.400" flexShrink={0} />
+                        <HStack spacing={{ base: 4, md: 6 }} align="center" width="100%">
+                          <Icon as={feature.icon} boxSize={{ base: 8, md: 8 }} color="brand.400" flexShrink={0} />
                           <Box width="100%">
                             <Text color="black" fontWeight="bold" fontSize={{ base: "lg", md: "xl" }} mb={2}>{feature.title}</Text>
-                            <Text color="gray.700" fontSize={{ base: "md", md: "md" }} lineHeight="1.5">{feature.description}</Text>
+                            <Text color="gray.700" fontSize={{ base: "md", md: "md" }} lineHeight="1.6">{feature.description}</Text>
                           </Box>
                         </HStack>
                       </Box>
@@ -621,15 +637,17 @@ const HybridOpsSection = () => {
   }, [isInView]);
 
   return (
-    <Box py={{ base: 10, md: 16 }} ref={sectionRef}>
+    <Box py={{ base: 10, md: 16 }} ref={sectionRef} overflow="hidden">
       <Container maxW="7xl">
         <Flex 
           direction={{ base: "column", md: "row" }} 
           alignItems="flex-start"
           justifyContent="space-between"
+          width="100%"
+          gap={{ base: 8, md: 12 }}
         >
           {/* Left column with all text content */}
-          <Box width={{ base: "100%", md: "65%" }}>
+          <Box width={{ base: "100%", md: "65%" }} px={{ base: 4, md: 0 }}>
             <MotionVStack
               spacing={{ base: 3, md: 4 }}
               align={{ base: "center", md: "flex-start" }}
@@ -703,6 +721,7 @@ const HybridOpsSection = () => {
                   columns={{ base: 1, sm: 2 }} 
                   spacing={6}
                   width="full"
+                  px={{ base: 4, md: 0 }}
                 >
                   {[
                     "Complex Decision Making",
@@ -724,11 +743,12 @@ const HybridOpsSection = () => {
           
           {/* Right column with image */}
           <Box 
-            display={{ base: 'none', md: 'block' }} 
-            width="35%" 
+            display={{ base: 'block', md: 'block' }} 
+            width={{ base: "100%", md: "35%" }}
             position="relative"
             alignSelf="center"
-            mr="-400px"
+            mr={{ base: 0, md: "-400px" }}
+            mt={{ base: 8, md: 20 }}
           >
             <MotionBox
               initial={{ opacity: 0, x: 20 }}
@@ -740,8 +760,8 @@ const HybridOpsSection = () => {
               {/* Top right corner decoration */}
               <Box
                 position="absolute"
-                top="-10px"
-                right="5px"
+                top="-20px"
+                right="0px"
                 width="30px"
                 height="30px"
                 zIndex={2}
@@ -759,7 +779,7 @@ const HybridOpsSection = () => {
               <Box
                 position="absolute"
                 bottom="10px"
-                left="-50px"
+                left={{ base: "20px", md: "-50px" }}
                 width="30px"
                 height="30px"
                 zIndex={2}
@@ -778,12 +798,14 @@ const HybridOpsSection = () => {
                 as="img"
                 src="/images/HIL.png"
                 alt="Human-in-the-Loop"
-                maxH="450px"
+                maxH={{ base: "300px", md: "450px" }}
                 width="auto"
                 objectFit="contain"
                 borderRadius="md"
                 position="relative"
                 zIndex={1}
+                mx="auto"
+                display="block"
               />
             </MotionBox>
           </Box>
@@ -823,7 +845,7 @@ const ActionPlanSection = () => {
   ];
 
   return (
-    <Box py={{ base: 8, md: 16 }} position="relative" ref={sectionRef} overflow="visible">
+    <Box py={{ base: 8, md: 16 }} position="relative" ref={sectionRef} overflow="hidden">
       {/* Background layers */}
       <MotionBox
         position="absolute"
@@ -856,11 +878,11 @@ const ActionPlanSection = () => {
         transition={{ duration: 1.5 }}
       />
 
-      <Container maxW="100%" position="relative" px={{ base: 4, lg: 4 }} overflow="visible">
+      <Container maxW="100%" position="relative" px={{ base: 4, lg: 4 }} overflow="hidden">
         <Box position="relative" width="100%"> 
           <Flex direction={{ base: "column", md: "row" }} alignItems="center">
             {/* Content on the left */}
-            <Box width={{ base: "100%", md: "50%" }} ml={{ md: "150px" }}>
+            <Box width={{ base: "100%", md: "50%" }} ml={{ base: 0, md: "150px" }} px={{ base: 4, md: 0 }}>
               <MotionVStack
                 spacing={{ base: 4, md: 6 }}
                 align={{ base: "center", md: "flex-start" }}
@@ -885,7 +907,7 @@ const ActionPlanSection = () => {
                   Our AI-powered solutions help you drive growth, optimize operations, and stay ahead of the curve.
                 </Text>
 
-                <VStack spacing={6} width="100%">
+                <VStack spacing={{ base: 8, md: 10 }} width="100%">
                   {features.map((feature, index) => (
                     <MotionBox
                       key={index}
@@ -894,6 +916,7 @@ const ActionPlanSection = () => {
                       transition={{ duration: 0.5, delay: index * 0.2 }}
                       position="relative"
                       width="100%"
+                      mb={{ base: 4, md: 6 }}
                     >
                       <MotionBox
                         position="absolute"
@@ -913,7 +936,7 @@ const ActionPlanSection = () => {
                         }}
                       />
                       <Box
-                        p={6}
+                        p={{ base: 5, md: 6 }}
                         bg="transparent"
                         borderRadius="xl"
                         border="1px solid"
@@ -938,11 +961,11 @@ const ActionPlanSection = () => {
                           backfaceVisibility: 'hidden'
                         }}
                       >
-                        <HStack spacing={6} align="center" width="100%">
-                          <Icon as={feature.icon} boxSize={8} color="brand.400" flexShrink={0} />
+                        <HStack spacing={{ base: 4, md: 6 }} align="center" width="100%">
+                          <Icon as={feature.icon} boxSize={{ base: 8, md: 8 }} color="brand.400" flexShrink={0} />
                           <Box width="100%">
                             <Text color="black" fontWeight="bold" fontSize={{ base: "lg", md: "xl" }} mb={2}>{feature.title}</Text>
-                            <Text color="gray.700" fontSize={{ base: "md", md: "md" }} lineHeight="1.5">{feature.description}</Text>
+                            <Text color="gray.700" fontSize={{ base: "md", md: "md" }} lineHeight="1.6">{feature.description}</Text>
                           </Box>
                         </HStack>
                       </Box>
@@ -953,20 +976,27 @@ const ActionPlanSection = () => {
             </Box>
             
             {/* Animation on the right */}
-            <Box width={{ base: "100%", md: "50%" }} ml={{ md: "auto" }} mr={{ md: "-350px" }}>
+            <Box 
+              width={{ base: "100%", md: "50%" }} 
+              ml={{ base: 0, md: "auto" }} 
+              mr={{ base: 0, md: "-350px" }}
+              px={{ base: 4, md: 0 }}
+              mx={{ base: "auto", md: "auto" }}
+            >
               <MotionBox
                 initial={{ opacity: 0, x: 20 }}
                 animate={isVisible ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.6 }}
                 width="100%"
                 position="relative"
-                right="100px"
+                right={{ base: "0", md: "100px" }}
+                mx="auto"
               >
                 {/* Top right corner decoration */}
                 <Box
                   position="absolute"
-                  top="-10px"
-                  right="280px"
+                  top="-5px"
+                  right="-10px"
                   width="30px"
                   height="30px"
                   zIndex={2}
@@ -1009,6 +1039,9 @@ const ActionPlanSection = () => {
                   borderRadius="md"
                   position="relative"
                   zIndex={1}
+                  mx="auto"
+                  display="block"
+                  mt="40px"
                 />
               </MotionBox>
             </Box>
@@ -1138,7 +1171,7 @@ const Products = () => {
   }, []);
 
   return (
-    <Box bg="transparent" minH="100vh">
+    <Box bg="transparent" minH="100vh" overflow="hidden">
       {/* Hero Section */}
       <Box 
         ref={heroRef}
@@ -1150,12 +1183,15 @@ const Products = () => {
         flexDirection="column"
         justifyContent="space-between"
         position="relative"
+        overflow="hidden"
       >
         <Container 
           maxW="7xl" 
           bg="transparent"
           backdropFilter="none"
           boxShadow="none"
+          px={{ base: 4, md: 6 }}
+          mx="auto"
           sx={{
             '&.css-4zvfi5': {
               background: 'transparent !important',
@@ -1165,7 +1201,7 @@ const Products = () => {
           }}
         >
           <MotionVStack
-            spacing={{ base: 4, md: 6 }}
+            spacing={{ base: 6, md: 8 }}
             align="center"
             textAlign="center"
             initial="hidden"
@@ -1173,27 +1209,30 @@ const Products = () => {
             variants={fadeInUp}
             bg="transparent"
             backdropFilter="none"
-            pt={{ base: 20, md: 32 }}
+            pt={{ base: 16, md: 32 }}
+            width="100%"
           >
             <Heading
               color="black"
-              fontSize={{ base: "2xl", sm: "3xl", md: "5xl" }}
+              fontSize={{ base: "3xl", sm: "4xl", md: "5xl" }}
               fontWeight="bold"
               bgColor="transparent"
               backdropFilter="none"
               textShadow="none"
-              px={0}
+              px={{ base: 4, md: 0 }}
               py={0}
+              lineHeight="1.2"
             >
               AI-Powered Workplace Solutions
             </Heading>
             <Text
               color="gray.700"
-              fontSize={{ base: "md", md: "xl" }}
+              fontSize={{ base: "lg", md: "xl" }}
               maxW="3xl"
               px={{ base: 4, md: 0 }}
               bgColor="transparent"
               backdropFilter="none"
+              lineHeight="1.6"
             >
               Transform your enterprise operations with our cutting-edge AI workers. 
               Streamline workflows, enhance collaboration, and drive innovation across your organization.
@@ -1280,6 +1319,7 @@ const Products = () => {
         minH="100vh"
         display="flex"
         alignItems="center"
+        overflow="hidden"
       >
         <HybridOpsSection />
       </Box>
@@ -1289,7 +1329,7 @@ const Products = () => {
         ref={actionPlanRef}
         py={{ base: 8, md: 16 }} 
         position="relative" 
-        overflow="visible"
+        overflow="hidden"
         minH="100vh"
         display="flex"
         alignItems="center"
@@ -1304,6 +1344,7 @@ const Products = () => {
         minH="100vh"
         display="flex"
         alignItems="center"
+        overflow="hidden"
       >
         <Container maxW="7xl">
           <MotionVStack 

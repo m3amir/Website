@@ -254,14 +254,14 @@ const ConnectorFlow = () => {
   const iconSize = useBreakpointValue({ base: 16, md: 24 });
   
   return (
-    <Box position="relative" h={{ base: "300px", md: "400px" }} w="100%" mt={0}>
+    <Box position="relative" h={{ base: "500px", md: "550px" }} w="100%" mt={0} overflow="hidden" zIndex={5}>
       <Text color="gray.600" fontSize="sm" textAlign="center" mb={4}>
         These are just some of our supported connectors. Contact us to learn more about all available integrations.
       </Text>
-      <HStack spacing={0} w="100%" h="100%" position="relative">
+      <HStack spacing={0} w="100%" h="100%" position="relative" overflow="hidden" zIndex={5}>
         {/* Left Side - Services */}
-        <Box flex="1.5" h="100%" position="relative">
-          <VStack spacing={{ base: 6, md: 10 }} h="100%" justify="flex-start" pl={{ base: 2, md: 12 }} pt={{ base: 4, md: 8 }}>
+        <Box flex={{ base: "1", md: "1.5" }} h="100%" position="relative" zIndex={10}>
+          <VStack spacing={{ base: 15, md: 18 }} h="100%" justify="flex-start" pl={{ base: 2, md: 12 }} pt={{ base: 20, md: 30 }}>
             {[
               { icon: FaSlack, color: "#E01E5A", name: "Slack" },
               { icon: FaMicrosoft, color: "#00A4EF", name: "Microsoft" },
@@ -290,24 +290,28 @@ const ConnectorFlow = () => {
                     boxShadow: `0 0 30px ${item.color}30`,
                     borderColor: item.color
                   }}
-                  zIndex={3}
+                  zIndex={20}
                 >
                   <Box as={item.icon} fontSize={iconSize} color={item.color} />
                 </Box>
 
                 {/* Connection Line */}
-                <Box flex="1" position="relative" ml={0}>
+                <Box flex="1" position="relative" ml={0} display={{ base: "block", md: "block" }}>
                   <MotionBox
                     position="absolute"
                     top="50%"
                     left="-8px"
-                    right={{ base: "-200px", md: "-320px" }}
+                    right={{ base: "-100px", md: "-320px" }}
                     height="2px"
                     bg={`linear-gradient(to right, ${item.color}, ${item.color})`}
                     style={{
                       transformOrigin: "left center",
-                      transform: `rotate(${-10 + index * 8}deg) translateY(${50 + index * 30}px)`,
-                      zIndex: 2
+                      transform: index === 0 
+                        ? "rotate(-65deg) translateY(-200px)" 
+                        : index === 3 
+                          ? "rotate(-233deg) translateY(-380px)"
+                          : `rotate(${-90 + (index * 15)}deg) translateY(${-270 - (index * 35)}px)`,
+                      zIndex: 25
                     }}
                     initial={{ scaleX: 0, opacity: 0 }}
                     animate={{ 
@@ -350,13 +354,14 @@ const ConnectorFlow = () => {
         </Box>
 
         {/* Right Side - AI Platform */}
-        <Box flex="1" h="100%" position="relative">
+        <Box flex="1" h="100%" position="relative" zIndex={10}>
           <MotionBox
-            position="absolute"
-            right={{ base: 4, md: 16 }}
-            top="0"
-            width={{ base: "160px", md: "280px" }}
-            height={{ base: "280px", md: "400px" }}
+            position={{ base: "absolute", md: "absolute" }}
+            right={{ base: "5px", md: 16 }}
+            top={{ base: "16%", md: "5%" }}
+            transform={{ base: "none", md: "none" }}
+            width={{ base: "120px", md: "280px" }}
+            height={{ base: "200px", md: "350px" }}
             bg="white"
             backdropFilter="blur(8px)"
             borderRadius="2xl"
@@ -372,7 +377,7 @@ const ConnectorFlow = () => {
             transition={{ duration: 0.5 }}
             overflow={{ base: "hidden", md: "visible" }}
             boxShadow="lg"
-            zIndex={5}
+            zIndex={30}
           >
             {/* Task Processing Animation */}
             <Box 
@@ -549,6 +554,7 @@ const AIWorker = () => {
       const distance = targetPosition - startPosition;
       const duration = 1500; // 1.5 seconds for slower scrolling
       let start: number | null = null;
+      let animationId: number;
 
       const animation = (currentTime: number) => {
         if (start === null) start = currentTime;
@@ -565,23 +571,43 @@ const AIWorker = () => {
         window.scrollTo(0, startPosition + (distance * easeInOutCubic(progress)));
 
         if (timeElapsed < duration) {
-          requestAnimationFrame(animation);
+          animationId = requestAnimationFrame(animation);
         }
       };
 
-      requestAnimationFrame(animation);
+      animationId = requestAnimationFrame(animation);
+      
+      // Return a cleanup function
+      return () => {
+        if (animationId) {
+          cancelAnimationFrame(animationId);
+        }
+      };
     };
 
+    // Use a more mobile-friendly threshold
     const observerOptions = {
       root: null,
       rootMargin: '0px',
-      threshold: 0.3, // Trigger when 30% of the section is visible
+      threshold: 0.1, // Lower threshold for mobile responsiveness
     };
 
+    const cleanupFunctions: Array<() => void> = [];
+    let isScrolling = false;
+
     const handleIntersect = (entries: IntersectionObserverEntry[]) => {
+      if (isScrolling) return;
+      
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          smoothScrollTo(entry.target);
+          isScrolling = true;
+          const cleanup = smoothScrollTo(entry.target);
+          cleanupFunctions.push(cleanup);
+          
+          // Reset isScrolling after animation is likely complete
+          setTimeout(() => {
+            isScrolling = false;
+          }, 1600);
         }
       });
     };
@@ -593,12 +619,16 @@ const AIWorker = () => {
     if (integrationsRef.current) observer.observe(integrationsRef.current);
     if (testimonialsRef.current) observer.observe(testimonialsRef.current);
 
-    // Clean up observer on unmount
-    return () => observer.disconnect();
+    // Clean up observer and animations on unmount
+    return () => {
+      observer.disconnect();
+      // Clean up any in-progress animations
+      cleanupFunctions.forEach(cleanup => cleanup());
+    };
   }, []);
 
   return (
-    <Box bg="white" minH="100vh" pt="64px">
+    <Box bg="white" minH="100vh" pt="64px" overflow="hidden">
       <DemoRequestModal isOpen={isOpen} onClose={onClose} />
       
       {/* Hero Section */}
@@ -609,6 +639,8 @@ const AIWorker = () => {
         minH="100vh"
         display="flex"
         alignItems="center"
+        width="100%"
+        overflow="hidden"
       >
         <Container maxW="6xl" px={{ base: 4, md: 6 }}>
           <VStack spacing={{ base: 4, md: 6 }} align="center" textAlign="center">
@@ -740,7 +772,7 @@ const AIWorker = () => {
               </SimpleGrid>
             </Box>
 
-            <Box>
+            <Box mb={{ base: 20, md: 20 }}>
               <ConnectorFlow />
             </Box>
           </VStack>
@@ -753,7 +785,7 @@ const AIWorker = () => {
         py={{ base: 12, md: 20 }} 
         position="relative" 
         overflow="hidden"
-        mt={{ base: 12, md: 20 }}
+        mt={{ base: 0, md: 0 }}
         minH="100vh"
         display="flex"
         alignItems="center"
@@ -764,8 +796,8 @@ const AIWorker = () => {
           top="50%"
           left="50%"
           transform="translate(-50%, -50%)"
-          width="140%"
-          height="140%"
+          width="100%"
+          height="100%"
           background="white"
           pointerEvents="none"
         />
@@ -785,7 +817,7 @@ const AIWorker = () => {
               {/* LSEG Testimonial */}
               <Box
                 bg="gray.50"
-                p={8}
+                p={{ base: 6, md: 8 }}
                 borderRadius="2xl"
                 border="1px solid"
                 borderColor="gray.200"
@@ -801,7 +833,7 @@ const AIWorker = () => {
                   position="absolute"
                   top={4}
                   left={4}
-                  fontSize="6xl"
+                  fontSize={{ base: "4xl", md: "6xl" }}
                   color="brand.400"
                   opacity={0.3}
                   lineHeight={1}
@@ -809,22 +841,22 @@ const AIWorker = () => {
                   "
                 </Box>
                 
-                <VStack align="start" spacing={6}>
-                  <Text color="gray.700" fontSize="lg" pt={8} fontStyle="italic">
+                <VStack align="start" spacing={{ base: 4, md: 6 }}>
+                  <Text color="gray.700" fontSize={{ base: "md", md: "lg" }} pt={8} fontStyle="italic">
                     AI Workers represent the future of enterprise automation. The potential for improving data processing accuracy and workflow efficiency is immense. I believe organizations that adopt this technology early will have a significant competitive advantage.
                   </Text>
                   
-                  <HStack spacing={4} pt={4}>
+                  <HStack spacing={4} pt={{ base: 2, md: 4 }}>
                     <Box
                       bg="brand.400"
                       borderRadius="full"
                       p={1}
-                      width="48px"
-                      height="48px"
+                      width={{ base: "40px", md: "48px" }}
+                      height={{ base: "40px", md: "48px" }}
                       display="flex"
                       alignItems="center"
                       justifyContent="center"
-                      fontSize="xl"
+                      fontSize={{ base: "lg", md: "xl" }}
                       fontWeight="bold"
                       color="white"
                     >
@@ -842,7 +874,7 @@ const AIWorker = () => {
               {/* Grant Thornton Testimonial */}
               <Box
                 bg="gray.50"
-                p={8}
+                p={{ base: 6, md: 8 }}
                 borderRadius="2xl"
                 border="1px solid"
                 borderColor="gray.200"
@@ -858,7 +890,7 @@ const AIWorker = () => {
                   position="absolute"
                   top={4}
                   left={4}
-                  fontSize="6xl"
+                  fontSize={{ base: "4xl", md: "6xl" }}
                   color="brand.400"
                   opacity={0.3}
                   lineHeight={1}
@@ -866,22 +898,22 @@ const AIWorker = () => {
                   "
                 </Box>
                 
-                <VStack align="start" spacing={6}>
-                  <Text color="gray.700" fontSize="lg" pt={8} fontStyle="italic">
+                <VStack align="start" spacing={{ base: 4, md: 6 }}>
+                  <Text color="gray.700" fontSize={{ base: "md", md: "lg" }} pt={8} fontStyle="italic">
                     The concept of AI Workers is transformative for professional services. As we look to the future of audit and consulting, intelligent automation will be key to delivering higher quality services while allowing our teams to focus on strategic thinking.
                   </Text>
                   
-                  <HStack spacing={4} pt={4}>
+                  <HStack spacing={4} pt={{ base: 2, md: 4 }}>
                     <Box
                       bg="brand.400"
                       borderRadius="full"
                       p={1}
-                      width="48px"
-                      height="48px"
+                      width={{ base: "40px", md: "48px" }}
+                      height={{ base: "40px", md: "48px" }}
                       display="flex"
                       alignItems="center"
                       justifyContent="center"
-                      fontSize="xl"
+                      fontSize={{ base: "lg", md: "xl" }}
                       fontWeight="bold"
                       color="white"
                     >
@@ -901,25 +933,25 @@ const AIWorker = () => {
       </Box>
 
       {/* CTA Section */}
-      <Container maxW="6xl" py={16}>
+      <Container maxW="6xl" py={{ base: 8, md: 16 }} px={{ base: 4, md: 6 }}>
         <Box
           bg="white"
-          p={12}
+          p={{ base: 6, md: 12 }}
           borderRadius="2xl"
           textAlign="center"
           border="1px solid"
           borderColor="gray.200"
         >
-          <VStack spacing={6}>
-            <Heading color="black" size="xl">
+          <VStack spacing={{ base: 4, md: 6 }}>
+            <Heading color="black" size={{ base: "lg", md: "xl" }}>
               Ready to Transform Your Workflow?
             </Heading>
-            <Text color="gray.700" fontSize="lg" maxW="2xl">
+            <Text color="gray.700" fontSize={{ base: "md", md: "lg" }} maxW="2xl">
               Join leading enterprises in revolutionizing their operations with our AI workers.
               Schedule a demo today and see the power of intelligent automation.
             </Text>
             <Button
-              size="lg"
+              size={{ base: "md", md: "lg" }}
               colorScheme="brand"
               rightIcon={<FiArrowRight />}
               onClick={onOpen}
@@ -945,10 +977,10 @@ const AIWorker = () => {
       </Container>
 
       {/* Demo Video Section */}
-      <Box py={20} bg="gray.50">
-        <Container maxW="7xl">
+      <Box py={{ base: 10, md: 20 }} bg="gray.50">
+        <Container maxW="7xl" px={{ base: 4, md: 6 }}>
           <MotionBox
-            p={8}
+            p={{ base: 5, md: 8 }}
             borderRadius="xl"
             bg="white"
             border="1px dashed"
@@ -961,9 +993,9 @@ const AIWorker = () => {
             transition={{ duration: 0.8 }}
             boxShadow="sm"
           >
-            <MotionStack spacing={4} align="center">
+            <MotionStack spacing={{ base: 3, md: 4 }} align="center">
               <MotionHeading
-                size="lg"
+                size={{ base: "md", md: "lg" }}
                 bgGradient="linear(to-r, brand.400, brand.600)"
                 bgClip="text"
                 initial={{ opacity: 0 }}
@@ -974,7 +1006,7 @@ const AIWorker = () => {
               </MotionHeading>
               <MotionBox
                 w="full"
-                h="300px"
+                h={{ base: "200px", md: "300px" }}
                 bg="gray.50"
                 borderRadius="lg"
                 display="flex"
@@ -987,7 +1019,7 @@ const AIWorker = () => {
                 borderColor="gray.200"
               >
                 <MotionText
-                  fontSize="xl"
+                  fontSize={{ base: "lg", md: "xl" }}
                   color="gray.700"
                   fontWeight="medium"
                   initial={{ opacity: 0 }}
@@ -999,7 +1031,7 @@ const AIWorker = () => {
               </MotionBox>
               <MotionText
                 color="gray.700"
-                fontSize="sm"
+                fontSize={{ base: "xs", md: "sm" }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}

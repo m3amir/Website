@@ -305,7 +305,7 @@ const Navbar = () => {
             {/* Mobile Menu Button */}
             <IconButton
               aria-label="Open menu"
-              icon={<HamburgerIcon />}
+              icon={<HamburgerIcon color={location.pathname === '/security' || location.pathname === '/knowledge' ? "white" : "text.primary"} />}
               variant="ghost"
               color={location.pathname === '/security' || location.pathname === '/knowledge' ? "white" : "text.primary"}
               display={{ base: "flex", md: "none" }}

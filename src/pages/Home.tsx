@@ -9,11 +9,11 @@ const MotionText = motion(Text)
 const MotionStack = motion(Stack)
 
 const Home = () => {
-  const sloganFontSize = useBreakpointValue({ base: "4xl", sm: "5xl", md: "6xl", lg: "7xl" })
+  const sloganFontSize = useBreakpointValue({ base: "3xl", sm: "4xl", md: "5xl", lg: "6xl" })
   
   return (
-    <Box py={{ base: 10, md: 20 }} overflow="visible">
-      <Container maxW="7xl" px={{ base: 4, md: 8 }}>
+    <Box py={{ base: 16, md: 24 }} overflow="visible" minH="100vh" display="flex" alignItems="center">
+      <Container maxW="7xl" px={{ base: 4, md: 8 }} mx="auto" position="relative" pb={{ base: 16, md: 24 }}>
         <MotionStack 
           gap={{ base: 6, md: 8 }} 
           align="center" 
@@ -21,30 +21,32 @@ const Home = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
+          width="100%"
         >
           {/* Animated Slogan */}
           <MotionBox
-            mt={{ base: 8, md: 12 }}
+            mt={{ base: 4, md: 8 }}
             position="relative"
-            height={{ base: "300px", md: "400px" }}
+            height={{ base: "250px", sm: "300px", md: "400px" }}
             width="100%"
             display="flex"
             flexDirection="column"
             alignItems="center"
             justifyContent="center"
-            overflow="visible"
+            overflow="hidden"
             zIndex={1}
           >
             {/* First Line: "Changing the" */}
             <MotionBox
               position="absolute"
-              top={{ base: "20px", md: "30px" }}
+              top={{ base: "10px", sm: "20px", md: "30px" }}
               display="flex"
               gap={{ base: 2, md: 3 }}
               alignItems="center"
               width="100%"
               justifyContent="center"
               zIndex={2}
+              flexWrap={{ base: "wrap", sm: "nowrap" }}
             >
               <MotionBox
                 initial={{ opacity: 0, x: -100, rotate: -10 }}
@@ -95,7 +97,7 @@ const Home = () => {
             {/* Second Line: "Paradigm of Work" */}
             <MotionBox
               position="absolute"
-              top={{ base: "90px", md: "140px" }}
+              top={{ base: "70px", sm: "90px", md: "140px" }}
               display="flex"
               gap={{ base: 2, md: 3 }}
               alignItems="center"
@@ -157,10 +159,10 @@ const Home = () => {
                 </Text>
                 <Box
                   position="absolute"
-                  right="-120px"
-                  bottom="-20px"
-                  height="120px"
-                  width="240px"
+                  right={{ base: "-60px", sm: "-80px", md: "-100px" }}
+                  top={{ base: "0px", sm: "0px", md: "0px" }}
+                  height={{ base: "100px", sm: "120px", md: "140px" }}
+                  width={{ base: "160px", sm: "200px", md: "240px" }}
                   overflow="visible"
                   zIndex={1}
                 >
@@ -172,7 +174,7 @@ const Home = () => {
             {/* Animated underlines */}
             <MotionBox
               position="absolute"
-              bottom={{ base: "30px", md: "40px" }}
+              bottom={{ base: "20px", sm: "30px", md: "40px" }}
               width="100%"
               display="flex"
               flexDirection="column"
@@ -181,7 +183,7 @@ const Home = () => {
               zIndex={1}
             >
               <MotionBox
-                h={{ base: "8px", md: "12px" }}
+                h={{ base: "6px", sm: "8px", md: "12px" }}
                 bg="#b026ff"
                 initial={{ width: "0%", x: -200 }}
                 animate={{ width: ["0%", "80%"], x: 0 }}
@@ -191,7 +193,7 @@ const Home = () => {
                 style={{ backgroundColor: "#b026ff" }}
               />
               <MotionBox
-                h={{ base: "8px", md: "12px" }}
+                h={{ base: "6px", sm: "8px", md: "12px" }}
                 bg="#c160ff"
                 initial={{ width: "0%", x: 200 }}
                 animate={{ width: ["0%", "60%"], x: 0 }}
@@ -204,19 +206,20 @@ const Home = () => {
           </MotionBox>
 
           <MotionText 
-            fontSize={{ base: "lg", md: "xl" }}
+            fontSize={{ base: "md", sm: "lg", md: "xl" }}
             color="text.secondary" 
             maxW="2xl"
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 2.0, duration: 0.8 }}
             px={{ base: 4, md: 0 }}
+            lineHeight="1.6"
           >
             Revolutionizing how teams collaborate, innovate, and achieve their goals in the modern workplace.
           </MotionText>
 
           <MotionText 
-            fontSize={{ base: "lg", md: "xl" }}
+            fontSize={{ base: "md", sm: "lg", md: "xl" }}
             fontWeight="bold"
             color="brand.500"
             maxW="2xl"
@@ -224,7 +227,7 @@ const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 2.1, duration: 0.8 }}
             px={{ base: 4, md: 0 }}
-            mt={{ base: 6, md: 8 }}
+            mt={{ base: 4, md: 6 }}
           >
             Interested in participating in our closed beta?
           </MotionText>
@@ -241,9 +244,9 @@ const Home = () => {
             display="flex"
             flexWrap="nowrap"
           >
-            <Link to="/products" style={{ display: 'inline-block' }}>
+            <Link to="/products" style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
               <Button 
-                size="lg" 
+                size={{ base: "md", sm: "lg" }} 
                 variant="unstyled" 
                 color="black"
                 mx={2}
@@ -252,6 +255,7 @@ const Home = () => {
                 outline="none"
                 boxShadow="none"
                 display="inline-block"
+                width={{ base: "100%", sm: "auto" }}
                 _after={{
                   content: '""',
                   position: 'absolute',

@@ -471,7 +471,8 @@ const Security: React.FC = () => {
   }, []);
   
   return (
-    <div className="security-root-container" style={{ overflow: "visible" }}>
+    <div className="security-root-container" style={{ overflow: "hidden", maxWidth: "100vw" }}>
+      
       {/* Black background header section */}
       <div ref={headerRef} className="security-container" style={{
         paddingLeft: "0",
@@ -548,7 +549,12 @@ const Security: React.FC = () => {
         <div className="security-features security-container" style={{ 
           paddingLeft: "1rem",
           backgroundColor: "#FFFFFF",
-          color: "#090a0f"
+          color: "#090a0f",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "100%"
         }}>
           <h2 className="security-features-title fade-in" style={{ 
             color: "#000000", 
@@ -854,6 +860,44 @@ const Security: React.FC = () => {
             </div>
             <div className="faq-answer" style={{ paddingLeft: "3rem" }}>
               <p>Our pricing is transparent and scalable based on your needs. We offer various plans to accommodate different use cases and organization sizes. Contact our sales team for detailed pricing information.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaqItem === 5 ? 'active' : ''}`} style={{ 
+            textAlign: "left",
+            marginLeft: "1rem",
+            width: "calc(100% - 2rem)"
+          }}>
+            <div className="faq-question-row fade-in-delay-3" onClick={() => toggleFaqItem(5)} style={{ 
+              justifyContent: "flex-start",
+              display: "flex",
+              alignItems: "center",
+              width: "fit-content",
+              maxWidth: "700px"
+            }}>
+              <div className="faq-number" style={{ marginRight: "1rem" }}>- 05</div>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <div className="faq-question">How reliable is your AI?</div>
+                <button className="faq-toggle" style={{ 
+                  marginLeft: "1rem",
+                  backgroundColor: "transparent",
+                  border: "1px solid rgba(255,255,255,0.2)",
+                  borderRadius: "50%",
+                  width: "24px",
+                  height: "24px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: 0
+                }}>
+                  <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+                  <path d="M8 0V16M0 8H16" stroke="currentColor" strokeWidth="2"/>
+                </svg>
+              </button>
+            </div>
+            </div>
+            <div className="faq-answer" style={{ paddingLeft: "3rem" }}>
+              <p>Our AI employes multi-route reasoning to ensure accuracy and reliability in its actions but we integrate a human in the loop functionality every step of the way to ensure that added oversight.</p>
             </div>
           </div>
         </div>
