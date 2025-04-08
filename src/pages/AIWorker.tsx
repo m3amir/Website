@@ -254,11 +254,11 @@ const ConnectorFlow = () => {
   const iconSize = useBreakpointValue({ base: 16, md: 24 });
   
   return (
-    <Box position="relative" h={{ base: "500px", md: "550px" }} w="100%" mt={0} overflow="hidden" zIndex={5}>
+    <Box position="relative" h={{ base: "500px", md: "550px" }} w="100%" mt={0} overflow="visible" zIndex={5}>
       <Text color="gray.600" fontSize="sm" textAlign="center" mb={4}>
         These are just some of our supported connectors. Contact us to learn more about all available integrations.
       </Text>
-      <HStack spacing={0} w="100%" h="100%" position="relative" overflow="hidden" zIndex={5}>
+      <HStack spacing={0} w="100%" h="100%" position="relative" overflow="visible" zIndex={5}>
         {/* Left Side - Services */}
         <Box flex={{ base: "1", md: "1.5" }} h="100%" position="relative" zIndex={10}>
           <VStack spacing={{ base: 15, md: 18 }} h="100%" justify="flex-start" pl={{ base: 2, md: 12 }} pt={{ base: 20, md: 30 }}>
@@ -307,10 +307,10 @@ const ConnectorFlow = () => {
                     style={{
                       transformOrigin: "left center",
                       transform: index === 0 
-                        ? "rotate(-65deg) translateY(-200px)" 
+                        ? "rotate(-65deg) translateY(-60px)" 
                         : index === 3 
-                          ? "rotate(-233deg) translateY(-380px)"
-                          : `rotate(${-90 + (index * 15)}deg) translateY(${-270 - (index * 35)}px)`,
+                          ? "rotate(-233deg) translateY(-240px)"
+                          : `rotate(${-90 + (index * 15)}deg) translateY(${-140 - (index * 35)}px)`,
                       zIndex: 25
                     }}
                     initial={{ scaleX: 0, opacity: 0 }}
@@ -358,7 +358,7 @@ const ConnectorFlow = () => {
           <MotionBox
             position={{ base: "absolute", md: "absolute" }}
             right={{ base: "5px", md: 16 }}
-            top={{ base: "16%", md: "5%" }}
+            top={{ base: "16%", md: "1%" }}
             transform={{ base: "none", md: "none" }}
             width={{ base: "120px", md: "280px" }}
             height={{ base: "200px", md: "350px" }}

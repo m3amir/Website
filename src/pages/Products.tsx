@@ -147,13 +147,13 @@ const SecurityAnimation = ({ shouldAnimate }: { shouldAnimate: boolean }) => {
           ease: "easeInOut" 
         }
       }}
-      overflow="hidden"
+      overflow="visible"
     >
       <Box 
         width={{ base: "240px", sm: "280px", md: "320px" }}
         height={{ base: "240px", sm: "280px", md: "320px" }}
         position="relative"
-        overflow="hidden"
+        overflow="visible"
       >
         <Lottie
           lottieRef={lottieRef}
@@ -260,8 +260,8 @@ const SecuritySection = () => {
           initial="hidden"
           animate={isVisible ? "visible" : "hidden"}
         >
-          <Grid 
-            templateColumns={{ base: "1fr", lg: "5fr 7fr" }} 
+          <Grid
+            templateColumns={{ base: "1fr", lg: "1fr 1fr" }}
             gap={{ base: 8, md: 12 }}
             alignItems="center"
             width="100%"
@@ -278,7 +278,7 @@ const SecuritySection = () => {
                     Your Data Security Is Our Priority
                   </Heading>
                 </MotionBox>
-                <Text color="gray.700" fontSize={{ base: "sm", md: "lg" }}>
+                <Text color="gray.700" fontSize={{ base: "sm", md: "lg" }} width="100%">
                   We maintain the highest standards of data protection and privacy, ensuring your information remains secure and confidential at all times.
                 </Text>
               </VStack>
@@ -358,8 +358,9 @@ const SecuritySection = () => {
                 transition={{ duration: 0.3 }}
                 width="100%"
                 height="100%"
-                ml={{ base: 0, lg: "200px" }}
-                mr={{ base: 0, lg: "-550px" }}
+                ml={{ base: 0, lg: "300px" }}
+                mr={{ base: 0, lg: "-100px" }}
+                overflow="visible"
               >
                 <SecurityAnimation shouldAnimate={isVisible} />
               </MotionBox>
