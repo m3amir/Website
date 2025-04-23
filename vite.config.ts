@@ -27,44 +27,36 @@ export default defineConfig({
     {
       name: 'copy-content',
       closeBundle: async () => {
-        try {
-          const contentDir = 'src/content';
-          const distContentDir = 'dist/content';
+        const contentDir = 'src/content';
+        const distContentDir = 'dist/content';
 
-          // Check if content directory exists before proceeding
-          if (!(await fs.pathExists(contentDir))) {
-            console.warn(`Content directory "${contentDir}" not found. Skipping copy.`);
-            return;
-          }
+        // Check if content directory exists before proceeding
+        if (!(await fs.pathExists(contentDir))) {
+          return;
+        }
 
-          // Ensure the destination directory exists
-          await fs.ensureDir(distContentDir);
+        // Ensure the destination directory exists
+        await fs.ensureDir(distContentDir);
 
-          // Copy content directory to dist root
-          await fs.copy(contentDir, distContentDir, {
-            overwrite: true,
-            filter: (src) => {
-              try {
-                const isDirectory = fs.statSync(src).isDirectory();
-                const isMdFile = src.endsWith('.md');
-                const isNodeModules = src.includes('node_modules');
-                return isDirectory || (isMdFile && !isNodeModules);
-              } catch {
-                return false; // Ignore errors from non-existent files
-              }
+        // Copy content directory to dist root
+        await fs.copy(contentDir, distContentDir, {
+          overwrite: true,
+          filter: (src) => {
+            try {
+              const isDirectory = fs.statSync(src).isDirectory();
+              const isMdFile = src.endsWith('.md');
+              const isNodeModules = src.includes('node_modules');
+              return isDirectory || (isMdFile && !isNodeModules);
+            } catch {
+              return false; // Ignore errors from non-existent files
             }
-          });
-
-          // Remove `src/content` from dist if mistakenly copied
-          const distSrcContent = path.join('dist', 'src', 'content');
-          if (await fs.pathExists(distSrcContent)) {
-            await fs.remove(distSrcContent);
           }
+        });
 
-          console.log('Successfully copied content files to dist');
-        } catch (error) {
-          console.error('Error copying content:', error);
-          throw error;
+        // Remove `src/content` from dist if mistakenly copied
+        const distSrcContent = path.join('dist', 'src', 'content');
+        if (await fs.pathExists(distSrcContent)) {
+          await fs.remove(distSrcContent);
         }
       }
     }

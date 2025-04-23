@@ -51,8 +51,7 @@ const Contact = () => {
       })
 
       form.reset()
-    } catch (error) {
-      console.error('Error sending email:', error)
+    } catch {
       toast({
         title: 'Error sending message',
         description: "Please try again later.",

@@ -253,8 +253,8 @@ const Articles = () => {
         )
         
         setArticles(sortedArticles)
-      } catch (error) {
-        console.error('Error loading articles:', error)
+      } catch {
+        // Error handled silently
       } finally {
         setIsLoading(false)
       }

@@ -95,21 +95,17 @@ class ArticleService {
 
   private async loadProdArticles() {
     try {
-      console.log('Loading prod articles, attempting path: ./content/articles/*.md');
       const files = import.meta.glob('./content/articles/*.md', {
         eager: true,
         as: 'raw'
       });
-      console.log('Found files:', Object.keys(files));
       
       if (Object.keys(files).length === 0) {
         // Try alternative path
-        console.log('Attempting alternative path: ../content/articles/*.md');
         const altFiles = import.meta.glob('../content/articles/*.md', {
           eager: true,
           as: 'raw'
         });
-        console.log('Found files in alt path:', Object.keys(altFiles));
         
         if (Object.keys(altFiles).length > 0) {
           return altFiles;
@@ -118,7 +114,6 @@ class ArticleService {
       }
       return files;
     } catch (error) {
-      console.error('Error details:', error);
       throw new Error(`Failed to load prod articles: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
@@ -126,16 +121,11 @@ class ArticleService {
   private async loadArticles() {
     try {
       let markdownFiles;
-      console.log('Environment:', import.meta.env.DEV ? 'development' : 'production');
       if (import.meta.env.DEV) {
-        console.log('Loading dev articles...');
         markdownFiles = await this.loadDevArticles();
       } else {
-        console.log('Loading prod articles...');
         markdownFiles = await this.loadProdArticles();
       }
-
-      console.log('Loaded markdown files:', Object.keys(markdownFiles || {}));
 
       if (!markdownFiles || Object.keys(markdownFiles).length === 0) {
         throw new Error('No markdown files found');

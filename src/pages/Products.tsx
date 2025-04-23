@@ -96,33 +96,13 @@ const SecurityAnimation = ({ shouldAnimate }: { shouldAnimate: boolean }) => {
     fetch('/animations/padlock.json')
       .then(response => response.json())
       .then(data => {
-        // No longer modify animation to play once - let it loop
-        // data.op = 192; 
-        // data.ip = 0;   
-
-        // Change colors to purple
-        const purpleColor = [150/255, 56/255, 255/255, 1];
-        if (data.layers) {
-          data.layers.forEach((layer: LottieLayer) => {
-            if (layer.shapes) {
-              layer.shapes.forEach((shape: LottieShape) => {
-                if (shape.it) {
-                  shape.it.forEach((item) => {
-                    if (item.ty === "fl" && item.c?.k) {
-                      item.c.k = purpleColor;
-                    }
-                    if (item.ty === "st" && item.c?.k) {
-                      item.c.k = purpleColor;
-                    }
-                  });
-                }
-              });
-            }
-          });
+        if (typeof data === 'object' && data !== null) {
+          setAnimationData(data);
         }
-        setAnimationData(data);
       })
-      .catch(error => console.error('Error loading animation:', error));
+      .catch(() => {
+        // Animation load error handled silently
+      });
   }, []);
 
   useEffect(() => {
@@ -402,7 +382,9 @@ const AgentAnimation = ({ shouldAnimate }: { shouldAnimate: boolean }) => {
     fetch('/animations/agent.json')
       .then(response => response.json())
       .then(data => setAnimationData(data))
-      .catch(error => console.error('Error loading animation:', error));
+      .catch(() => {
+        // Animation load error handled silently
+      });
   }, []);
 
   useEffect(() => {

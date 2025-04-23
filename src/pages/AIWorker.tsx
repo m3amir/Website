@@ -103,8 +103,7 @@ const DemoRequestModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
 
       form.reset();
       onClose();
-    } catch (error) {
-      console.error('Error sending email:', error);
+    } catch {
       toast({
         title: "Error sending request",
         description: "Please try again later.",

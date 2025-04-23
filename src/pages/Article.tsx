@@ -115,7 +115,6 @@ const Article = () => {
         setArticle(articleData);
         setError(null);
       } catch (err) {
-        console.error('Error loading article:', err);
         setError(err instanceof Error ? err.message : 'Failed to load article');
       } finally {
         setLoading(false);
