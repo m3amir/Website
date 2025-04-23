@@ -24,6 +24,12 @@ import Lottie from 'lottie-react'
 const MotionBox = motion(Box);
 const MotionVStack = motion(VStack);
 
+// Common text style to be used across all text components
+const textStyle = {
+  fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
+  letterSpacing: "0.2px"
+};
+
 // Animation variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -36,10 +42,10 @@ const glowVariants = {
     scale: 1
   },
   visible: {
-    opacity: [0.1, 0.3, 0.1],
-    scale: [1, 1.02, 1],
+    opacity: [0.05, 0.1, 0.05],
+    scale: [1, 1.01, 1],
     transition: {
-      duration: 4,
+      duration: 6,
       ease: "easeInOut",
       repeat: Infinity,
       repeatType: "reverse"
@@ -53,10 +59,10 @@ const borderGlowVariants = {
     scale: 1
   },
   visible: {
-    opacity: [0.02, 0.04, 0.02],
+    opacity: [0.01, 0.02, 0.01],
     scale: 1,
     transition: {
-      duration: 3,
+      duration: 4,
       ease: "easeInOut",
       repeat: Infinity,
       repeatType: "mirror"
@@ -250,11 +256,11 @@ const SecuritySection = () => {
         right={0}
         bottom={0}
         bg="transparent"
-        backdropFilter="blur(80px)"
+        backdropFilter="blur(3px)"
         style={{ willChange: "opacity" }}
         initial={{ opacity: 0 }}
-        animate={{ opacity: isVisible ? 0.3 : 0 }}
-        transition={{ duration: 1.5 }}
+        animate={{ opacity: isVisible ? 0.15 : 0 }}
+        transition={{ duration: 1 }}
       />
 
       <Container maxW="100%" position="relative" overflow="visible">
@@ -283,7 +289,7 @@ const SecuritySection = () => {
                     Your Data Security Is Our Priority
                   </Heading>
                 </MotionBox>
-                <Text color="gray.700" fontSize={{ base: "sm", md: "lg" }} width="100%" pr={{ base: 0, lg: 0 }}>
+                <Text color="gray.700" fontSize={{ base: "sm", md: "lg" }} width="100%" pr={{ base: 0, lg: 0 }} {...textStyle}>
                   We maintain the highest standards of data protection and privacy, ensuring your information remains secure and confidential at all times.
                 </Text>
               </VStack>
@@ -315,7 +321,7 @@ const SecuritySection = () => {
                       border="1px solid"
                       borderColor="gray.200"
                       position="relative"
-                      backdropFilter="blur(10px)"
+                      backdropFilter="blur(3px)"
                       overflow="hidden"
                       height="auto"
                       minHeight={{ base: "180px", md: "150px" }}
@@ -324,7 +330,8 @@ const SecuritySection = () => {
                       width="100%"
                       style={{
                         transform: 'translate3d(0, 0, 0)',
-                        backfaceVisibility: 'hidden'
+                        backfaceVisibility: 'hidden',
+                        willChange: 'transform'
                       }}
                     >
                       <Box
@@ -344,10 +351,16 @@ const SecuritySection = () => {
                       <HStack spacing={{ base: 4, md: 6 }} align="start" position="relative" width="100%">
                         <Icon as={item.icon} boxSize={{ base: 8, md: 6 }} color="brand.400" mt={1} flexShrink={0} />
                         <VStack align="start" spacing={{ base: 2, md: 2 }} width="100%">
-                          <Heading size="sm" color="black" fontSize={{ base: "lg", md: "md" }}>{item.title}</Heading>
-                          <Text color="gray.700" fontSize={{ base: "sm", md: "sm" }} lineHeight="1.6">
-                            {item.description}
+                          <Text 
+                            {...textStyle}
+                            color="black" 
+                            fontSize={{ base: "lg", md: "xl" }} 
+                            mb={2} 
+                            fontWeight="bold"
+                          >
+                            {item.title}
                           </Text>
+                          <Text {...textStyle} color="gray.700" fontSize={{ base: "sm", md: "sm" }} lineHeight="1.6">{item.description}</Text>
                         </VStack>
                       </HStack>
                     </Box>
@@ -505,11 +518,11 @@ const AgentSection = () => {
         right={0}
         bottom={0}
         bg="transparent"
-        backdropFilter="blur(80px)"
+        backdropFilter="blur(3px)"
         style={{ willChange: "opacity" }}
         initial={{ opacity: 0 }}
-        animate={{ opacity: isVisible ? 0.3 : 0 }}
-        transition={{ duration: 1.5 }}
+        animate={{ opacity: isVisible ? 0.15 : 0 }}
+        transition={{ duration: 1 }}
       />
 
       <Container maxW="100%" position="relative" px={{ base: 4, lg: 0 }} overflow="hidden">
@@ -559,6 +572,7 @@ const AgentSection = () => {
                         Holistic AI Agent for Business Intelligence
                       </Heading>
                       <Text 
+                        {...textStyle}
                         color="gray.700" 
                         fontSize={{ base: "sm", md: "lg" }}
                         textAlign={{ base: "center", lg: "left" }}
@@ -605,7 +619,7 @@ const AgentSection = () => {
                             border="1px solid"
                             borderColor="gray.200"
                             position="relative"
-                            backdropFilter="blur(10px)"
+                            backdropFilter="blur(3px)"
                             overflow="hidden"
                             height="auto"
                             minHeight="auto"
@@ -627,8 +641,16 @@ const AgentSection = () => {
                             <HStack spacing={{ base: 4, md: 6 }} align="center" width="100%">
                               <Icon as={feature.icon} boxSize={{ base: 8, md: 8 }} color="brand.400" flexShrink={0} />
                               <Box width="100%">
-                                <Text color="black" fontWeight="bold" fontSize={{ base: "lg", md: "xl" }} mb={2}>{feature.title}</Text>
-                                <Text color="gray.700" fontSize={{ base: "md", md: "md" }} lineHeight="1.6">{feature.description}</Text>
+                                <Text 
+                                  {...textStyle}
+                                  color="black" 
+                                  fontSize={{ base: "lg", md: "xl" }} 
+                                  mb={2} 
+                                  fontWeight="bold"
+                                >
+                                  {feature.title}
+                                </Text>
+                                <Text {...textStyle} color="gray.700" fontSize={{ base: "md", md: "md" }} lineHeight="1.6">{feature.description}</Text>
                               </Box>
                             </HStack>
                           </Box>
@@ -688,6 +710,7 @@ const HybridOpsSection = () => {
                 Human in the Loop Every Step of the Way
               </Heading>
               <Text 
+                {...textStyle}
                 color="gray.700" 
                 fontSize={{ base: "sm", md: "lg" }}
                 textAlign={{ base: "center", md: "left" }}
@@ -734,6 +757,7 @@ const HybridOpsSection = () => {
                   When Human Expertise Matters Most
                 </Heading>
                 <Text 
+                  {...textStyle}
                   color="gray.700" 
                   fontSize={{ base: "sm", md: "md" }}
                   textAlign="center"
@@ -756,7 +780,7 @@ const HybridOpsSection = () => {
                   ].map((item, index) => (
                     <HStack key={index} spacing={3}>
                       <Icon as={FiCheck} color="brand.400" />
-                      <Text color="black" fontSize={{ base: "sm", md: "md" }}>{item}</Text>
+                      <Text color="black" fontSize={{ base: "sm", md: "md" }} {...textStyle}>{item}</Text>
                     </HStack>
                   ))}
                 </SimpleGrid>
@@ -786,15 +810,16 @@ const HybridOpsSection = () => {
               {/* Top right corner decoration */}
               <Box
                 position="absolute"
-                top="-20px"
-                right={{ base: "0px", md: "1px" }}
+                top="-30px"
+                right="0px"
                 width="30px"
                 height="30px"
-                zIndex={22}
+                zIndex={60}
+                transform="rotate(0deg)"
               >
                 <Image 
                   src="/images/corner.png" 
-                  alt="Corner decoration"
+                  alt="Top right corner decoration"
                   width="100%"
                   height="100%"
                   opacity={0.7}
@@ -805,11 +830,11 @@ const HybridOpsSection = () => {
               <Box
                 position="absolute"
                 bottom="10px"
-                left={{ base: "20px", md: "0px" }}
+                left={{ base: "10px", md: "0px" }}
                 width="30px"
                 height="30px"
                 zIndex={22}
-                transform="rotate(180deg)"
+                transform="rotate(270deg) scaleX(-1)"
               >
                 <Image 
                   src="/images/corner.png" 
@@ -915,11 +940,15 @@ const ReportSnippetSection = () => {
                   boxShadow="xl"
                   width="100%"
                   height="auto"
-                  ml="-50px"
+                  ml="0px"
                   transform="scale(1.12)"
                 />
               </Box>
-              <Box width={{ base: "100%", sm: "55%" }}>
+              <Flex 
+                direction="column" 
+                width={{ base: "100%", sm: "55%" }}
+                gap={4}
+              >
                 <Image
                   src="/images/report_snippet.png"
                   alt="Report Snippet"
@@ -927,11 +956,82 @@ const ReportSnippetSection = () => {
                   boxShadow="xl"
                   width="100%"
                   height="auto"
-                  mt="200px"
-                  ml="10px"
+                  mt="0px"
+                  ml="60px"
                   transform="scale(1.12)"
                 />
-              </Box>
+                {/* Cascading charts effect */}
+                <Box 
+                  position="relative"
+                  mt="40px"
+                  ml="60px"
+                  height="400px"
+                  width="100%"
+                >
+                  <MotionBox
+                    position="absolute"
+                    top="0px"
+                    left="0px"
+                    width="90%"
+                    zIndex={3}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                    whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                  >
+                    <Image
+                      src="/images/plot1.png"
+                      alt="Data Plot 1"
+                      borderRadius="lg"
+                      boxShadow="xl"
+                      width="100%"
+                      height="auto"
+                    />
+                  </MotionBox>
+                  
+                  <MotionBox
+                    position="absolute"
+                    top="60px"
+                    left="30px"
+                    width="90%"
+                    zIndex={2}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                  >
+                    <Image
+                      src="/images/plot2.png"
+                      alt="Data Plot 2"
+                      borderRadius="lg"
+                      boxShadow="xl"
+                      width="100%"
+                      height="auto"
+                    />
+                  </MotionBox>
+                  
+                  <MotionBox
+                    position="absolute"
+                    top="20px"
+                    left="70px"
+                    width="85%"
+                    zIndex={1}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                    whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                  >
+                    <Image
+                      src="/images/plot3.png"
+                      alt="Data Plot 3"
+                      borderRadius="lg"
+                      boxShadow="xl"
+                      width="100%"
+                      height="auto"
+                    />
+                  </MotionBox>
+                </Box>
+              </Flex>
             </Flex>
           </MotionBox>
         </GridItem>
@@ -944,6 +1044,7 @@ const ReportSnippetSection = () => {
           alignItems="center"
           pr={{ base: 0, md: "8%" }}
           order={{ base: 1, md: 2 }}
+          mt={{ base: 0, md: "-100px" }}
         >
           <MotionVStack
             spacing={6}
@@ -956,33 +1057,37 @@ const ReportSnippetSection = () => {
           >
             <Heading
               as="h2"
-              size="xl"
-              bgGradient="linear(to-r, purple.400, purple.600)"
-              bgClip="text"
+              color="black"
+              fontSize={{ base: "xl", sm: "2xl", md: "3xl" }}
               fontWeight="bold"
               textAlign={{ base: "center", md: "left" }}
             >
               Detailed Reports
             </Heading>
-            <Text fontSize="lg" color="gray.300" textAlign={{ base: "center", md: "left" }}>
+            <Text 
+              {...textStyle}
+              color="gray.700" 
+              fontSize={{ base: "sm", md: "lg" }} 
+              textAlign={{ base: "center", md: "left" }}
+            >
               Get comprehensive insights with our detailed reporting system. Track progress, analyze data, and make informed decisions with our intuitive reporting interface.
             </Text>
             <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={4} w="full">
               <HStack spacing={3}>
-                <Icon as={FiCheck} color="purple.400" />
-                <Text>Real-time Analytics</Text>
+                <Icon as={FiCheck} color="brand.400" />
+                <Text color="gray.700" {...textStyle}>Real-time Analytics</Text>
               </HStack>
               <HStack spacing={3}>
-                <Icon as={FiCheck} color="purple.400" />
-                <Text>Customizable Reports</Text>
+                <Icon as={FiCheck} color="brand.400" />
+                <Text color="gray.700" {...textStyle}>Customizable Reports</Text>
               </HStack>
               <HStack spacing={3}>
-                <Icon as={FiCheck} color="purple.400" />
-                <Text>Export Options</Text>
+                <Icon as={FiCheck} color="brand.400" />
+                <Text color="gray.700" {...textStyle}>Export Options</Text>
               </HStack>
               <HStack spacing={3}>
-                <Icon as={FiCheck} color="purple.400" />
-                <Text>Visual Dashboards</Text>
+                <Icon as={FiCheck} color="brand.400" />
+                <Text color="gray.700" {...textStyle}>Visual Dashboards</Text>
               </HStack>
             </SimpleGrid>
           </MotionVStack>
@@ -1074,8 +1179,25 @@ const ActionPlanSection = () => {
                   textAlign={{ base: "center", md: "left" }}
                 >
                   Action Plan for Business Success
+                  <Box
+                    position="absolute"
+                    top="-15px"
+                    right="-30px"
+                    width="25px"
+                    height="25px"
+                    zIndex={5}
+                  >
+                    <Image 
+                      src="/images/corner.png" 
+                      alt="Heading corner decoration"
+                      width="100%"
+                      height="100%"
+                      opacity={0.7}
+                    />
+                  </Box>
                 </Heading>
                 <Text 
+                  {...textStyle}
                   color="gray.700" 
                   fontSize={{ base: "sm", md: "lg" }}
                   textAlign={{ base: "center", md: "left" }}
@@ -1119,7 +1241,7 @@ const ActionPlanSection = () => {
                         border="1px solid"
                         borderColor="gray.200"
                         position="relative"
-                        backdropFilter="blur(10px)"
+                        backdropFilter="blur(3px)"
                         overflow="hidden"
                         height="auto"
                         minHeight={{ base: "180px", md: "150px" }}
@@ -1128,14 +1250,23 @@ const ActionPlanSection = () => {
                         width="100%"
                         style={{
                           transform: 'translate3d(0, 0, 0)',
-                          backfaceVisibility: 'hidden'
+                          backfaceVisibility: 'hidden',
+                          willChange: 'transform'
                         }}
                       >
                         <HStack spacing={{ base: 4, md: 6 }} align="center" width="100%">
                           <Icon as={feature.icon} boxSize={{ base: 8, md: 8 }} color="brand.400" flexShrink={0} />
                           <Box width="100%">
-                            <Text color="black" fontWeight="bold" fontSize={{ base: "lg", md: "xl" }} mb={2}>{feature.title}</Text>
-                            <Text color="gray.700" fontSize={{ base: "md", md: "md" }} lineHeight="1.6">{feature.description}</Text>
+                            <Text 
+                              {...textStyle}
+                              color="black" 
+                              fontSize={{ base: "lg", md: "xl" }} 
+                              mb={2} 
+                              fontWeight="bold"
+                            >
+                              {feature.title}
+                            </Text>
+                            <Text {...textStyle} color="gray.700" fontSize={{ base: "md", md: "md" }} lineHeight="1.6">{feature.description}</Text>
                           </Box>
                         </HStack>
                       </Box>
@@ -1149,41 +1280,61 @@ const ActionPlanSection = () => {
             <Box 
               width={{ base: "100%", md: "50%" }} 
               ml={{ base: 0, md: "auto" }} 
-              mr={{ base: 0, md: "-400px" }}
+              mr={{ base: 0, md: "0" }}
               px={{ base: 4, md: 0 }}
               mx={{ base: "auto", md: "auto" }}
               position={{ md: "relative" }}
-              right={{ base: 0, md: "-100px" }}
+              right={{ base: 0, md: "0" }}
               zIndex={20}
               overflow="visible"
             >
+              {/* Static corner decorations that should stay fixed in place */}
+              <Box
+                position="absolute"
+                top="320px"
+                right="150px"
+                width="30px"
+                height="30px"
+                zIndex={60}
+                transform="rotate(0deg)"
+              >
+                <Image 
+                  src="/images/corner.png" 
+                  alt="Top right corner decoration"
+                  width="100%"
+                  height="100%"
+                  opacity={0.7}
+                />
+              </Box>
+              
+              
               <MotionBox
                 initial={{ opacity: 0, x: 20 }}
                 animate={isVisible ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.8, delay: 0.3 }}
-                width="100%"
+                width={{ base: "100%", md: "150%" }}
                 position="relative"
                 mx="auto"
-                ml={{ base: 0, lg: "50px" }}
-                mr={{ base: 0, lg: "-550px" }}
+                ml={{ base: 0, lg: "0" }}
+                mr={{ base: 0, lg: "0" }}
                 zIndex={20}
                 overflow="visible"
               >
                 {/* Top right corner decoration */}
                 <Box
                   position="absolute"
-                  top="-5px"
-                  right={{ base: "-10px", md: "55px" }}
-                  width="30px"
-                  height="30px"
-                  zIndex={2}
+                  top="335px"
+                  right="80px"
+                  width="60px"
+                  height="60px"
+                  zIndex={40}
                 >
                   <Image 
                     src="/images/corner.png" 
-                    alt="Corner decoration"
+                    alt="Top corner decoration"
                     width="100%"
                     height="100%"
-                    opacity={0.7}
+                    opacity={1}
                   />
                 </Box>
                 
@@ -1191,11 +1342,11 @@ const ActionPlanSection = () => {
                 <Box
                   position="absolute"
                   bottom="10px"
-                  left={{ base: "-10px", md: "80px" }}
+                  left={{ base: "30px", md: "220px" }}
                   width="30px"
                   height="30px"
                   zIndex={22}
-                  transform="rotate(180deg)"
+                  transform="rotate(270deg) scaleX(-1)"
                 >
                   <Image 
                     src="/images/corner.png" 
@@ -1217,9 +1368,10 @@ const ActionPlanSection = () => {
                   borderRadius="md"
                   position="relative"
                   zIndex={21}
-                  mx="auto"
+                  ml={{ base: 0, md: "200px" }}
                   display="block"
-                  mt="40px"
+                  mt="350px"
+                  mb="400px"
                   overflow="visible"
                 />
               </MotionBox>
@@ -1237,115 +1389,48 @@ const Products = () => {
   const securityRef = useRef<HTMLDivElement>(null);
   const agentRef = useRef<HTMLDivElement>(null);
   const hybridOpsRef = useRef<HTMLDivElement>(null);
+  const reportRef = useRef<HTMLDivElement>(null);
   const actionPlanRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+
+  // Enhanced scroll to top on page refresh/load
+  useEffect(() => {
+    // Set scroll restoration to auto to allow browser's normal scrolling behavior
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'auto';
+    }
+    
+    return () => {
+      // No cleanup needed
+    };
+  }, []);
 
   useEffect(() => {
     // Flag to track if we're currently scrolling
     let isScrolling = false;
-    // Track last scroll time to prevent rapid scrolling
-    let lastScrollTime = 0;
-    // Track the currently active section
-    let activeSection: Element | null = null;
 
-    // Smooth scroll to target element
-    const smoothScrollTo = (target: Element) => {
-      if (isScrolling) return;
-      
-      isScrolling = true;
-      const startPos = window.pageYOffset;
-      const targetPos = target.getBoundingClientRect().top + startPos;
-      const startTime = performance.now();
-      const duration = 1200; // 1.2 second animation for smoother transition
-
-      // Animation function
-      function animate(currentTime: number) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        
-        // Improved easing function for smoother motion
-        const ease = (t: number): number => {
-          // Cubic bezier curve approximation for smoother scrolling
-          return t < 0.5 
-            ? 4 * t * t * t 
-            : 1 - Math.pow(-2 * t + 2, 3) / 2;
-        };
-        
-        const easedProgress = ease(progress);
-        window.scrollTo({
-          top: startPos + (targetPos - startPos) * easedProgress,
-          behavior: 'auto' // We're handling the smoothness ourselves
-        });
-        
-        if (progress < 1) {
-          requestAnimationFrame(animate);
-        } else {
-          // Allow scrolling again after animation completes
-          setTimeout(() => {
-            isScrolling = false;
-            activeSection = target;
-          }, 50);
-        }
+    const handleScroll = () => {
+      if (!isScrolling) {
+        isScrolling = true;
       }
-      
-      requestAnimationFrame(animate);
-    };
 
-    // Configure the intersection observer with more sensitivity
-    const observerOptions = {
-      root: null, // Use viewport as root
-      rootMargin: '-20% 0px -20% 0px', // Less restrictive threshold (was -30%)
-      threshold: [0.1, 0.2, 0.3, 0.4, 0.5], // More threshold points for smoother detection
-    };
-
-    // Handle intersection changes
-    const handleIntersect = (entries: IntersectionObserverEntry[]) => {
-      if (isScrolling) return;
-      
-      const now = Date.now();
-      // Reduced cooldown between scrolls for more responsive feel
-      if (now - lastScrollTime < 500) return;
-      
-      // Find the most visible entry
-      let bestEntry: IntersectionObserverEntry | null = null;
-      let highestRatio = 0;
-      
-      entries.forEach(entry => {
-        // intersectionRatio is a standard property on IntersectionObserverEntry
-        if (entry.isIntersecting && entry.intersectionRatio > highestRatio) {
-          highestRatio = entry.intersectionRatio;
-          bestEntry = entry;
-        }
-      });
-      
-      // Only scroll if the intersection ratio is significant enough
-      if (bestEntry && highestRatio > 0.15 && 
-        (bestEntry as IntersectionObserverEntry).target !== activeSection) {
-        lastScrollTime = now;
-        smoothScrollTo((bestEntry as IntersectionObserverEntry).target);
+      if (window.scrollY === 0) {
+        isScrolling = false;
       }
     };
 
-    // Create observer
-    const observer = new IntersectionObserver(handleIntersect, observerOptions);
-    
-    // Observe all section refs
-    const sections = [
-      heroRef,
-      securityRef,
-      agentRef,
-      hybridOpsRef,
-      actionPlanRef,
-      ctaRef
-    ];
-    
-    sections.forEach(ref => {
-      if (ref.current) observer.observe(ref.current);
-    });
+    const handleScrollEnd = () => {
+      if (isScrolling) {
+        isScrolling = false;
+      }
+    };
 
-    // Cleanup
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scrollend', handleScrollEnd);
+
     return () => {
-      observer.disconnect();
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scrollend', handleScrollEnd);
     };
   }, []);
 
@@ -1405,6 +1490,7 @@ const Products = () => {
               AI-Powered Workplace Solutions
             </Heading>
             <Text
+              {...textStyle}
               color="gray.700"
               fontSize={{ base: "lg", md: "xl" }}
               maxW="3xl"
@@ -1505,6 +1591,7 @@ const Products = () => {
 
       {/* Report Snippet Section */}
       <Box 
+        ref={reportRef}
         py={{ base: 8, md: 16 }} 
         position="relative" 
         overflow="hidden"
@@ -1555,6 +1642,7 @@ const Products = () => {
               Ready to Transform Your Workplace?
             </Heading>
             <Text 
+              {...textStyle}
               color="gray.700" 
               fontSize={{ base: "sm", md: "lg" }} 
               maxW="2xl"

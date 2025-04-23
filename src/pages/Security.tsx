@@ -15,59 +15,12 @@ const Security: React.FC = () => {
   };
   
   useEffect(() => {
-    // Create intersection observer for auto-scrolling
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.3, // Trigger when 30% of the section is visible
+    // Auto-scrolling functionality has been removed
+    
+    // Clean up on unmount
+    return () => {
+      // No cleanup needed
     };
-
-    const smoothScrollTo = (target: Element) => {
-      const startPosition = window.pageYOffset;
-      const targetPosition = target.getBoundingClientRect().top + startPosition;
-      const distance = targetPosition - startPosition;
-      const duration = 1500; // Increased duration to 1.5 seconds for slower scrolling
-      let start: number | null = null;
-
-      const animation = (currentTime: number) => {
-        if (start === null) start = currentTime;
-        const timeElapsed = currentTime - start;
-        const progress = Math.min(timeElapsed / duration, 1);
-
-        // Easing function for smoother animation
-        const easeInOutCubic = (t: number) => {
-          return t < 0.5
-            ? 4 * t * t * t
-            : 1 - Math.pow(-2 * t + 2, 3) / 2;
-        };
-
-        window.scrollTo(0, startPosition + (distance * easeInOutCubic(progress)));
-
-        if (timeElapsed < duration) {
-          requestAnimationFrame(animation);
-        }
-      };
-
-      requestAnimationFrame(animation);
-    };
-
-    const handleIntersect = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          smoothScrollTo(entry.target);
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(handleIntersect, observerOptions);
-
-    // Observe each section
-    if (headerRef.current) observer.observe(headerRef.current);
-    if (featuresRef.current) observer.observe(featuresRef.current);
-    if (faqRef.current) observer.observe(faqRef.current);
-
-    // Clean up observer on unmount
-    return () => observer.disconnect();
   }, []);
   
   useEffect(() => {

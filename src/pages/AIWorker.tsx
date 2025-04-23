@@ -547,83 +547,11 @@ const AIWorker = () => {
   const testimonialsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Create intersection observer for auto-scrolling
-    const smoothScrollTo = (target: Element) => {
-      const startPosition = window.pageYOffset;
-      const targetPosition = target.getBoundingClientRect().top + startPosition;
-      const distance = targetPosition - startPosition;
-      const duration = 1500; // 1.5 seconds for slower scrolling
-      let start: number | null = null;
-      let animationId: number;
+    // Auto-scrolling functionality has been removed
 
-      const animation = (currentTime: number) => {
-        if (start === null) start = currentTime;
-        const timeElapsed = currentTime - start;
-        const progress = Math.min(timeElapsed / duration, 1);
-
-        // Easing function for smoother animation
-        const easeInOutCubic = (t: number) => {
-          return t < 0.5
-            ? 4 * t * t * t
-            : 1 - Math.pow(-2 * t + 2, 3) / 2;
-        };
-
-        window.scrollTo(0, startPosition + (distance * easeInOutCubic(progress)));
-
-        if (timeElapsed < duration) {
-          animationId = requestAnimationFrame(animation);
-        }
-      };
-
-      animationId = requestAnimationFrame(animation);
-      
-      // Return a cleanup function
-      return () => {
-        if (animationId) {
-          cancelAnimationFrame(animationId);
-        }
-      };
-    };
-
-    // Use a more mobile-friendly threshold
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1, // Lower threshold for mobile responsiveness
-    };
-
-    const cleanupFunctions: Array<() => void> = [];
-    let isScrolling = false;
-
-    const handleIntersect = (entries: IntersectionObserverEntry[]) => {
-      if (isScrolling) return;
-      
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          isScrolling = true;
-          const cleanup = smoothScrollTo(entry.target);
-          cleanupFunctions.push(cleanup);
-          
-          // Reset isScrolling after animation is likely complete
-          setTimeout(() => {
-            isScrolling = false;
-          }, 1600);
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(handleIntersect, observerOptions);
-
-    // Observe each section
-    if (heroRef.current) observer.observe(heroRef.current);
-    if (integrationsRef.current) observer.observe(integrationsRef.current);
-    if (testimonialsRef.current) observer.observe(testimonialsRef.current);
-
-    // Clean up observer and animations on unmount
+    // Clean up on unmount
     return () => {
-      observer.disconnect();
-      // Clean up any in-progress animations
-      cleanupFunctions.forEach(cleanup => cleanup());
+      // No cleanup needed
     };
   }, []);
 
