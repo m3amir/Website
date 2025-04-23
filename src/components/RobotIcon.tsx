@@ -14,15 +14,15 @@ const RobotIcon = () => {
         height: `${robotSize}px`,
         zIndex: 1
       }}
-      initial={{ x: -40, opacity: 0 }}
+      initial={{ x: -20, opacity: 0 }}
       animate={{ 
         x: 0,
         opacity: 1
       }}
       transition={{
-        x: { duration: 1.5, ease: "easeOut" },
-        opacity: { duration: 0.3 },
-        delay: 1.6
+        x: { duration: 0.6, ease: "easeOut" },
+        opacity: { duration: 0.2 },
+        delay: 0.2
       }}
     >
       <motion.svg
@@ -37,7 +37,8 @@ const RobotIcon = () => {
         transition={{
           duration: 0.3,
           repeat: Infinity,
-          ease: "easeInOut"
+          ease: "easeInOut",
+          repeatDelay: 0
         }}
       >
         {/* Robot Head */}
@@ -48,7 +49,8 @@ const RobotIcon = () => {
           transition={{
             duration: 0.5,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut",
+            repeatDelay: 0
           }}
           style={{ transformOrigin: '80px 60px' }}
         >
@@ -67,12 +69,13 @@ const RobotIcon = () => {
           {/* Arms */}
           <motion.g
             animate={{ 
-              rotate: [-20, 20, -20]
+              rotate: [-15, 15, -15]
             }}
             transition={{
               duration: 0.3,
               repeat: Infinity,
-              ease: "linear"
+              ease: "linear",
+              repeatDelay: 0
             }}
             style={{ transformOrigin: '60px 70px' }}
           >
@@ -80,12 +83,13 @@ const RobotIcon = () => {
           </motion.g>
           <motion.g
             animate={{ 
-              rotate: [20, -20, 20]
+              rotate: [15, -15, 15]
             }}
             transition={{
               duration: 0.3,
               repeat: Infinity,
-              ease: "linear"
+              ease: "linear",
+              repeatDelay: 0
             }}
             style={{ transformOrigin: '100px 70px' }}
           >
@@ -94,12 +98,13 @@ const RobotIcon = () => {
           {/* Legs */}
           <motion.g
             animate={{ 
-              rotate: [20, -20, 20]
+              rotate: [15, -15, 15]
             }}
             transition={{
               duration: 0.3,
               repeat: Infinity,
-              ease: "linear"
+              ease: "linear",
+              repeatDelay: 0
             }}
             style={{ transformOrigin: '65px 95px' }}
           >
@@ -107,12 +112,13 @@ const RobotIcon = () => {
           </motion.g>
           <motion.g
             animate={{ 
-              rotate: [-20, 20, -20]
+              rotate: [-15, 15, -15]
             }}
             transition={{
               duration: 0.3,
               repeat: Infinity,
-              ease: "linear"
+              ease: "linear",
+              repeatDelay: 0
             }}
             style={{ transformOrigin: '87px 95px' }}
           >

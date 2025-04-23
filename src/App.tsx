@@ -1,18 +1,47 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import { ChakraProvider, Box } from '@chakra-ui/react'
+import { lazy, Suspense, useEffect } from 'react'
 import theme from './theme'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import Home from './pages/Home'
-import Contact from './pages/Contact'
-import Knowledge from './pages/Knowledge'
-import Article from './pages/Article'
-import AIWorker from './pages/AIWorker'
-import Products from './pages/Products'
-import Security from './pages/Security'
 import ScrollToTopOnNavigate from './components/ScrollToTopOnNavigate'
-import { useEffect } from 'react'
 import './App.css'
+
+// Lazy load page components
+const Home = lazy(() => import('./pages/Home'))
+const Contact = lazy(() => import('./pages/Contact'))
+const Knowledge = lazy(() => import('./pages/Knowledge'))
+const Article = lazy(() => import('./pages/Article'))
+const AIWorker = lazy(() => import('./pages/AIWorker'))
+const Products = lazy(() => import('./pages/Products'))
+const Security = lazy(() => import('./pages/Security'))
+
+// Loading fallback
+const LoadingFallback = () => (
+  <Box 
+    display="flex" 
+    justifyContent="center" 
+    alignItems="center" 
+    height="100vh"
+    width="100%"
+  >
+    <Box 
+      width="40px" 
+      height="40px" 
+      borderRadius="50%" 
+      border="3px solid" 
+      borderColor="brand.100" 
+      borderTopColor="brand.500" 
+      animation="spin 1s linear infinite"
+      sx={{
+        '@keyframes spin': {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' }
+        }
+      }}
+    />
+  </Box>
+)
 
 // This wrapper component detects the current route and applies the appropriate footer styling
 const AppContent = () => {
@@ -29,15 +58,17 @@ const AppContent = () => {
       <ScrollToTopOnNavigate />
       <Navbar />
       <Box minHeight="100vh" display="flex" flexDirection="column">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/knowledge" element={<Knowledge />} />
-          <Route path="/ai-worker" element={<AIWorker />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/security" element={<Security />} />
-          <Route path="/articles/:slug" element={<Article />} />
-        </Routes>
+        <Suspense fallback={<LoadingFallback />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/knowledge" element={<Knowledge />} />
+            <Route path="/ai-worker" element={<AIWorker />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/security" element={<Security />} />
+            <Route path="/articles/:slug" element={<Article />} />
+          </Routes>
+        </Suspense>
         <Footer variant={isSecurityPage ? 'security' : 'default'} />
       </Box>
     </>
