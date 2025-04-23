@@ -17,12 +17,16 @@ const Navbar = () => {
       <Link to="/products" onClick={isMobile ? onClose : undefined}>
         <Button
           variant="unstyled"
-          color={location.pathname === '/security' || location.pathname === '/knowledge' ? "white" : "text.primary"}
+          color={location.pathname === '/security' || location.pathname === '/knowledge' ? "white" : "#787878"}
           position="relative"
           overflow="hidden"
           py={2}
           px={4}
           width={isMobile ? "full" : "auto"}
+          fontFamily="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
+          fontWeight="normal"
+          fontSize="14px"
+          letterSpacing="0.2px"
           _before={{
             content: '""',
             position: 'absolute',
@@ -53,12 +57,16 @@ const Navbar = () => {
       <Link to="/ai-worker" onClick={isMobile ? onClose : undefined}>
         <Button
           variant="unstyled"
-          color={location.pathname === '/security' || location.pathname === '/knowledge' ? "white" : "text.primary"}
+          color={location.pathname === '/security' || location.pathname === '/knowledge' ? "white" : "#787878"}
           position="relative"
           overflow="hidden"
           py={2}
           px={4}
           width={isMobile ? "full" : "auto"}
+          fontFamily="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
+          fontWeight="normal"
+          fontSize="14px"
+          letterSpacing="0.2px"
           _before={{
             content: '""',
             position: 'absolute',
@@ -89,12 +97,16 @@ const Navbar = () => {
       <Link to="/knowledge" onClick={isMobile ? onClose : undefined}>
         <Button
           variant="unstyled"
-          color={location.pathname === '/security' || location.pathname === '/knowledge' ? "white" : "text.primary"}
+          color={location.pathname === '/security' || location.pathname === '/knowledge' ? "white" : "#787878"}
           position="relative"
           overflow="hidden"
           py={2}
           px={4}
           width={isMobile ? "full" : "auto"}
+          fontFamily="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
+          fontWeight="normal"
+          fontSize="14px"
+          letterSpacing="0.2px"
           _before={{
             content: '""',
             position: 'absolute',
@@ -125,12 +137,16 @@ const Navbar = () => {
       <Link to="/security" onClick={isMobile ? onClose : undefined}>
         <Button
           variant="unstyled"
-          color={location.pathname === '/security' || location.pathname === '/knowledge' ? "white" : "text.primary"}
+          color={location.pathname === '/security' || location.pathname === '/knowledge' ? "white" : "#787878"}
           position="relative"
           overflow="hidden"
           py={2}
           px={4}
           width={isMobile ? "full" : "auto"}
+          fontFamily="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
+          fontWeight="normal"
+          fontSize="14px"
+          letterSpacing="0.2px"
           _before={{
             content: '""',
             position: 'absolute',
@@ -161,12 +177,16 @@ const Navbar = () => {
       <Link to="/contact" onClick={isMobile ? onClose : undefined}>
         <Button
           variant="unstyled"
-          color={location.pathname === '/security' || location.pathname === '/knowledge' ? "white" : "text.primary"}
+          color={location.pathname === '/security' || location.pathname === '/knowledge' ? "white" : "#787878"}
           position="relative"
           overflow="hidden"
           py={2}
           px={6}
           width={isMobile ? "full" : "auto"}
+          fontFamily="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
+          fontWeight="normal"
+          fontSize="14px"
+          letterSpacing="0.2px"
           _before={{
             content: '""',
             position: 'absolute',
@@ -217,9 +237,9 @@ const Navbar = () => {
         className={location.pathname === '/security' || location.pathname === '/knowledge' ? "security-page-nav" : ""}
       >
         <Container 
-          maxW="7xl" 
+          maxW="container.xl" 
           py={4} 
-          px={{ base: 2, md: 4 }}
+          px={{ base: 2, md: 6 }}
           className={location.pathname === '/security' || location.pathname === '/knowledge' ? "security-page-nav" : ""} 
           style={location.pathname === '/security' || location.pathname === '/knowledge' ? { backgroundColor: "#000000" } : {}}
         >
@@ -227,8 +247,11 @@ const Navbar = () => {
             direction="row" 
             justify="space-between" 
             align="center"
+            spacing={{ base: 8, md: "100px" }}
             className={location.pathname === '/security' || location.pathname === '/knowledge' ? "security-page-nav" : ""}
             style={location.pathname === '/security' || location.pathname === '/knowledge' ? { backgroundColor: "#000000" } : {}}
+            pr={{ base: 0, md: "020px" }}
+            pl={{ base: 0, md: "-800px" }}
           >
             <Link to="/">
               <MotionBox
@@ -293,11 +316,13 @@ const Navbar = () => {
             {/* Desktop Navigation */}
             <MotionStack
               direction="row"
-              gap={6}
+              gap={8}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
               display={{ base: "none", md: "flex" }}
+              position={{ md: "absolute" }}
+              right={{ md: "100px" }}
             >
               <NavLinks />
             </MotionStack>

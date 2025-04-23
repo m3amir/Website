@@ -10,6 +10,8 @@ import Article from './pages/Article'
 import AIWorker from './pages/AIWorker'
 import Products from './pages/Products'
 import Security from './pages/Security'
+import ScrollToTopOnNavigate from './components/ScrollToTopOnNavigate'
+import { useEffect } from 'react'
 import './App.css'
 
 // This wrapper component detects the current route and applies the appropriate footer styling
@@ -17,8 +19,14 @@ const AppContent = () => {
   const location = useLocation();
   const isSecurityPage = location.pathname === '/security';
   
+  // Update document title
+  useEffect(() => {
+    document.title = "M3Labs | Change your paradigm of work";
+  }, []);
+
   return (
     <>
+      <ScrollToTopOnNavigate />
       <Navbar />
       <Box minHeight="100vh" display="flex" flexDirection="column">
         <Routes>
