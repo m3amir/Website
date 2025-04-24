@@ -210,7 +210,7 @@ const SecuritySection = () => {
   };
 
   return (
-    <Box py={{ base: 8, md: 16 }} position="relative" ref={sectionRef} overflow="visible" pr={{ base: 0, lg: "0" }}>
+    <Box py={{ base: 8, md: 16 }} position="relative" ref={sectionRef} overflow="visible" px={{ base: 4, lg: 0 }}>
       {/* Background layers */}
       <MotionBox
         position="absolute"
@@ -258,7 +258,7 @@ const SecuritySection = () => {
             overflow="visible"
           >
             <GridItem>
-              <VStack spacing={{ base: 6, md: 8 }} textAlign={{ base: "center", lg: "left" }} align={{ base: "center", lg: "start" }} width={{ base: "100%", lg: "95%" }} maxW={{ lg: "700px" }} ml={{ base: 0, lg: "150px" }}>
+              <VStack spacing={{ base: 6, md: 8 }} textAlign={{ base: "center", lg: "left" }} align={{ base: "center", lg: "start" }} width="100%" maxW={{ base: "100%", lg: "700px" }} ml={{ base: 0, lg: "150px" }}>
                 <MotionBox
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -274,7 +274,7 @@ const SecuritySection = () => {
                 </Text>
               </VStack>
               
-              <SimpleGrid columns={{ base: 1, md: 1 }} spacing={{ base: 6, md: 8 }} width={{ base: "100%", lg: "95%" }} maxW={{ lg: "700px" }} ml={{ lg: "150px" }} mt={{ base: 10, md: 12 }}>
+              <SimpleGrid columns={{ base: 1, md: 1 }} spacing={{ base: 6, md: 8 }} width="100%" maxW={{ base: "100%", lg: "700px" }} ml={{ base: 0, lg: "150px" }} mt={{ base: 10, md: 12 }}>
                 {[
                   {
                     icon: FiShield,
@@ -349,7 +349,7 @@ const SecuritySection = () => {
               </SimpleGrid>
             </GridItem>
             
-            <GridItem display="flex" justifyContent="center" alignItems="center" overflow="visible" position="relative">
+            <GridItem display="flex" justifyContent={{ base: "center", lg: "center" }} alignItems="center" overflow="visible" position="relative" mt={{ base: 8, lg: 0 }}>
               <MotionBox 
                 initial="hidden"
                 animate={isVisible ? "visible" : "hidden"}
@@ -357,6 +357,7 @@ const SecuritySection = () => {
                 transition={{ duration: 0.3 }}
                 width="100%"
                 height="100%"
+                mx={{ base: "auto", lg: 0 }}
                 ml={{ base: 0, lg: "200px" }}
                 mr={{ base: 0, lg: "100px" }}
                 overflow="visible"
@@ -508,7 +509,7 @@ const AgentSection = () => {
       />
 
       <Container maxW="100%" position="relative" px={{ base: 4, lg: 0 }} overflow="hidden">
-        <Box position="relative" width="100%" maxW={{ base: "100%", lg: "2000px" }} mx="auto" pr={{ lg: "100px" }}> 
+        <Box position="relative" width="100%" maxW={{ base: "100%", lg: "2000px" }} mx="auto" pr={{ base: 0, lg: "100px" }}> 
           <Flex direction={{ base: "column", lg: "row" }} alignItems="center" justifyContent="flex-start">
             {/* Animation on the left */}
             <Box 
@@ -519,6 +520,7 @@ const AgentSection = () => {
               transform={{ base: "none", lg: "none" }}
               mx="auto"
               px={{ base: 4, md: 0 }}
+              mb={{ base: 8, lg: 0 }}
             >
               <MotionBox
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -531,18 +533,18 @@ const AgentSection = () => {
             </Box>
             
             {/* Content on the right */}
-            <Box width={{ base: "100%", lg: "70%" }} mx="auto" mr={{ base: 0, lg: "0" }} pr={{ lg: "50px" }}>
+            <Box width={{ base: "100%", lg: "70%" }} mx="auto" mr={{ base: 0, lg: "0" }} pr={{ base: 0, lg: "50px" }}>
               <Flex width="100%" justifyContent="flex-start">
-                <Box width={{ base: "100%", lg: "auto" }} pl={{ base: 0, lg: "550px" }}>
+                <Box width="100%" pl={{ base: 0, lg: "550px" }}>
                   <MotionVStack
                     spacing={{ base: 6, md: 8 }}
                     align={{ base: "center", lg: "start" }}
                     initial={{ opacity: 0, y: 20 }}
                     animate={isVisible ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.5 }}
-                    width={{ base: "100%", lg: "auto" }}
-                    minW={{ lg: "650px" }}
-                    maxW={{ lg: "750px" }}
+                    width="100%"
+                    minW={{ base: "auto", lg: "650px" }}
+                    maxW={{ base: "100%", lg: "750px" }}
                     pr={{ base: 0, lg: "20px" }}
                   >
                     <VStack spacing={{ base: 3, md: 4 }} align={{ base: "center", lg: "start" }} width="100%" mb={2}>
@@ -662,7 +664,7 @@ const HybridOpsSection = () => {
   }, [isInView]);
 
   return (
-    <Box py={{ base: 10, md: 16 }} ref={sectionRef} overflow="visible">
+    <Box py={{ base: 10, md: 16 }} ref={sectionRef} overflow="visible" px={{ base: 4, md: 0 }}>
       <Container maxW="7xl" overflow="visible">
         <Flex 
           direction={{ base: "column", md: "row" }} 
@@ -674,7 +676,7 @@ const HybridOpsSection = () => {
           overflow="visible"
         >
           {/* Left column with all text content */}
-          <Box width={{ base: "100%", md: "65%" }} px={{ base: 4, md: 0 }}>
+          <Box width={{ base: "100%", md: "65%" }} px={{ base: 0, md: 0 }}>
             <MotionVStack
               spacing={{ base: 3, md: 4 }}
               align={{ base: "center", md: "flex-start" }}
@@ -750,7 +752,7 @@ const HybridOpsSection = () => {
                   columns={{ base: 1, sm: 2 }} 
                   spacing={6}
                   width="full"
-                  px={{ base: 4, md: 0 }}
+                  px={{ base: 0, md: 0 }}
                 >
                   {[
                     "Complex Decision Making",
@@ -776,6 +778,7 @@ const HybridOpsSection = () => {
             position="relative"
             zIndex={20}
             overflow="visible"
+            mt={{ base: 8, md: 0 }}
           >
             <MotionBox
               initial={{ opacity: 0, x: 20 }}
@@ -863,7 +866,7 @@ const ReportSnippetSection = () => {
   }, [isInView]);
 
   return (
-    <Box py={{ base: 8, md: 16 }} position="relative" ref={sectionRef} overflow="visible">
+    <Box py={{ base: 8, md: 16 }} position="relative" ref={sectionRef} overflow="visible" px={{ base: 4, md: 0 }}>
       <MotionBox
         position="absolute"
         top="50%"
@@ -889,7 +892,7 @@ const ReportSnippetSection = () => {
         width="100%"
         maxW="100%"
         mx="auto"
-        px={{ base: 4, md: 0 }}
+        px={{ base: 0, md: 0 }}
         overflow="visible"
       >
         {/* Left column - Images */}
@@ -899,13 +902,14 @@ const ReportSnippetSection = () => {
           justifyContent="flex-start"
           ml={{ base: 0, md: "5%" }}
           order={{ base: 2, md: 1 }}
+          mt={{ base: 10, md: 0 }}
         >
           <MotionBox
             initial={{ opacity: 0, scale: 0.95 }}
             animate={isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.5 }}
             position="relative"
-            width={{ base: "100%", md: "110%" }}
+            width="100%"
             overflow="visible"
           >
             <Flex 
@@ -914,7 +918,7 @@ const ReportSnippetSection = () => {
               justify="center"
               overflow="visible"
             >
-              <Box width={{ base: "100%", sm: "55%" }}>
+              <Box width={{ base: "90%", sm: "55%" }} mx={{ base: "auto", sm: 0 }}>
                 <Image
                   src="/images/report.png"
                   alt="Full Report"
@@ -922,14 +926,16 @@ const ReportSnippetSection = () => {
                   boxShadow="xl"
                   width="100%"
                   height="auto"
-                  ml="0px"
-                  transform="scale(1.12)"
+                  ml={{ base: 0, sm: "0px" }}
+                  transform={{ base: "scale(1)", sm: "scale(1.12)" }}
                 />
               </Box>
               <Flex 
                 direction="column" 
-                width={{ base: "100%", sm: "55%" }}
+                width={{ base: "90%", sm: "55%" }}
                 gap={4}
+                mx={{ base: "auto", sm: 0 }}
+                mt={{ base: 6, sm: 0 }}
               >
                 <Image
                   src="/images/report_snippet.png"
@@ -939,16 +945,17 @@ const ReportSnippetSection = () => {
                   width="100%"
                   height="auto"
                   mt="0px"
-                  ml="60px"
-                  transform="scale(1.12)"
+                  ml={{ base: 0, sm: "60px" }}
+                  transform={{ base: "scale(1)", sm: "scale(1.12)" }}
                 />
                 {/* Cascading charts effect */}
                 <Box 
                   position="relative"
-                  mt="40px"
-                  ml="60px"
-                  height="400px"
+                  mt={{ base: "20px", sm: "40px" }}
+                  ml={{ base: 0, sm: "60px" }}
+                  height={{ base: "300px", sm: "400px" }}
                   width="100%"
+                  display={{ base: "block", sm: "block" }}
                 >
                   <MotionBox
                     position="absolute"
@@ -973,8 +980,8 @@ const ReportSnippetSection = () => {
                   
                   <MotionBox
                     position="absolute"
-                    top="60px"
-                    left="30px"
+                    top={{ base: "40px", sm: "60px" }}
+                    left={{ base: "15px", sm: "30px" }}
                     width="90%"
                     zIndex={2}
                     initial={{ opacity: 0, y: 20 }}
@@ -994,8 +1001,8 @@ const ReportSnippetSection = () => {
                   
                   <MotionBox
                     position="absolute"
-                    top="20px"
-                    left="70px"
+                    top={{ base: "10px", sm: "20px" }}
+                    left={{ base: "30px", sm: "70px" }}
                     width="85%"
                     zIndex={1}
                     initial={{ opacity: 0, y: 20 }}
@@ -1035,7 +1042,7 @@ const ReportSnippetSection = () => {
             animate={isVisible ? "visible" : "hidden"}
             variants={fadeInUp}
             width={{ base: "100%", md: "90%" }}
-            mr={{ md: "-60px" }}
+            mr={{ base: 0, md: "-60px" }}
           >
             <Heading
               as="h2"
@@ -1109,7 +1116,7 @@ const ActionPlanSection = () => {
   ];
 
   return (
-    <Box py={{ base: 8, md: 16 }} position="relative" ref={sectionRef} overflow="visible">
+    <Box py={{ base: 8, md: 16 }} position="relative" ref={sectionRef} overflow="visible" px={{ base: 4, md: 0 }}>
       {/* Background layers */}
       <MotionBox
         position="absolute"
@@ -1142,11 +1149,11 @@ const ActionPlanSection = () => {
         transition={{ duration: 1.5 }}
       />
 
-      <Container maxW="100%" position="relative" px={{ base: 4, lg: 0 }} overflow="hidden">
-        <Box position="relative" width="100%" maxW={{ base: "100%", lg: "2000px" }} mx="auto" pr={{ lg: "100px" }}> 
+      <Container maxW="100%" position="relative" px={{ base: 0, lg: 0 }} overflow="hidden">
+        <Box position="relative" width="100%" maxW={{ base: "100%", lg: "2000px" }} mx="auto" pr={{ base: 0, lg: "100px" }}> 
           <Flex direction={{ base: "column", md: "row" }} alignItems="center" overflow="visible">
             {/* Content on the left */}
-            <Box width={{ base: "100%", md: "50%" }} ml={{ base: 0, md: "150px" }} px={{ base: 4, md: 0 }}>
+            <Box width={{ base: "100%", md: "50%" }} ml={{ base: 0, md: "150px" }} px={{ base: 0, md: 0 }}>
               <MotionVStack
                 spacing={{ base: 4, md: 6 }}
                 align={{ base: "center", md: "flex-start" }}
@@ -1159,6 +1166,7 @@ const ActionPlanSection = () => {
                   color="black" 
                   fontSize={{ base: "xl", sm: "2xl", md: "3xl" }}
                   textAlign={{ base: "center", md: "left" }}
+                  position="relative"
                 >
                   Action Plan for Business Success
                   <Box
@@ -1168,6 +1176,7 @@ const ActionPlanSection = () => {
                     width="25px"
                     height="25px"
                     zIndex={5}
+                    display={{ base: "none", md: "block" }}
                   >
                     <Image 
                       src="/images/corner.png" 
@@ -1226,7 +1235,7 @@ const ActionPlanSection = () => {
                         backdropFilter="blur(3px)"
                         overflow="hidden"
                         height="auto"
-                        minHeight={{ base: "180px", md: "150px" }}
+                        minHeight={{ base: "auto", md: "150px" }}
                         display="flex"
                         alignItems="center"
                         width="100%"
@@ -1263,18 +1272,20 @@ const ActionPlanSection = () => {
               width={{ base: "100%", md: "50%" }} 
               ml={{ base: 0, md: "auto" }} 
               mr={{ base: 0, md: "0" }}
-              px={{ base: 4, md: 0 }}
+              px={{ base: 0, md: 0 }}
               mx={{ base: "auto", md: "auto" }}
               position={{ md: "relative" }}
               right={{ base: 0, md: "0" }}
               zIndex={20}
               overflow="visible"
+              mt={{ base: 8, md: 0 }}
             >
               {/* Static corner decorations that should stay fixed in place */}
               <Box
                 position="absolute"
-                top="320px"
+                top="820px"
                 right="150px"
+                left="330px"
                 width="30px"
                 height="30px"
                 zIndex={60}
@@ -1310,6 +1321,7 @@ const ActionPlanSection = () => {
                   width="60px"
                   height="60px"
                   zIndex={40}
+                  display={{ base: "none", md: "block" }}
                 >
                   <Image 
                     src="/images/corner.png" 
@@ -1352,8 +1364,8 @@ const ActionPlanSection = () => {
                   zIndex={21}
                   ml={{ base: 0, md: "200px" }}
                   display="block"
-                  mt="350px"
-                  mb="400px"
+                  mt={{ base: 30, md: 50 }}
+                  mb={{ base: 50, md: 100 }}
                   overflow="visible"
                 />
               </MotionBox>
@@ -1424,7 +1436,7 @@ const Products = () => {
         pt={{ base: 24, md: 32 }}
         pb={{ base: 12, md: 16 }}
         bg="linear-gradient(180deg, rgba(150, 56, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%)"
-        minH="100vh"
+        minH={{ base: "auto", md: "100vh" }}
         display="flex"
         flexDirection="column"
         justifyContent="space-between"
@@ -1455,7 +1467,7 @@ const Products = () => {
             variants={fadeInUp}
             bg="transparent"
             backdropFilter="none"
-            pt={{ base: 16, md: 32 }}
+            pt={{ base: 8, md: 32 }}
             width="100%"
           >
             <Heading
@@ -1539,7 +1551,7 @@ const Products = () => {
         py={{ base: 8, md: 16 }} 
         position="relative" 
         overflow="hidden"
-        minH="100vh"
+        minH={{ base: "auto", md: "100vh" }}
         display="flex"
         alignItems="center"
       >
@@ -1552,7 +1564,7 @@ const Products = () => {
         py={{ base: 8, md: 16 }} 
         position="relative" 
         overflow="hidden"
-        minH="100vh"
+        minH={{ base: "auto", md: "100vh" }}
         display="flex"
         alignItems="center"
       >
@@ -1563,7 +1575,7 @@ const Products = () => {
       <Box 
         ref={hybridOpsRef}
         py={{ base: 10, md: 16 }}
-        minH="100vh"
+        minH={{ base: "auto", md: "100vh" }}
         display="flex"
         alignItems="center"
         overflow="hidden"
@@ -1577,7 +1589,7 @@ const Products = () => {
         py={{ base: 8, md: 16 }} 
         position="relative" 
         overflow="hidden"
-        minH="100vh"
+        minH={{ base: "auto", md: "100vh" }}
         display="flex"
         alignItems="center"
       >
@@ -1590,7 +1602,7 @@ const Products = () => {
         py={{ base: 8, md: 16 }} 
         position="relative" 
         overflow="hidden"
-        minH="100vh"
+        minH={{ base: "auto", md: "100vh" }}
         display="flex"
         alignItems="center"
       >
@@ -1601,12 +1613,12 @@ const Products = () => {
       <Box 
         ref={ctaRef}
         py={{ base: 12, md: 16 }}
-        minH="100vh"
+        minH={{ base: "auto", md: "100vh" }}
         display="flex"
         alignItems="center"
         overflow="hidden"
       >
-        <Container maxW="7xl">
+        <Container maxW="7xl" px={{ base: 4, md: 0 }}>
           <MotionVStack 
             spacing={{ base: 6, md: 8 }}
             align="center" 
@@ -1615,7 +1627,7 @@ const Products = () => {
             whileInView="visible"
             variants={fadeInUp}
             viewport={{ once: true }}
-            px={{ base: 4, md: 0 }}
+            px={{ base: 0, md: 0 }}
           >
             <Heading 
               color="black" 
