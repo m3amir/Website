@@ -1,8 +1,14 @@
 import { motion } from 'framer-motion'
 import { useBreakpointValue } from '@chakra-ui/react'
 
-const RobotIcon = () => {
-  const robotSize = useBreakpointValue({ base: 100, sm: 120, md: 160 })
+interface RobotIconProps {
+  size?: number;
+}
+
+const RobotIcon = ({ size }: RobotIconProps) => {
+  // If size is provided, use it; otherwise use the responsive breakpoint values
+  const defaultSize = useBreakpointValue({ base: 100, sm: 120, md: 160 })
+  const robotSize = size || defaultSize
   const robotLeft = useBreakpointValue({ base: 0, sm: 20, md: 30 })
   
   return (

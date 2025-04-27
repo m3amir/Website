@@ -271,9 +271,6 @@ const DemoRequestModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
 
 // Styled components with motion
 const MotionBox = motion(Box);
-const MotionHeading = motion(Heading);
-const MotionText = motion(Text);
-const MotionStack = motion(VStack);
 
 const ConnectorFlow = () => {
   const iconSize = useBreakpointValue({ base: 12, md: 24 });
@@ -1059,78 +1056,6 @@ const AIWorker = () => {
             </VStack>
           </Box>
         </Container>
-
-        {/* Demo Video Section */}
-        <Box py={{ base: 8, md: 20 }} bg="gray.50">
-          <Container maxW="7xl" px={{ base: 4, md: 6 }}>
-            <MotionBox
-              p={{ base: 4, md: 8 }}
-              borderRadius="xl"
-              bg="white"
-              border="1px dashed"
-              borderColor="brand.400"
-              w="full"
-              maxW="4xl"
-              mx="auto"
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              boxShadow="sm"
-            >
-              <MotionStack spacing={{ base: 3, md: 4 }} align="center">
-                <MotionHeading
-                  size={{ base: "md", md: "lg" }}
-                  bgGradient="linear(to-r, brand.400, brand.600)"
-                  bgClip="text"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.8 }}
-                >
-                  Demo Video
-                </MotionHeading>
-                <MotionBox
-                  w="full"
-                  h={{ base: "180px", sm: "240px", md: "400px" }}
-                  bg="gray.50"
-                  borderRadius="lg"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                  initial={{ scale: 0.95, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.8 }}
-                  border="1px solid"
-                  borderColor="gray.200"
-                  overflow="hidden"
-                >
-                  <MotionText
-                    fontSize={{ base: "md", md: "xl" }}
-                    color="gray.700"
-                    fontWeight="medium"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.8 }}
-                    textAlign="center"
-                    px={4}
-                  >
-                    Coming Soon
-                  </MotionText>
-                </MotionBox>
-                <MotionText
-                  color="gray.700"
-                  fontSize={{ base: "xs", md: "sm" }}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.8 }}
-                  textAlign="center"
-                  px={{ base: 2, md: 0 }}
-                >
-                  Stay tuned for an in-depth demonstration of our AI Worker platform
-                </MotionText>
-              </MotionStack>
-            </MotionBox>
-          </Container>
-        </Box>
 
         {/* Add ScrollToTop component */}
         <ScrollToTop />
