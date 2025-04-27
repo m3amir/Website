@@ -683,7 +683,7 @@ const AIWorker = () => {
         >
           <video 
             ref={videoRef}
-            src="/videos/herb1.mp4"
+            src="/videos/herbup.mov"
             controls={false}
             autoPlay
             muted
@@ -693,8 +693,8 @@ const AIWorker = () => {
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
-              width: '105%',
-              height: '105%',
+              width: '100%',
+              height: '92%',
               objectFit: 'cover',
               objectPosition: 'center 35%',
               filter: 'contrast(1.03) brightness(1.02) saturate(1.03)',
@@ -729,7 +729,7 @@ const AIWorker = () => {
           minH={{ base: "70vh", md: "80vh" }}
           display="flex"
           alignItems="flex-start"  
-          paddingTop={{ base: "60px", md: "80px" }}
+          paddingTop={{ base: "-10px", md: "80px" }}
           width="100%"
           overflow="hidden"
           mb={{ base: -50, md: -70 }}
@@ -795,7 +795,7 @@ const AIWorker = () => {
           alignItems="flex-start"
           pt={{ base: 0, md: 0 }}
           pb={{ base: 8, md: 10 }}
-          mt={{ base: -60, md: -80 }}
+          style={{ marginTop: "-400px" }}
         >
           <Container maxW="6xl" px={{ base: 4, md: 6 }} pt={{ base: 0, md: 0 }}>
             <VStack spacing={{ base: 4, md: 6 }} align="stretch">
@@ -865,7 +865,7 @@ const AIWorker = () => {
           py={{ base: 8, md: 10 }} 
           position="relative" 
           overflow="hidden"
-          mt={{ base: -30, md: -50 }}
+          style={{ marginTop: "-150px" }}
           minH="85vh"
           display="flex"
           alignItems="center"
