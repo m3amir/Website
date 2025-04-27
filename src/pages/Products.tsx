@@ -795,16 +795,17 @@ const HybridOpsSection = () => {
               {/* Top right corner decoration */}
               <Box
                 position="absolute"
-                top="-30px"
-                right="0px"
+                top="-10px"
+                right="10px"
                 width="30px"
                 height="30px"
-                zIndex={60}
-                transform="rotate(0deg)"
+                zIndex={50}
+                transform="translateY(-25%)"
+                display={{ base: "none", md: "block" }}
               >
                 <Image 
                   src="/images/corner.png" 
-                  alt="Top right corner decoration"
+                  alt="Heading corner decoration"
                   width="100%"
                   height="100%"
                   opacity={0.7}
@@ -1167,15 +1168,17 @@ const ActionPlanSection = () => {
                   fontSize={{ base: "xl", sm: "2xl", md: "3xl" }}
                   textAlign={{ base: "center", md: "left" }}
                   position="relative"
+                  width="100%"
                 >
                   Action Plan for Business Success
                   <Box
                     position="absolute"
-                    top="-15px"
-                    right="-30px"
-                    width="25px"
-                    height="25px"
-                    zIndex={5}
+                    top="180%"
+                    right="-680px"
+                    width="30px"
+                    height="30px"
+                    zIndex={50}
+                    transform="translateY(0)"
                     display={{ base: "none", md: "block" }}
                   >
                     <Image 

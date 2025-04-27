@@ -1,21 +1,30 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-// This component has been modified to no longer automatically scroll to top
+// This component automatically scrolls to top when navigating between pages
 function ScrollToTopOnNavigate() {
   const { pathname } = useLocation();
 
-  // No longer scrolls to top on route changes
+  // Scroll to top on route changes
   useEffect(() => {
-    // Functionality removed
+    window.scrollTo(0, 0);
   }, [pathname]);
   
-  // No longer scrolls to top on page refresh/initial load
+  // Scroll to top on page refresh/initial load
   useEffect(() => {
-    // Functionality removed
+    // Set scroll restoration to manual to prevent browser's auto-scroll behavior
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    
+    // Scroll to top when component mounts
+    window.scrollTo(0, 0);
     
     return () => {
-      // No cleanup needed
+      // Reset scroll restoration on unmount
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'auto';
+      }
     };
   }, []);
 
