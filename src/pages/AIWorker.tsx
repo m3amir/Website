@@ -276,8 +276,27 @@ const MotionText = motion(Text);
 const MotionStack = motion(VStack);
 
 const ConnectorFlow = () => {
-  const iconSize = useBreakpointValue({ base: 16, md: 24 });
-  
+  const iconSize = useBreakpointValue({ base: 12, md: 24 });
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Check if mobile on initial load
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    // Run on initial load
+    checkIfMobile();
+    
+    // Add resize listener
+    window.addEventListener('resize', checkIfMobile);
+    
+    // Clean up on unmount
+    return () => {
+      window.removeEventListener('resize', checkIfMobile);
+    };
+  }, []);
+
   return (
     <Box position="relative" h={{ base: "400px", md: "450px" }} w="100%" mt={0} overflow="visible" zIndex={5}>
       <Text color="gray.600" fontSize="sm" textAlign="center" mb={4}>
@@ -297,7 +316,7 @@ const ConnectorFlow = () => {
                 {/* Service Icon */}
                 <Box
                   as={MotionBox}
-                  p={{ base: 3, md: 4 }}
+                  p={{ base: 2, md: 4 }}
                   bg="gray.50"
                   backdropFilter="blur(8px)"
                   borderRadius="xl"
@@ -332,10 +351,10 @@ const ConnectorFlow = () => {
                     style={{
                       transformOrigin: "left center",
                       transform: index === 0 
-                        ? "rotate(-65deg) translateY(-60px)" 
+                        ? `rotate(${-75 + (isMobile ? 10 : 0)}deg) translateY(${isMobile ? -50 : -60}px)` 
                         : index === 3 
-                          ? "rotate(-233deg) translateY(-240px)"
-                          : `rotate(${-90 + (index * 15)}deg) translateY(${-140 - (index * 35)}px)`,
+                          ? `rotate(${-225 + (isMobile ? 15 : 0)}deg) translateY(${isMobile ? -180 : -220}px)`
+                          : `rotate(${-100 + (index * (isMobile ? 15 : 15))}deg) translateY(${isMobile ? (-110 - (index * 30)) : (-140 - (index * 35))}px)`,
                       zIndex: 25
                     }}
                     initial={{ scaleX: 0, opacity: 0 }}
@@ -417,10 +436,10 @@ const ConnectorFlow = () => {
               {[...Array(4)].map((_, index) => {
                 // Calculate different positions for each task
                 const positions = [
-                  { left: "20%", top: "20%" },
-                  { left: "60%", top: "30%" },
-                  { left: "30%", top: "70%" },
-                  { left: "50%", top: "60%" }
+                  { left: "20%", top: "35%" },
+                  { left: "60%", top: "45%" },
+                  { left: "30%", top: "75%" },
+                  { left: "50%", top: "65%" }
                 ];
                 
                 return (
@@ -548,12 +567,30 @@ const ConnectorFlow = () => {
               position="relative"
               zIndex={10}
             />
-            <VStack spacing={{ base: 1, md: 2 }} position="relative" zIndex={10} bg="white" px={4} py={2} borderRadius="md">
-              <Text color="black" fontSize={{ base: "lg", md: "2xl" }} fontWeight="bold">
+            <VStack 
+              spacing={{ base: 0.5, md: 2 }} 
+              position="relative" 
+              zIndex={11} 
+              bg="white" 
+              px={{ base: 2, md: 4 }} 
+              py={{ base: 1, md: 2 }} 
+              borderRadius="md" 
+              boxShadow="sm" 
+              border="1px solid" 
+              borderColor="gray.100" 
+              mt={{ base: 1, md: 2 }}
+              width={{ base: "80px", md: "auto" }}
+              textAlign="center"
+              mx="auto"
+            >
+              <Text 
+                color="black" 
+                fontSize={{ base: "xs", md: "2xl" }} 
+                fontWeight="bold" 
+                lineHeight="shorter"
+                textAlign="center"
+              >
                 AI Worker
-              </Text>
-              <Text color="black" fontSize={{ base: "sm", md: "lg" }}>
-                Platform
               </Text>
             </VStack>
           </MotionBox>

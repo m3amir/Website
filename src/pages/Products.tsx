@@ -36,22 +36,23 @@ const fadeInUp = {
   visible: { opacity: 1, y: 0 }
 };
 
-const glowVariants = {
-  hidden: {
-    opacity: 0,
-    scale: 1
-  },
-  visible: {
-    opacity: [0.05, 0.1, 0.05],
-    scale: [1, 1.01, 1],
-    transition: {
-      duration: 6,
-      ease: "easeInOut",
-      repeat: Infinity,
-      repeatType: "reverse"
-    }
-  }
-};
+// Remove unused glowVariants
+// const glowVariants = {
+//   hidden: {
+//     opacity: 0,
+//     scale: 1
+//   },
+//   visible: {
+//     opacity: 0, // Changed from [0.05, 0.1, 0.05] to 0 to hide the effect
+//     scale: 1,
+//     transition: {
+//       duration: 6,
+//       ease: "easeInOut",
+//       repeat: Infinity,
+//       repeatType: "reverse"
+//     }
+//   }
+// };
 
 const borderGlowVariants = {
   hidden: { 
@@ -211,7 +212,8 @@ const SecuritySection = () => {
 
   return (
     <Box py={{ base: 8, md: 16 }} position="relative" ref={sectionRef} overflow="visible" px={{ base: 4, lg: 0 }}>
-      {/* Background layers */}
+      {/* Background layers - Hidden */}
+      {/* 
       <MotionBox
         position="absolute"
         top="50%"
@@ -242,6 +244,7 @@ const SecuritySection = () => {
         animate={{ opacity: isVisible ? 0.15 : 0 }}
         transition={{ duration: 1 }}
       />
+      */}
 
       <Container maxW="100%" position="relative" overflow="visible">
         <MotionBox
@@ -476,7 +479,8 @@ const AgentSection = () => {
 
   return (
     <Box py={{ base: 8, md: 16 }} position="relative" ref={sectionRef} overflow="hidden">
-      {/* Background layers */}
+      {/* Background layers - Hidden */}
+      {/* 
       <MotionBox
         position="absolute"
         top="50%"
@@ -507,6 +511,7 @@ const AgentSection = () => {
         animate={{ opacity: isVisible ? 0.15 : 0 }}
         transition={{ duration: 1 }}
       />
+      */}
 
       <Container maxW="100%" position="relative" px={{ base: 4, lg: 0 }} overflow="hidden">
         <Box position="relative" width="100%" maxW={{ base: "100%", lg: "2000px" }} mx="auto" pr={{ base: 0, lg: "100px" }}> 
@@ -795,13 +800,13 @@ const HybridOpsSection = () => {
               {/* Top right corner decoration */}
               <Box
                 position="absolute"
-                top="-10px"
-                right="10px"
-                width="30px"
-                height="30px"
+                top={{ base: "-5px", md: "-10px" }}
+                right={{ base: "10px", md: "10px" }}
+                width={{ base: "20px", md: "30px" }}
+                height={{ base: "20px", md: "30px" }}
                 zIndex={50}
                 transform="translateY(-25%)"
-                display={{ base: "none", md: "block" }}
+                display="block"
               >
                 <Image 
                   src="/images/corner.png" 
@@ -816,11 +821,12 @@ const HybridOpsSection = () => {
               <Box
                 position="absolute"
                 bottom="10px"
-                left={{ base: "10px", md: "0px" }}
-                width="30px"
-                height="30px"
+                left={{ base: "20px", md: "0px" }}
+                width={{ base: "20px", md: "30px" }}
+                height={{ base: "20px", md: "30px" }}
                 zIndex={22}
                 transform="rotate(270deg) scaleX(-1)"
+                display="block"
               >
                 <Image 
                   src="/images/corner.png" 
@@ -868,6 +874,8 @@ const ReportSnippetSection = () => {
 
   return (
     <Box py={{ base: 8, md: 16 }} position="relative" ref={sectionRef} overflow="visible" px={{ base: 4, md: 0 }}>
+      {/* Background layers - Hidden */}
+      {/* 
       <MotionBox
         position="absolute"
         top="50%"
@@ -885,41 +893,42 @@ const ReportSnippetSection = () => {
         initial="hidden"
         animate={isVisible ? "visible" : "hidden"}
       />
+      */}
       
-      {/* Use grid layout instead of flex */}
-      <Grid 
-        templateColumns={{ base: "1fr", md: "1fr 1fr" }}
-        gap={{ base: 8, md: 0 }}
+      {/* Use flex instead of grid */}
+      <Flex 
+        direction={{ base: "column", md: "row" }}
         width="100%"
-        maxW="100%"
+        maxW={{ base: "100%", md: "100%" }}
         mx="auto"
         px={{ base: 0, md: 0 }}
-        overflow="visible"
+        position="relative"
       >
         {/* Left column - Images */}
-        <GridItem 
-          colSpan={1} 
+        <Box 
+          width={{ base: "100%", md: "50%" }}
           display="flex"
-          justifyContent="flex-start"
-          ml={{ base: 0, md: "5%" }}
+          justifyContent={{ base: "center", md: "flex-start" }}
+          pl={{ base: 0, md: "50px" }}
           order={{ base: 2, md: 1 }}
           mt={{ base: 10, md: 0 }}
+          position="relative"
         >
           <MotionBox
             initial={{ opacity: 0, scale: 0.95 }}
             animate={isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.5 }}
             position="relative"
-            width="100%"
-            overflow="visible"
+            width={{ base: "100%", md: "100%" }}
           >
             <Flex 
               direction={{ base: "column", sm: "row" }} 
               gap={6}
-              justify="center"
-              overflow="visible"
+              justify="flex-start"
+              align="center"
+              width="100%"
             >
-              <Box width={{ base: "90%", sm: "55%" }} mx={{ base: "auto", sm: 0 }}>
+              <Box width={{ base: "90%", sm: "50%" }} mx={{ base: "auto", sm: "0" }} ml={{ base: "auto", sm: "20px" }}>
                 <Image
                   src="/images/report.png"
                   alt="Full Report"
@@ -927,114 +936,186 @@ const ReportSnippetSection = () => {
                   boxShadow="xl"
                   width="100%"
                   height="auto"
-                  ml={{ base: 0, sm: "0px" }}
-                  transform={{ base: "scale(1)", sm: "scale(1.12)" }}
+                  transform={{ base: "scale(1)", sm: "scale(1.05)" }}
                 />
               </Box>
               <Flex 
-                direction="column" 
-                width={{ base: "90%", sm: "55%" }}
+                direction={{ base: "column", sm: "column" }}
+                width={{ base: "90%", sm: "50%" }}
                 gap={4}
-                mx={{ base: "auto", sm: 0 }}
+                mx="auto"
                 mt={{ base: 6, sm: 0 }}
+                ml={{ base: "auto", sm: "0px" }}
+                position="relative"
+                display={{ base: "none", sm: "flex" }}
               >
+                
+                {/* Desktop/tablet layout */}
+                <Box display={{ base: "block", sm: "block" }} width="100%">
+                  <Image
+                    src="/images/report_snippet.png"
+                    alt="Report Snippet"
+                    borderRadius="lg"
+                    boxShadow="xl"
+                    width="100%"
+                    height="auto"
+                    mt={{ base: "-300px", sm: "0px" }}
+                    ml="20px"
+                    transform="scale(1.05)"
+                  />
+                  
+                  {/* Cascading charts effect for desktop/tablet */}
+                  <Box 
+                    position="relative"
+                    mt="30px"
+                    ml="10px"
+                    height="350px"
+                    width="100%"
+                    display="block"
+                  >
+                    <MotionBox
+                      position="absolute"
+                      top="0px"
+                      width="85%"
+                      zIndex={3}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6 }}
+                      whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                      mx="auto"
+                      inset="0 auto auto 0px"
+                    >
+                      <Image
+                        src="/images/plot1.png"
+                        alt="Data Plot 1"
+                        borderRadius="lg"
+                        boxShadow="xl"
+                        width="100%"
+                        height="auto"
+                      />
+                    </MotionBox>
+                    
+                    <MotionBox
+                      position="absolute"
+                      top="70px"
+                      width="85%"
+                      zIndex={2}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.2 }}
+                      whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                      mx="auto"
+                      inset="55px auto auto 10px"
+                    >
+                      <Image
+                        src="/images/plot2.png"
+                        alt="Data Plot 2"
+                        borderRadius="lg"
+                        boxShadow="xl"
+                        width="100%"
+                        height="auto"
+                      />
+                    </MotionBox>
+                    
+                    <MotionBox
+                      position="absolute"
+                      top="100px"
+                      width="80%"
+                      zIndex={1}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.4 }}
+                      whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                      mx="auto"
+                      inset="20px auto auto 45px"
+                    >
+                      <Image
+                        src="/images/plot3.png"
+                        alt="Data Plot 3"
+                        borderRadius="lg"
+                        boxShadow="xl"
+                        width="100%"
+                        height="auto"
+                      />
+                    </MotionBox>
+                  </Box>
+                </Box>
+              </Flex>
+            </Flex>
+            
+            {/* Mobile-only snippet and plots */}
+            <Flex
+              direction="column"
+              width="90%"
+              mx="auto"
+              mt={6}
+              display={{ base: "flex", sm: "none" }}
+            >
+              <Box width="100%" mx="auto">
                 <Image
                   src="/images/report_snippet.png"
-                  alt="Report Snippet"
+                  alt="Report Snippet Mobile"
                   borderRadius="lg"
                   boxShadow="xl"
                   width="100%"
                   height="auto"
-                  mt="0px"
-                  ml={{ base: 0, sm: "60px" }}
-                  transform={{ base: "scale(1)", sm: "scale(1.12)" }}
                 />
-                {/* Cascading charts effect */}
-                <Box 
-                  position="relative"
-                  mt={{ base: "20px", sm: "40px" }}
-                  ml={{ base: 0, sm: "60px" }}
-                  height={{ base: "300px", sm: "400px" }}
-                  width="100%"
-                  display={{ base: "block", sm: "block" }}
-                >
-                  <MotionBox
-                    position="absolute"
-                    top="0px"
-                    left="0px"
-                    width="90%"
-                    zIndex={3}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                  >
-                    <Image
-                      src="/images/plot1.png"
-                      alt="Data Plot 1"
-                      borderRadius="lg"
-                      boxShadow="xl"
-                      width="100%"
-                      height="auto"
-                    />
-                  </MotionBox>
-                  
-                  <MotionBox
-                    position="absolute"
-                    top={{ base: "40px", sm: "60px" }}
-                    left={{ base: "15px", sm: "30px" }}
-                    width="90%"
-                    zIndex={2}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                  >
-                    <Image
-                      src="/images/plot2.png"
-                      alt="Data Plot 2"
-                      borderRadius="lg"
-                      boxShadow="xl"
-                      width="100%"
-                      height="auto"
-                    />
-                  </MotionBox>
-                  
-                  <MotionBox
-                    position="absolute"
-                    top={{ base: "10px", sm: "20px" }}
-                    left={{ base: "30px", sm: "70px" }}
-                    width="85%"
-                    zIndex={1}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                    whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                  >
-                    <Image
-                      src="/images/plot3.png"
-                      alt="Data Plot 3"
-                      borderRadius="lg"
-                      boxShadow="xl"
-                      width="100%"
-                      height="auto"
-                    />
-                  </MotionBox>
+              </Box>
+              
+              {/* Stacked plots for mobile */}
+              <Box 
+                position="relative"
+                mt="30px"
+                width="100%"
+                height="220px"
+              >
+                <Box position="absolute" top="0" left="0" width="75%" zIndex={3}>
+                  <Image
+                    src="/images/plot1.png"
+                    alt="Data Plot 1"
+                    borderRadius="lg"
+                    boxShadow="xl"
+                    width="100%"
+                    height="auto"
+                  />
                 </Box>
-              </Flex>
+                
+                <Box position="absolute" top="35px" left="10%" width="75%" zIndex={2}>
+                  <Image
+                    src="/images/plot2.png"
+                    alt="Data Plot 2"
+                    borderRadius="lg"
+                    boxShadow="xl"
+                    width="100%"
+                    height="auto"
+                  />
+                </Box>
+                
+                <Box position="absolute" top="35px" left="20%" width="70%" zIndex={1}>
+                  <Image
+                    src="/images/plot3.png"
+                    alt="Data Plot 3"
+                    borderRadius="lg"
+                    boxShadow="xl"
+                    width="100%"
+                    height="auto"
+                  />
+                </Box>
+              </Box>
             </Flex>
           </MotionBox>
-        </GridItem>
+        </Box>
 
         {/* Right column - Text content */}
-        <GridItem 
-          colSpan={1} 
-          display="flex" 
-          justifyContent="flex-end"
+        <Box 
+          width={{ base: "100%", md: "50%" }}
+          display="flex"
+          justifyContent="flex-start"
           alignItems="center"
-          pr={{ base: 0, md: "8%" }}
           order={{ base: 1, md: 2 }}
-          mt={{ base: 0, md: "-100px" }}
+          mt={{ base: 0, md: "-50px" }}
+          pl={{ base: 0, md: "5%" }}
+          pr={{ base: 0, md: "0%" }}
         >
           <MotionVStack
             spacing={6}
@@ -1042,8 +1123,8 @@ const ReportSnippetSection = () => {
             initial="hidden"
             animate={isVisible ? "visible" : "hidden"}
             variants={fadeInUp}
-            width={{ base: "100%", md: "90%" }}
-            mr={{ base: 0, md: "-60px" }}
+            width={{ base: "90%", md: "80%" }}
+            maxW={{ base: "90%", md: "80%" }}
           >
             <Heading
               as="h2"
@@ -1051,6 +1132,8 @@ const ReportSnippetSection = () => {
               fontSize={{ base: "xl", sm: "2xl", md: "3xl" }}
               fontWeight="bold"
               textAlign={{ base: "center", md: "left" }}
+              width="100%"
+              isTruncated={false}
             >
               Detailed Reports
             </Heading>
@@ -1059,30 +1142,32 @@ const ReportSnippetSection = () => {
               color="gray.700" 
               fontSize={{ base: "sm", md: "lg" }} 
               textAlign={{ base: "center", md: "left" }}
+              width="100%"
+              noOfLines={undefined}
             >
               Get comprehensive insights with our detailed reporting system. Track progress, analyze data, and make informed decisions with our intuitive reporting interface.
             </Text>
             <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={4} w="full">
               <HStack spacing={3}>
                 <Icon as={FiCheck} color="brand.400" />
-                <Text color="gray.700" {...textStyle}>Real-time Analytics</Text>
+                <Text color="gray.700" {...textStyle} isTruncated={false}>Real-time Analytics</Text>
               </HStack>
               <HStack spacing={3}>
                 <Icon as={FiCheck} color="brand.400" />
-                <Text color="gray.700" {...textStyle}>Customizable Reports</Text>
+                <Text color="gray.700" {...textStyle} isTruncated={false}>Customizable Reports</Text>
               </HStack>
               <HStack spacing={3}>
                 <Icon as={FiCheck} color="brand.400" />
-                <Text color="gray.700" {...textStyle}>Export Options</Text>
+                <Text color="gray.700" {...textStyle} isTruncated={false}>Export Options</Text>
               </HStack>
               <HStack spacing={3}>
                 <Icon as={FiCheck} color="brand.400" />
-                <Text color="gray.700" {...textStyle}>Visual Dashboards</Text>
+                <Text color="gray.700" {...textStyle} isTruncated={false}>Visual Dashboards</Text>
               </HStack>
             </SimpleGrid>
           </MotionVStack>
-        </GridItem>
-      </Grid>
+        </Box>
+      </Flex>
     </Box>
   );
 };
@@ -1118,7 +1203,8 @@ const ActionPlanSection = () => {
 
   return (
     <Box py={{ base: 8, md: 16 }} position="relative" ref={sectionRef} overflow="visible" px={{ base: 4, md: 0 }}>
-      {/* Background layers */}
+      {/* Background layers - Hidden */}
+      {/* 
       <MotionBox
         position="absolute"
         top="50%"
@@ -1136,19 +1222,7 @@ const ActionPlanSection = () => {
         initial="hidden"
         animate={isVisible ? "visible" : "hidden"}
       />
-      <MotionBox
-        position="absolute"
-        top={0}
-        left={0}
-        right={0}
-        bottom={0}
-        bg="transparent"
-        backdropFilter="blur(80px)"
-        style={{ willChange: "opacity" }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isVisible ? 0.3 : 0 }}
-        transition={{ duration: 1.5 }}
-      />
+      */}
 
       <Container maxW="100%" position="relative" px={{ base: 0, lg: 0 }} overflow="hidden">
         <Box position="relative" width="100%" maxW={{ base: "100%", lg: "2000px" }} mx="auto" pr={{ base: 0, lg: "100px" }}> 
@@ -1283,16 +1357,18 @@ const ActionPlanSection = () => {
               overflow="visible"
               mt={{ base: 8, md: 0 }}
             >
-              {/* Static corner decorations that should stay fixed in place */}
+              {/* Static corner decorations that should stay fixed in place - Removed */}
+              {/*
               <Box
                 position="absolute"
-                top="820px"
-                right="150px"
-                left="330px"
-                width="30px"
-                height="30px"
+                top={{ base: "600px", md: "820px" }}
+                right={{ base: "20px", md: "150px" }}
+                left={{ base: "auto", md: "330px" }}
+                width={{ base: "20px", md: "30px" }}
+                height={{ base: "20px", md: "30px" }}
                 zIndex={60}
                 transform="rotate(0deg)"
+                display="block"
               >
                 <Image 
                   src="/images/corner.png" 
@@ -1302,7 +1378,7 @@ const ActionPlanSection = () => {
                   opacity={0.7}
                 />
               </Box>
-              
+              */}
               
               <MotionBox
                 initial={{ opacity: 0, x: 20 }}
@@ -1316,22 +1392,22 @@ const ActionPlanSection = () => {
                 zIndex={20}
                 overflow="visible"
               >
-                {/* Top right corner decoration */}
+                {/* Top right corner decoration for mobile */}
                 <Box
                   position="absolute"
-                  top="335px"
-                  right="80px"
-                  width="60px"
-                  height="60px"
+                  top={{ base: "-15px", md: "-15px" }}
+                  right={{ base: "15px", md: "80px" }}
+                  width={{ base: "25px", md: "0" }}
+                  height={{ base: "25px", md: "0" }}
                   zIndex={40}
-                  display={{ base: "none", md: "block" }}
+                  display={{ base: "block", md: "none" }}
                 >
                   <Image 
                     src="/images/corner.png" 
                     alt="Top corner decoration"
                     width="100%"
                     height="100%"
-                    opacity={1}
+                    opacity={0.8}
                   />
                 </Box>
                 
@@ -1339,11 +1415,12 @@ const ActionPlanSection = () => {
                 <Box
                   position="absolute"
                   bottom="10px"
-                  left={{ base: "30px", md: "220px" }}
-                  width="30px"
-                  height="30px"
+                  left={{ base: "20px", md: "220px" }}
+                  width={{ base: "20px", md: "30px" }}
+                  height={{ base: "20px", md: "30px" }}
                   zIndex={22}
                   transform="rotate(270deg) scaleX(-1)"
+                  display="block"
                 >
                   <Image 
                     src="/images/corner.png" 
