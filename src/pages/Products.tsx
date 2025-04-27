@@ -1091,7 +1091,7 @@ const ReportSnippetSection = () => {
                   />
                 </Box>
                 
-                <Box position="absolute" top="35px" left="20%" width="70%" zIndex={1}>
+                <Box position="absolute" top="25px" left="23%" width="70%" zIndex={1}>
                   <Image
                     src="/images/plot3.png"
                     alt="Data Plot 3"
@@ -1147,20 +1147,20 @@ const ReportSnippetSection = () => {
             >
               Get comprehensive insights with our detailed reporting system. Track progress, analyze data, and make informed decisions with our intuitive reporting interface.
             </Text>
-            <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={4} w="full">
-              <HStack spacing={3}>
+            <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={4} w="full" textAlign={{ base: "center", md: "left" }}>
+              <HStack spacing={3} justify={{ base: "center", md: "flex-start" }}>
                 <Icon as={FiCheck} color="brand.400" />
                 <Text color="gray.700" {...textStyle} isTruncated={false}>Real-time Analytics</Text>
               </HStack>
-              <HStack spacing={3}>
+              <HStack spacing={3} justify={{ base: "center", md: "flex-start" }}>
                 <Icon as={FiCheck} color="brand.400" />
                 <Text color="gray.700" {...textStyle} isTruncated={false}>Customizable Reports</Text>
               </HStack>
-              <HStack spacing={3}>
+              <HStack spacing={3} justify={{ base: "center", md: "flex-start" }}>
                 <Icon as={FiCheck} color="brand.400" />
                 <Text color="gray.700" {...textStyle} isTruncated={false}>Export Options</Text>
               </HStack>
-              <HStack spacing={3}>
+              <HStack spacing={3} justify={{ base: "center", md: "flex-start" }}>
                 <Icon as={FiCheck} color="brand.400" />
                 <Text color="gray.700" {...textStyle} isTruncated={false}>Visual Dashboards</Text>
               </HStack>
