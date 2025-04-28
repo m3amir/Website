@@ -884,7 +884,7 @@ const AIWorker = () => {
 
           <Container maxW="6xl" px={{ base: 4, md: 6 }} position="relative">
             <VStack spacing={{ base: 10, md: 16 }}>
-              <VStack spacing={{ base: 3, md: 4 }} textAlign="center">
+              <VStack spacing={{ base: 3, md: 4 }} textAlign="center" mt={{ base: "70px", md: 0 }}>
                 <Heading color="black" size={{ base: "lg", md: "xl" }} {...headingStyle}>
                   Trusted by Industry Leaders
                 </Heading>
