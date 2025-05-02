@@ -30,7 +30,7 @@ jobs:
           ls -la dist/
 
       - name: Deploy to GoDaddy
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: SamKirkland/FTP-Deploy-Action@v2.0.0
         with:
           server: m3labs.co.uk
           username: info@m3labs.co.uk
@@ -41,7 +41,7 @@ jobs:
           server-dir: /public_html/
           # dangerous-clean-slate: true
           timeout: 60000
-          
+
       - name: Verify Deployment
         run: |
           echo "Waiting for changes to propagate..."
