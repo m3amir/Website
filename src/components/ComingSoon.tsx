@@ -150,4 +150,4 @@ const ComingSoon = () => {
   );
 };
 
-export default ComingSoon; 
+export default ComingSoon;
