@@ -32,14 +32,14 @@ jobs:
       - name: Deploy to GoDaddy
         uses: SamKirkland/FTP-Deploy-Action@v2.0.0
         with:
-          server: m3labs.co.uk
-          username: info@m3labs.co.uk
+          server: ftp.m3labs.co.uk
+          username: m3amir@m3labs.co.uk	
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
           protocol: ftps
           local-dir: ./dist/
           server-dir: /public_html/
-          # dangerous-clean-slate: true
+          dangerous-clean-slate: true
           timeout: 60000
 
       - name: Verify Deployment
