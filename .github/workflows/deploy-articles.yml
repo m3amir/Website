@@ -39,8 +39,9 @@ jobs:
           protocol: ftps
           local-dir: ./dist/
           server-dir: /public_html/
-          dangerous-clean-slate: true
-          timeout: 190000
+          # dangerous-clean-slate: true
+          timeout: 60000
+          
       - name: Verify Deployment
         run: |
           echo "Waiting for changes to propagate..."
