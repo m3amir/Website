@@ -4,6 +4,7 @@ import fs from 'fs-extra'
 import path from 'path'
 import { Plugin } from 'vite'
 
+
 // Custom markdown plugin
 const markdownPlugin = (): Plugin => ({
   name: 'markdown',
@@ -20,7 +21,7 @@ const markdownPlugin = (): Plugin => ({
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: './', // Ensure assets are referenced relatively
+  base: '/', // Ensure assets are referenced relatively
   plugins: [
     react(),
     markdownPlugin(),
