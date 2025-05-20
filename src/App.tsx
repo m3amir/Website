@@ -1,5 +1,5 @@
 import { ChakraProvider } from '@chakra-ui/react'
-import { HashRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import theme from './theme'
 import './App.css'
 
@@ -20,9 +20,13 @@ import Security from './pages/Security'
 import Knowledge from './pages/Knowledge'
 
 function App() {
+  // Use basename only in production to ensure local development works properly
+  const isProd = import.meta.env.PROD;
+  const basename = isProd ? "/Website" : "";
+  
   return (
     <ChakraProvider theme={theme}>
-      <Router>
+      <BrowserRouter basename={basename}>
         <ScrollToTopOnNavigate />
         <Navbar />
         <Routes>
@@ -37,7 +41,7 @@ function App() {
           <Route path="/knowledge" element={<Knowledge />} />
         </Routes>
         <Footer />
-      </Router>
+      </BrowserRouter>
     </ChakraProvider>
   )
 }
