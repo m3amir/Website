@@ -21,7 +21,7 @@ const markdownPlugin = (): Plugin => ({
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/m3site/', // Ensure assets are referenced relatively
+  base: '/', // Ensure assets are referenced relatively
   plugins: [
     react(),
     markdownPlugin(),

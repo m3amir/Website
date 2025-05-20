@@ -22,7 +22,7 @@ import Knowledge from './pages/Knowledge'
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <BrowserRouter basename="/m3site">
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <ScrollToTopOnNavigate />
         <Navbar />
         <Routes>
