@@ -21,7 +21,6 @@ const markdownPlugin = (): Plugin => ({
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/', // Ensure assets are referenced from root for custom domain
   plugins: [
     react(),
     markdownPlugin(),
