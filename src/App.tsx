@@ -1,5 +1,5 @@
 import { ChakraProvider } from '@chakra-ui/react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter as Router, Routes, Route } from 'react-router-dom'
 import theme from './theme'
 import './App.css'
 
@@ -22,7 +22,7 @@ import Knowledge from './pages/Knowledge'
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <BrowserRouter basename="/Website">
+      <Router>
         <ScrollToTopOnNavigate />
         <Navbar />
         <Routes>
@@ -37,7 +37,7 @@ function App() {
           <Route path="/knowledge" element={<Knowledge />} />
         </Routes>
         <Footer />
-      </BrowserRouter>
+      </Router>
     </ChakraProvider>
   )
 }

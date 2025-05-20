@@ -40,13 +40,13 @@ try {
   console.error('❌ Error reading vite config:', error.message);
 }
 
-// Check BrowserRouter in App.tsx
+// Check Router in App.tsx
 try {
   const appTsx = fs.readFileSync(path.join(__dirname, 'src', 'App.tsx'), 'utf8');
-  if (appTsx.includes('BrowserRouter basename="/Website"')) {
-    console.log('✓ BrowserRouter basename correctly set to "/Website"');
+  if (appTsx.includes('HashRouter as Router')) {
+    console.log('✓ Using HashRouter for GitHub Pages compatibility');
   } else {
-    console.warn('⚠ BrowserRouter basename may not be correctly set in App.tsx');
+    console.warn('⚠ App.tsx is not using HashRouter, which may cause routing issues on GitHub Pages');
   }
 } catch (error) {
   console.error('❌ Error reading App.tsx:', error.message);
