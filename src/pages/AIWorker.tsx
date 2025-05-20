@@ -757,9 +757,9 @@ const AIWorker = () => {
                 px={{ base: 2, md: 0 }}
                 {...headingStyle}
               >
-                AI Workers with{' '}
+                Text2Agent Factory for{' '}
                 <Text as="span" color="brand.400" {...headingStyle}>
-                  Enterprise Integrations
+                  Real-Time AI Workflows
                 </Text>
               </Heading>
               <Text 
@@ -768,8 +768,7 @@ const AIWorker = () => {
                 maxW="2xl" 
                 {...textStyle}
               >
-                Herb Seamlessly connects with your existing business tools.
-                Enhance productivity and streamline workflows with intelligent automation.
+                Herb instantly transforms natural language into custom AI agent workflows—built in real time and fully integrated with your enterprise tools to boost productivity and streamline operations.
               </Text>
             </VStack>
             
