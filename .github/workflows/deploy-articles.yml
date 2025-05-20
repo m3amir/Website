@@ -1,58 +1,30 @@
-name: Deploy to GoDaddy
+name: Deploy Static HTML and CSS to GitHub Pages
+
+# Trigger the workflow on push to the main branch
 
 on:
   push:
     branches:
       - main
-
+# Define what operating system the job should run on
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+    # Step 1: Checkout the repository
+    - name: Checkout Code
+      uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
+    # Step 2: Check the files that have been checked out
+    - name: Display files
+      run: ls
 
-      - name: Install Dependencies
-        run: npm ci
-
-      - name: Build Project
-        run: npm run build
-
-      - name: Add .htaccess
-        run: |
-          cp public/.htaccess dist/
-          echo "Build contents:"
-          ls -la dist/
-
-      - name: Deploy to GoDaddy
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ftp.m3labs.co.uk
-          username: m3amir@m3labs.co.uk	
-          password: ${{ secrets.FTP_PASSWORD }}
-          port: 21
-          protocol: ftp
-          local-dir: ./dist/
-          server-dir: /public_html/
-          dangerous-clean-slate: true
-          timeout: 60000
-
-      - name: Verify Deployment
-        run: |
-          echo "Waiting for changes to propagate..."
-          sleep 5
-          
-          echo "Checking site status..."
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://m3labs.co.uk)
-          echo "Site status: $STATUS"
-          
-          if [ "$STATUS" != "200" ]; then
-            echo "Warning: Site returned status $STATUS"
-          else
-            echo "Site is accessible!"
-          fi
+    # Step 3: Deploy to GitHub Pages
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./ # The HTML and CSS files lie in the root directory, hence that should be the publish directory
