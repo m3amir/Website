@@ -683,7 +683,7 @@ const AIWorker = () => {
         >
           <video 
             ref={videoRef}
-            src="/videos/herbup.mov"
+            src="./videos/herbup.mov"
             controls={false}
             autoPlay
             muted

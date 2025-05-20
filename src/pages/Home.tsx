@@ -550,7 +550,7 @@ const Home = () => {
                   height="100%"
                   style={{ objectFit: "cover", backgroundColor: "#EDF2F7" }}
                 >
-                  <source src="/videos/explainer.mp4" type="video/mp4" />
+                  <source src="./videos/explainer.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
               </MotionBox>
