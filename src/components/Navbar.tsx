@@ -54,7 +54,7 @@ const Navbar = () => {
           Products
         </Button>
       </Link>
-      <Link to="/ai-worker" onClick={isMobile ? onClose : undefined}>
+      <Link to="/text2agent" onClick={isMobile ? onClose : undefined}>
         <Button
           variant="unstyled"
           color={location.pathname === '/security' || location.pathname === '/knowledge' ? "white" : "#787878"}
@@ -75,7 +75,7 @@ const Navbar = () => {
             bottom: 0,
             left: 0,
             background: 'brand.400',
-            transform: isActive('/ai-worker') ? 'scaleX(1)' : 'scaleX(0)',
+            transform: isActive('/text2agent') ? 'scaleX(1)' : 'scaleX(0)',
             transformOrigin: 'right',
             transition: 'transform 0.3s ease',
           }}
@@ -91,7 +91,7 @@ const Navbar = () => {
             outline: "none"
           }}
         >
-          AI Worker
+          Text2Agent
         </Button>
       </Link>
       <Link to="/knowledge" onClick={isMobile ? onClose : undefined}>

@@ -289,7 +289,7 @@ const Home = () => {
               lineHeight="1.6"
               {...textStyle}
             >
-              Revolutionizing how teams collaborate, innovate, and achieve their goals in the modern workplace.
+              Transform your business with Text2Agent - our innovative platform that converts natural language into autonomous AI agents, enabling effortless automation of complex workflows.
             </MotionText>
 
             <MotionText 
@@ -303,7 +303,7 @@ const Home = () => {
               mt={{ base: 4, md: 6 }}
               {...boldTextStyle}
             >
-              Interested in participating in our closed beta?
+              Ready to create your first autonomous agent with simple text instructions?
             </MotionText>
 
             <MotionStack 
@@ -318,7 +318,7 @@ const Home = () => {
               display="flex"
               flexWrap="nowrap"
             >
-              <Link to="/products" style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+              <Link to="/text2agent" style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                 <Button 
                   size={{ base: "md", sm: "lg" }} 
                   variant="unstyled" 
@@ -410,7 +410,7 @@ const Home = () => {
               mt={{ base: "5px", md: 0 }}
               {...textStyle}
             >
-              Holistic
+              Text2Agent
             </Text>
           </Box>
           
@@ -420,7 +420,7 @@ const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             pl={{ base: 2, md: "50px" }}
-            mt={{ base: 2, md: "15px" }}
+            mt={{ base: -10, md: 0 }}
             width={{ base: "100%", md: "650px", lg: "750px" }}
           >
             <Text 
@@ -432,7 +432,7 @@ const Home = () => {
               fontWeight="light"
               textAlign={{ base: "center", md: "left" }}
             >
-              Novel dual-mode architecture enabling sophisticated reasoning needed for complex business tasks and workflows, providing a comprehensive solution for enterprise needs.
+              Our innovative platform seamlessly transforms natural language instructions into fully autonomous agents, eliminating complex coding and empowering businesses of all sizes to harness the power of AI.
             </Text>
              
             <Box height="25px" />
@@ -479,7 +479,7 @@ const Home = () => {
               mt={{ base: "5px", md: 0 }}
               {...textStyle}
             >
-              Workflow
+              Agent Logic Unit
             </Text>
           </Box>
           
@@ -489,18 +489,19 @@ const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             pl={{ base: 2, md: "50px" }}
-            mt={{ base: 2, md: "15px" }}
+            mt={{ base: -10, md: 0 }}
             width={{ base: "100%", md: "650px", lg: "750px" }}
           >
             <Text 
               fontSize={{ base: "sm", md: "lg" }}
               color="gray.600"
+              mb={{ base: 4, md: 10 }}
               {...textStyle}
               lineHeight="1.5"
               fontWeight="light"
               textAlign={{ base: "center", md: "left" }}
             >
-              Seamlessly transitions between modes, delivering operational flexibility for tasks requiring delicate planning and strategic coordination.
+              Our innovative Agent Logic Unit handles complex reasoning, integrates with your services, and turns natural language into action—no code needed. Each workflow is validated and tested for security and reliability in mission-critical systems.
             </Text>
           </MotionBox>
         </MotionBox>
@@ -582,9 +583,9 @@ const Home = () => {
                 px={{ base: 2, md: 0 }}
                 {...textStyle}
               >
-                Want to see how our AI Worker can transform your business operations?
+                Experience how Text2Agent can simplify your AI agent development through natural language instructions.
               </MotionText>
-              <Link to="/ai-worker" style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+              <Link to="/text2agent" style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                 <Button
                   size={{ base: "md", md: "lg" }}
                   bg="black"
