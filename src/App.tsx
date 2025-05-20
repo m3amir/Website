@@ -22,7 +22,7 @@ import Knowledge from './pages/Knowledge'
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <BrowserRouter basename="/Website">
         <ScrollToTopOnNavigate />
         <Navbar />
         <Routes>
