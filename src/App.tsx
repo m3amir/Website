@@ -20,9 +20,9 @@ import Security from './pages/Security'
 import Knowledge from './pages/Knowledge'
 
 function App() {
-  // Use basename only in production to ensure local development works properly
-  const isProd = import.meta.env.PROD;
-  const basename = isProd ? "/Website" : "";
+  // Custom domain doesn't need a basename
+  // Use empty basename for both development and production with custom domain
+  const basename = "";
   
   return (
     <ChakraProvider theme={theme}>

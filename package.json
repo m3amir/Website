@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://m3amir.github.io/Website",
+  "homepage": "https://m3labs.co.uk",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build && cp dist/index.html dist/404.html && node --experimental-json-modules ensure-videos.js",
