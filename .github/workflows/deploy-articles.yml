@@ -36,7 +36,7 @@ jobs:
           username: m3amir@m3labs.co.uk	
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
-          protocol: ftps
+          protocol: ftp
           local-dir: ./dist/
           server-dir: /public_html/
           dangerous-clean-slate: true
