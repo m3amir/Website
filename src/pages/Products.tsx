@@ -298,7 +298,7 @@ const SecuritySection = () => {
                     mb={{ base: 4, md: 6 }}
                   >
                     <Box
-                      p={{ base: 5, md: 6 }}
+                      p={{ base: 4, md: 5 }}
                       bg="transparent"
                       borderRadius="xl"
                       border="1px solid"
@@ -338,7 +338,7 @@ const SecuritySection = () => {
                             {...textStyle}
                             color="black" 
                             fontSize={{ base: "lg", md: "xl" }} 
-                            mb={2} 
+                            mb={1} 
                             fontWeight="bold"
                           >
                             {item.title}
@@ -462,18 +462,18 @@ const AgentSection = () => {
   const features = [
     {
       icon: FiCpu,
-      title: "Real-time Analysis",
-      description: "Continuous monitoring of your business data, providing instant insights and actionable recommendations."
+      title: "No-Code AI Agent Creation",
+      description: "Create powerful AI agents using simple text instructions - no coding or technical skills required."
     },
     {
       icon: FiDatabase,
-      title: "Data Integration",
-      description: "Seamless connection with your existing business tools and data sources for unified analysis."
+      title: "Enterprise Integration",
+      description: "Seamlessly connect with Microsoft 365, Slack, Salesforce, and other enterprise tools through our ready-made connectors."
     },
     {
       icon: FiGrid,
-      title: "Predictive Analytics",
-      description: "Advanced AI algorithms that identify emerging trends and opportunities before they become apparent."
+      title: "Custom Workflow Automation",
+      description: "Automate complex business processes with agents that understand your specific requirements and adapt to your needs."
     }
   ];
 
@@ -542,7 +542,7 @@ const AgentSection = () => {
               <Flex width="100%" justifyContent="flex-start">
                 <Box width="100%" pl={{ base: 0, lg: "550px" }}>
                   <MotionVStack
-                    spacing={{ base: 6, md: 8 }}
+                    spacing={{ base: 4, md: 6 }}
                     align={{ base: "center", lg: "start" }}
                     initial={{ opacity: 0, y: 20 }}
                     animate={isVisible ? { opacity: 1, y: 0 } : {}}
@@ -552,13 +552,13 @@ const AgentSection = () => {
                     maxW={{ base: "100%", lg: "750px" }}
                     pr={{ base: 0, lg: "20px" }}
                   >
-                    <VStack spacing={{ base: 3, md: 4 }} align={{ base: "center", lg: "start" }} width="100%" mb={2}>
+                    <VStack spacing={{ base: 2, md: 3 }} align={{ base: "center", lg: "start" }} width="100%" mb={1}>
                       <Heading 
                         color="black" 
                         fontSize={{ base: "xl", sm: "2xl", md: "3xl" }}
                         textAlign={{ base: "center", lg: "left" }}
                       >
-                        Holistic AI Agent for Business Intelligence
+                        Text2Agent: AI Workflow Automation
                       </Heading>
                       <Text 
                         {...textStyle}
@@ -568,12 +568,11 @@ const AgentSection = () => {
                         maxW="3xl"
                         mb={2}
                       >
-                        Our AI agent works tirelessly to transform your business data into actionable insights, 
-                        helping you make informed decisions and stay ahead of the competition.
+                        Transform natural language instructions into fully autonomous AI agent workflows—built in real time and integrated with your enterprise tools to boost productivity and streamline operations.
                       </Text>
                     </VStack>
 
-                    <VStack spacing={{ base: 8, md: 10 }} width="100%">
+                    <VStack spacing={{ base: 4, md: 5 }} width="100%">
                       {features.map((feature, index) => (
                         <MotionBox
                           key={index}
@@ -582,7 +581,7 @@ const AgentSection = () => {
                           transition={{ duration: 0.5, delay: index * 0.2 }}
                           position="relative"
                           width="100%"
-                          mb={{ base: 4, md: 6 }}
+                          mb={{ base: 2, md: 3 }}
                         >
                           <MotionBox
                             position="absolute"
@@ -602,7 +601,7 @@ const AgentSection = () => {
                             }}
                           />
                           <Box
-                            p={{ base: 5, md: 6 }}
+                            p={{ base: 4, md: 5 }}
                             bg="transparent"
                             borderRadius="xl"
                             border="1px solid"
@@ -634,7 +633,7 @@ const AgentSection = () => {
                                   {...textStyle}
                                   color="black" 
                                   fontSize={{ base: "lg", md: "xl" }} 
-                                  mb={2} 
+                                  mb={1} 
                                   fontWeight="bold"
                                 >
                                   {feature.title}
@@ -646,6 +645,39 @@ const AgentSection = () => {
                         </MotionBox>
                       ))}
                     </VStack>
+
+                    <MotionBox
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={isVisible ? { opacity: 1, y: 0 } : {}}
+                      transition={{ duration: 0.5, delay: 0.6 }}
+                      mt={{ base: 4, md: 6 }}
+                      alignSelf={{ base: "center", lg: "flex-start" }}
+                    >
+                      <Link to="/text2agent">
+                        <Button
+                          colorScheme="brand"
+                          size={{ base: "md", md: "lg" }}
+                          px={{ base: 6, md: 8 }}
+                          py={{ base: 5, md: 6 }}
+                          color="black"
+                          bg="white"
+                          border="2px solid black"
+                          boxShadow="0 4px 12px rgba(0, 0, 0, 0.2)"
+                          _hover={{
+                            bg: "gray.100",
+                            transform: 'translateY(-2px)',
+                            boxShadow: '0 6px 16px rgba(0, 0, 0, 0.3)',
+                          }}
+                          _active={{
+                            bg: "gray.200",
+                            transform: 'translateY(0)',
+                            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+                          }}
+                        >
+                          Learn More
+                        </Button>
+                      </Link>
+                    </MotionBox>
                   </MotionVStack>
                 </Box>
               </Flex>
@@ -657,7 +689,7 @@ const AgentSection = () => {
   );
 };
 
-const HybridOpsSection = () => {
+const AgentCraftingSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef as React.RefObject<HTMLElement>);
@@ -696,7 +728,7 @@ const HybridOpsSection = () => {
                 fontSize={{ base: "xl", sm: "2xl", md: "3xl" }}
                 textAlign={{ base: "center", md: "left" }}
               >
-                Human in the Loop Every Step of the Way
+                Step-by-Step Agent Crafting Process
               </Heading>
               <Text 
                 {...textStyle}
@@ -705,7 +737,7 @@ const HybridOpsSection = () => {
                 textAlign={{ base: "center", md: "left" }}
                 maxW="3xl"
               >
-                Our intelligent systems work hand-in-hand with human expertise, creating a powerful partnership that delivers the best of both worlds.
+                From concept to deployment, our transparent workflow provides complete visibility and traceability at every stage of your agent's development.
               </Text>
             </MotionVStack>
             
@@ -743,7 +775,7 @@ const HybridOpsSection = () => {
                   fontSize={{ base: "lg", md: "xl" }}
                   textAlign="center"
                 >
-                  When Human Expertise Matters Most
+                  Transparent Agent Development Process
                 </Heading>
                 <Text 
                   {...textStyle}
@@ -751,7 +783,7 @@ const HybridOpsSection = () => {
                   fontSize={{ base: "sm", md: "md" }}
                   textAlign="center"
                 >
-                  Our intelligent system knows when to engage human experts for:
+                  Full visibility and traceability through each step:
                 </Text>
                 <SimpleGrid 
                   columns={{ base: 1, sm: 2 }} 
@@ -760,12 +792,12 @@ const HybridOpsSection = () => {
                   px={{ base: 0, md: 0 }}
                 >
                   {[
-                    "Complex Decision Making",
-                    "Strategic Planning",
-                    "Relationship Building",
-                    "Creative Problem Solving",
-                    "Risk Assessment",
-                    "Ethical Considerations"
+                    "Agent Definition & Design",
+                    "Skill & Knowledge Mapping",
+                    "Integration Configuration",
+                    "Testing & Validation",
+                    "Deployment & Monitoring",
+                    "Performance Analytics"
                   ].map((item, index) => (
                     <HStack key={index} spacing={3}>
                       <Icon as={FiCheck} color="brand.400" />
@@ -840,7 +872,7 @@ const HybridOpsSection = () => {
               <Box 
                 as="img"
                 src="/images/HIL.png"
-                alt="Human-in-the-Loop"
+                alt="Agent Crafting Process"
                 maxH={{ base: "300px", md: "450px" }}
                 width="auto"
                 maxWidth="100%"
@@ -1186,18 +1218,18 @@ const ActionPlanSection = () => {
   const features = [
     {
       icon: FiTarget,
-      title: "Drive Growth and Retention",
-      description: "Our AI-powered solutions help you identify and target high-value customers, increase engagement, and retain existing customers."
+      title: "Retention Strategy Agents",
+      description: "Create agents that automatically analyze customer behavior, identify at-risk accounts, and implement personalized retention strategies."
     },
     {
       icon: FiZap,
-      title: "Optimize Operations",
-      description: "Streamline your business processes, reduce manual work, and improve efficiency with our intelligent automation tools."
+      title: "Data-to-Action Workflows",
+      description: "Transform raw data into actionable workflows with agents that extract insights, develop plans, and execute targeted campaigns."
     },
     {
       icon: FiTrendingUp,
-      title: "Stay Ahead of the Curve",
-      description: "Leverage real-time insights and predictive analytics to anticipate market trends and make informed decisions."
+      title: "Continuous Optimization",
+      description: "Deploy agents that monitor performance metrics, learn from outcomes, and automatically refine strategies to improve results."
     }
   ];
 
@@ -1244,7 +1276,7 @@ const ActionPlanSection = () => {
                   position="relative"
                   width="100%"
                 >
-                  Action Plan for Business Success
+                  Text2Agent for Actionable Insights
                   <Box
                     position="absolute"
                     top="180%"
@@ -1271,7 +1303,7 @@ const ActionPlanSection = () => {
                   textAlign={{ base: "center", md: "left" }}
                   maxW="3xl"
                 >
-                  Our AI-powered solutions help you drive growth, optimize operations, and stay ahead of the curve.
+                  Quickly develop custom AI agents that analyze data, create action plans, and implement retention strategies all from simple text instructions.
                 </Text>
 
                 <VStack spacing={{ base: 8, md: 10 }} width="100%">
@@ -1303,7 +1335,7 @@ const ActionPlanSection = () => {
                         }}
                       />
                       <Box
-                        p={{ base: 5, md: 6 }}
+                        p={{ base: 4, md: 5 }}
                         bg="transparent"
                         borderRadius="xl"
                         border="1px solid"
@@ -1329,7 +1361,7 @@ const ActionPlanSection = () => {
                               {...textStyle}
                               color="black" 
                               fontSize={{ base: "lg", md: "xl" }} 
-                              mb={2} 
+                              mb={1} 
                               fontWeight="bold"
                             >
                               {feature.title}
@@ -1462,7 +1494,7 @@ const Products = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const securityRef = useRef<HTMLDivElement>(null);
   const agentRef = useRef<HTMLDivElement>(null);
-  const hybridOpsRef = useRef<HTMLDivElement>(null);
+  const agentCraftingRef = useRef<HTMLDivElement>(null);
   const reportRef = useRef<HTMLDivElement>(null);
   const actionPlanRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
@@ -1651,16 +1683,16 @@ const Products = () => {
         <AgentSection />
       </Box>
 
-      {/* HybridOps Section */}
+      {/* Agent Crafting Section */}
       <Box 
-        ref={hybridOpsRef}
+        ref={agentCraftingRef}
         py={{ base: 10, md: 16 }}
         minH={{ base: "auto", md: "100vh" }}
         display="flex"
         alignItems="center"
         overflow="hidden"
       >
-        <HybridOpsSection />
+        <AgentCraftingSection />
       </Box>
 
       {/* Report Snippet Section */}

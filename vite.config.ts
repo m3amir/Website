@@ -4,7 +4,6 @@ import fs from 'fs-extra'
 import path from 'path'
 import { Plugin } from 'vite'
 
-
 // Custom markdown plugin
 const markdownPlugin = (): Plugin => ({
   name: 'markdown',

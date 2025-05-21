@@ -373,8 +373,8 @@ const Home = () => {
       </Box>
 
       {/* Explainer Video Section */}
-      <Box py={{ base: 2, md: 4 }} pt={{ base: 0, md: 0 }} bg="gray.100" position="relative" style={{ marginTop: "-50px" }} minHeight={{ base: "680px", md: "auto" }}>
-        {/* Bullet Point with Holistic - Absolutely positioned */}
+      <Box py={{ base: 2, md: 4 }} pt={{ base: 0, md: 0 }} bg="gray.100" position="relative" style={{ marginTop: "-50px" }} minHeight={{ base: "650px", md: "auto" }}>
+        {/* Text2Agent Section */}
         <MotionBox
           position={{ base: "relative", md: "absolute" }}
           left={{ base: "auto", md: "20px" }}
@@ -407,7 +407,8 @@ const Home = () => {
               fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}
               color="black"
               textAlign={{ base: "center", md: "left" }}
-              mt={{ base: "5px", md: 0 }}
+              mt={{ base: "2px", md: 0 }}
+              mb={{ base: 0, md: 0 }}
               {...textStyle}
             >
               Text2Agent
@@ -420,13 +421,14 @@ const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             pl={{ base: 2, md: "50px" }}
-            mt={{ base: -10, md: 0 }}
+            mt={{ base: 2, md: 0 }}
             width={{ base: "100%", md: "650px", lg: "750px" }}
           >
             <Text 
               fontSize={{ base: "sm", md: "lg" }}
               color="gray.600"
-              mb={{ base: 4, md: 10 }}
+              mb={{ base: 0, md: 10 }}
+              pt={{ base: 0, md: 0 }}
               {...textStyle}
               lineHeight="1.5"
               fontWeight="light"
@@ -434,16 +436,10 @@ const Home = () => {
             >
               Our innovative platform seamlessly transforms natural language instructions into fully autonomous agents, eliminating complex coding and empowering businesses of all sizes to harness the power of AI.
             </Text>
-             
-            <Box height="25px" />
-             
-            
-            <Box height="25px" />
-            
           </MotionBox>
         </MotionBox>
 
-        {/* Bullet Point with Workflow - Absolutely positioned */}
+        {/* Agent Logic Unit Section - now with proper spacing for mobile */}
         <MotionBox
           position={{ base: "relative", md: "absolute" }}
           left={{ base: "auto", md: "20px" }}
@@ -458,8 +454,8 @@ const Home = () => {
           zIndex={2}
           maxW={{ base: "100%", md: "300px" }}
           px={{ base: 4, md: 0 }}
-          pb={{ base: 6, md: 0 }}
-          mt={{ base: "-50px", md: 0 }}
+          pb={{ base: 0, md: 0 }}
+          mt={{ base: "30px", md: 0 }}
         >
           <Box display="flex" alignItems="flex-start" gap={3} flexDirection={{ base: "column", md: "row" }} alignSelf={{ base: "center", md: "flex-start" }}>
             <MotionImage
@@ -476,7 +472,8 @@ const Home = () => {
               fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}
               color="black"
               textAlign={{ base: "center", md: "left" }}
-              mt={{ base: "5px", md: 0 }}
+              mt={{ base: "2px", md: 0 }}
+              mb={{ base: 0, md: 0 }}
               {...textStyle}
             >
               Agent Logic Unit
@@ -489,13 +486,14 @@ const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             pl={{ base: 2, md: "50px" }}
-            mt={{ base: -10, md: 0 }}
+            mt={{ base: 2, md: 0 }}
             width={{ base: "100%", md: "650px", lg: "750px" }}
           >
             <Text 
               fontSize={{ base: "sm", md: "lg" }}
               color="gray.600"
-              mb={{ base: 4, md: 10 }}
+              mb={{ base: 0, md: 10 }}
+              pt={{ base: 0, md: 0 }}
               {...textStyle}
               lineHeight="1.5"
               fontWeight="light"
@@ -506,7 +504,7 @@ const Home = () => {
           </MotionBox>
         </MotionBox>
 
-        <Container maxW="7xl" px={{ base: 3, md: 6 }} bg="gray.100" mt={{ base: 0, md: "100px" }}>
+        <Container maxW="7xl" px={{ base: 3, md: 6 }} bg="gray.100" mt={{ base: 10, md: "100px" }}>
           <MotionBox
             w="full"
             maxW="7xl"
@@ -527,7 +525,7 @@ const Home = () => {
               {/* Video Player */}
               <MotionBox
                 w={{ base: "full", md: "75%" }}
-                h={{ base: "180px", sm: "280px", md: "450px" }}
+                h={{ base: "160px", sm: "280px", md: "450px" }}
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
@@ -539,7 +537,7 @@ const Home = () => {
                 bg="gray.100"
                 ml={{ base: 0, md: "100px" }}
                 mr={{ base: 0, md: "-200px" }}
-                mt={{ base: "60px", md: "-60px" }}
+                mt={{ base: "30px", md: "-60px" }}
               >
                 <video
                   ref={videoRef}
