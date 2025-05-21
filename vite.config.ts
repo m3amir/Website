@@ -20,6 +20,7 @@ const markdownPlugin = (): Plugin => ({
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: './', // Use relative paths for better GitHub Pages compatibility
   plugins: [
     react(),
     markdownPlugin(),
