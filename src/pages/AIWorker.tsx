@@ -587,7 +587,7 @@ const ConnectorFlow = () => {
                 lineHeight="shorter"
                 textAlign="center"
               >
-                AI Worker
+                ALU
               </Text>
             </VStack>
           </MotionBox>
@@ -604,7 +604,6 @@ const AIWorker = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const integrationsRef = useRef<HTMLDivElement>(null);
   const testimonialsRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
   
   // Add state for screen size
   const [isMobile, setIsMobile] = useState(false);
@@ -621,13 +620,6 @@ const AIWorker = () => {
     // Add resize listener
     window.addEventListener('resize', checkIfMobile);
     
-    // Auto-play the video when component mounts
-    if (videoRef.current) {
-      videoRef.current.play().catch(error => {
-        console.error("Video autoplay failed:", error);
-      });
-    }
-
     // Clean up on unmount
     return () => {
       window.removeEventListener('resize', checkIfMobile);
@@ -668,57 +660,12 @@ const AIWorker = () => {
       
       <DemoRequestModal isOpen={isOpen} onClose={onClose} />
       
-      {/* Fixed Background Video - Only on Desktop */}
-      {!isMobile && (
-        <Box 
-          width="100%" 
-          height="110vh"
-          position="fixed"
-          top="0"
-          left="0"
-          right="0"
-          zIndex="1"
-          overflow="hidden"
-          bg="#f5f5f5"
-        >
-          <video 
-            ref={videoRef}
-            src="./videos/herbup.mov"
-            controls={false}
-            autoPlay
-            muted
-            playsInline
-            style={{ 
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              width: '100%',
-              height: '92%',
-              objectFit: 'cover',
-              objectPosition: 'center 35%',
-              filter: 'contrast(1.03) brightness(1.02) saturate(1.03)',
-              willChange: 'transform',
-              transformOrigin: 'center center'
-            }}
-          />
-        </Box>
-      )}
-      
-      {/* Spacer to push content below the fixed video - Only on Desktop */}
-      {!isMobile && <Box height="105vh" />}
-      
       {/* Content Container with semi-transparent background */}
       <Box
         position="relative"
         zIndex="2"
-        bgGradient={!isMobile ? "linear(to-b, rgba(255,255,255,0.85), white 300px)" : undefined}
-        bg={isMobile ? "white" : undefined}
-        borderTopRadius={!isMobile ? { base: "2xl", md: "3xl" } : undefined}
-        mt={!isMobile ? { base: "-80px", md: "-110px" } : "0"}
+        bg="white"
         pt={isMobile ? "70px" : "0"}
-        backdropFilter={!isMobile ? "blur(12px)" : undefined}
-        boxShadow={!isMobile ? "0 -10px 30px rgba(0,0,0,0.15)" : undefined}
         transition="all 0.3s ease-in-out"
       >
         {/* Hero Section */}
@@ -732,7 +679,7 @@ const AIWorker = () => {
           paddingTop={{ base: "-10px", md: "80px" }}
           width="100%"
           overflow="hidden"
-          mb={{ base: -50, md: -70 }}
+          mb={{ base: -30, md: -50 }}
           borderTop="0"
           style={{ borderTop: "none !important" }}
         >
@@ -794,7 +741,8 @@ const AIWorker = () => {
           alignItems="flex-start"
           pt={{ base: 0, md: 0 }}
           pb={{ base: 8, md: 10 }}
-          style={{ marginTop: "-400px" }}
+          style={{ marginTop: "-500px" }}
+          mb={{ base: 5, md: 5 }}
         >
           <Container maxW="6xl" px={{ base: 4, md: 6 }} pt={{ base: 0, md: 0 }}>
             <VStack spacing={{ base: 4, md: 6 }} align="stretch">
@@ -854,6 +802,9 @@ const AIWorker = () => {
               <Box mb={{ base: 5, md: 10 }}>
                 <ConnectorFlow />
               </Box>
+              
+              {/* Add spacing here */}
+              <Box height="30px"></Box>
             </VStack>
           </Container>
         </Box>
@@ -861,13 +812,14 @@ const AIWorker = () => {
         {/* Testimonials Section */}
         <Box 
           ref={testimonialsRef}
-          py={{ base: 8, md: 10 }} 
+          py={{ base: 6, md: 8 }} 
           position="relative" 
           overflow="hidden"
-          style={{ marginTop: "-150px" }}
-          minH="85vh"
+          style={{ marginTop: "-270px" }}
+          minH={{ base: "60vh", md: "70vh" }}
           display="flex"
           alignItems="center"
+          mb={{ base: 5, md: 5 }}
         >
           {/* Background Gradient Effect */}
           <Box
@@ -882,8 +834,8 @@ const AIWorker = () => {
           />
 
           <Container maxW="6xl" px={{ base: 4, md: 6 }} position="relative">
-            <VStack spacing={{ base: 10, md: 16 }}>
-              <VStack spacing={{ base: 3, md: 4 }} textAlign="center" mt={{ base: "70px", md: 0 }}>
+            <VStack spacing={{ base: 6, md: 10 }}>
+              <VStack spacing={{ base: 2, md: 3 }} textAlign="center" mt={{ base: "50px", md: 20 }}>
                 <Heading color="black" size={{ base: "lg", md: "xl" }} {...headingStyle}>
                   Trusted by Industry Leaders
                 </Heading>
@@ -1011,11 +963,14 @@ const AIWorker = () => {
           </Container>
         </Box>
 
+        {/* Spacing between sections */}
+        <Box height="20px"></Box>
+
         {/* CTA Section */}
-        <Container maxW="6xl" py={{ base: 8, md: 16 }} px={{ base: 4, md: 6 }}>
+        <Container maxW="6xl" py={{ base: 4, md: 8 }} px={{ base: 4, md: 6 }}>
           <Box
             bg="white"
-            p={{ base: 6, md: 12 }}
+            p={{ base: 5, md: 8 }}
             borderRadius="2xl"
             textAlign="center"
             border="1px solid"
