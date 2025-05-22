@@ -645,39 +645,6 @@ const AgentSection = () => {
                         </MotionBox>
                       ))}
                     </VStack>
-
-                    <MotionBox
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={isVisible ? { opacity: 1, y: 0 } : {}}
-                      transition={{ duration: 0.5, delay: 0.6 }}
-                      mt={{ base: 4, md: 6 }}
-                      alignSelf={{ base: "center", lg: "flex-start" }}
-                    >
-                      <Link to="/text2agent">
-                        <Button
-                          colorScheme="brand"
-                          size={{ base: "md", md: "lg" }}
-                          px={{ base: 6, md: 8 }}
-                          py={{ base: 5, md: 6 }}
-                          color="black"
-                          bg="white"
-                          border="2px solid black"
-                          boxShadow="0 4px 12px rgba(0, 0, 0, 0.2)"
-                          _hover={{
-                            bg: "gray.100",
-                            transform: 'translateY(-2px)',
-                            boxShadow: '0 6px 16px rgba(0, 0, 0, 0.3)',
-                          }}
-                          _active={{
-                            bg: "gray.200",
-                            transform: 'translateY(0)',
-                            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
-                          }}
-                        >
-                          Learn More
-                        </Button>
-                      </Link>
-                    </MotionBox>
                   </MotionVStack>
                 </Box>
               </Flex>
@@ -1167,7 +1134,7 @@ const ReportSnippetSection = () => {
               width="100%"
               isTruncated={false}
             >
-              Detailed Reports
+              Sales Reporting Agent
             </Heading>
             <Text 
               {...textStyle}
@@ -1177,24 +1144,24 @@ const ReportSnippetSection = () => {
               width="100%"
               noOfLines={undefined}
             >
-              Get comprehensive insights with our detailed reporting system. Track progress, analyze data, and make informed decisions with our intuitive reporting interface.
+              Develop a comprehensive reporting agent that automatically analyzes your latest sales data, identifies trends, and delivers actionable insights to drive revenue growth.
             </Text>
             <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={4} w="full" textAlign={{ base: "center", md: "left" }}>
               <HStack spacing={3} justify={{ base: "center", md: "flex-start" }}>
                 <Icon as={FiCheck} color="brand.400" />
-                <Text color="gray.700" {...textStyle} isTruncated={false}>Real-time Analytics</Text>
+                <Text color="gray.700" {...textStyle} isTruncated={false}>Sales Pipeline Analysis</Text>
               </HStack>
               <HStack spacing={3} justify={{ base: "center", md: "flex-start" }}>
                 <Icon as={FiCheck} color="brand.400" />
-                <Text color="gray.700" {...textStyle} isTruncated={false}>Customizable Reports</Text>
+                <Text color="gray.700" {...textStyle} isTruncated={false}>Performance Forecasting</Text>
               </HStack>
               <HStack spacing={3} justify={{ base: "center", md: "flex-start" }}>
                 <Icon as={FiCheck} color="brand.400" />
-                <Text color="gray.700" {...textStyle} isTruncated={false}>Export Options</Text>
+                <Text color="gray.700" {...textStyle} isTruncated={false}>Competitor Benchmarking</Text>
               </HStack>
               <HStack spacing={3} justify={{ base: "center", md: "flex-start" }}>
                 <Icon as={FiCheck} color="brand.400" />
-                <Text color="gray.700" {...textStyle} isTruncated={false}>Visual Dashboards</Text>
+                <Text color="gray.700" {...textStyle} isTruncated={false}>Revenue Optimization</Text>
               </HStack>
             </SimpleGrid>
           </MotionVStack>

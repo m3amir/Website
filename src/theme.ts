@@ -6,8 +6,8 @@ const theme = extendTheme({
     useSystemColorMode: false,
   },
   fonts: {
-    heading: 'JetBrains Mono, monospace',
-    body: 'JetBrains Mono, monospace',
+    heading: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
+    body: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
   },
   colors: {
     brand: {
@@ -38,14 +38,17 @@ const theme = extendTheme({
       body: {
         bg: 'white',
         color: 'black',
+        letterSpacing: "0.2px",
       },
       'html, body': {
         bg: 'white',
         color: 'black',
+        letterSpacing: "0.2px",
       },
       '#root': {
         bg: 'white',
         color: 'black',
+        letterSpacing: "0.2px",
       },
     },
   },

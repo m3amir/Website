@@ -296,9 +296,9 @@ const ConnectorFlow = () => {
 
   return (
     <Box position="relative" h={{ base: "400px", md: "450px" }} w="100%" mt={0} overflow="visible" zIndex={5}>
-      <Text color="gray.600" fontSize="sm" textAlign="center" mb={4}>
+      <Heading color="black" size={{ base: "xs", md: "sm" }} mb={{ base: 2, md: 4 }} textAlign="center" {...headingStyle}>
         These are just some of our supported connectors. Contact us to learn more about all available integrations.
-      </Text>
+      </Heading>
       <HStack spacing={0} w="100%" h="100%" position="relative" overflow="visible" zIndex={5}>
         {/* Left Side - Services */}
         <Box flex={{ base: "1", md: "1.5" }} h="100%" position="relative" zIndex={10}>
@@ -569,25 +569,28 @@ const ConnectorFlow = () => {
               position="relative" 
               zIndex={11} 
               bg="white" 
-              px={{ base: 2, md: 4 }} 
+              px={{ base: 4, md: 6 }} 
               py={{ base: 1, md: 2 }} 
               borderRadius="md" 
               boxShadow="sm" 
               border="1px solid" 
               borderColor="gray.100" 
               mt={{ base: 1, md: 2 }}
-              width={{ base: "80px", md: "auto" }}
+              width={{ base: "160px", md: "220px" }}
               textAlign="center"
               mx="auto"
             >
               <Text 
                 color="black" 
-                fontSize={{ base: "xs", md: "2xl" }} 
+                fontSize={{ base: "xs", md: "xl" }} 
                 fontWeight="bold" 
                 lineHeight="shorter"
                 textAlign="center"
+                whiteSpace="nowrap"
+                display="inline-block"
+                overflow="visible"
               >
-                ALU
+                Agent Logic Unit
               </Text>
             </VStack>
           </MotionBox>
